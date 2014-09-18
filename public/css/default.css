@@ -1,0 +1,80 @@
+/*------------------------------------*\
+	GENERIC
+\*------------------------------------*/
+html {
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+
+	font-family: monospace, 'Courier New';
+	font-size: 12px;
+}
+
+body, html {
+	min-height: 100%;
+	background-color: #000000;
+	overflow: hidden;
+	padding: 0px;
+	margin:0px;
+	color: #00DD00;
+}
+
+/*------------------------------------*\
+	CHAT
+\*------------------------------------*/
+#chat {
+	left: 0;
+	right: 0;
+	bottom: 40px;
+	position: absolute;
+	list-style-type: none;
+	padding:0;
+	margin:0;
+}
+
+/* Messages */
+#chat li {
+	white-space: pre;
+	padding: 2px 10px;
+}
+
+/* Message types */
+/* the `i` element hold the actual message */
+#chat i {
+	font-style: normal;
+}
+#chat i.info	{ color: #7777ff; }
+#chat i.server	{ color: #999999; }
+#chat i.error	{ color: #ff7777; }
+#chat i.message	{ color: #eeeeee; }
+
+/*------------------------------------*\
+	INPUT
+\*------------------------------------*/
+#input_wrapper {
+	right:0;
+	bottom:0;
+	left:0;
+	position: absolute;
+
+	height:40px;
+}
+
+#input {
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	position: absolute;
+
+	border: 0;
+	outline: 0;
+
+	padding: 5px 5px 5px 15px;
+
+	color: #00dd00;
+	background-color:#141414;
+}
