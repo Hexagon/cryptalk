@@ -7,7 +7,7 @@ Cryptalk is a Node.js based encrypted instant chat
 Installation
 ========
 
-Install node.js, procedure depending on platform and distribution.
+Install node.js, exact procedure is dependant on platform and distribution.
 
 Clone this repo
 ```bash
