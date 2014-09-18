@@ -1,32 +1,45 @@
 // The templating function only supports variables.
 // Define a variable as so: {variable_name}
 define({
+	motd: '\n\n' + 
+		'▄████▄   ██▀███ ▓██   ██▓ ██▓███  ▄▄▄█████▓ ▄▄▄       ██▓     ██ ▄█▀  \n' +
+		'▒██▀ ▀█  ▓██ ▒ ██▒▒██  ██▒▓██░  ██▒▓  ██▒ ▓▒▒████▄    ▓██▒     ██▄█▒  \n'+
+		'▒▓█    ▄ ▓██ ░▄█ ▒ ▒██ ██░▓██░ ██▓▒▒ ▓██░ ▒░▒██  ▀█▄  ▒██░    ▓███▄░  \n'+
+		'▒▓▓▄ ▄██▒▒██▀▀█▄   ░ ▐██▓░▒██▄█▓▒ ▒░ ▓██▓ ░ ░██▄▄▄▄██ ▒██░    ▓██ █▄  \n'+
+		'▒ ▓███▀ ░░██▓ ▒██▒ ░ ██▒▓░▒██▒ ░  ░  ▒██▒ ░  ▓█   ▓██▒░██████▒▒██▒ █▄ \n'+
+		'░ ░▒ ▒  ░░ ▒▓ ░▒▓░  ██▒▒▒ ▒▓▒░ ░  ░  ▒ ░░    ▒▒   ▓▒█░░ ▒░▓  ░▒ ▒▒ ▓▒ \n'+
+		'  ░  ▒     ░▒ ░ ▒░▓██ ░▒░ ░▒ ░         ░      ▒   ▒▒ ░░ ░ ▒  ░░ ░▒ ▒░ \n'+
+		'░          ░░   ░ ▒ ▒ ░░  ░░         ░        ░   ▒     ░ ░   ░ ░░ ░  \n'+
+		'░ ░         ░     ░ ░                             ░  ░    ░  ░░  ░    \n'+
+		'░                 ░ ░                                                 \n'+
+		'                                  https://github.com/hexagon/cryptalk \n'+
+		'                                                                      \n'+
+		' Tip of the day: /help                                                \n'+
+		'                                                                      \n'+
+		'----------------------------------------------------------------------\n',
+
 	help: '' +
 		'<li>																				\n' +
 		'Cryptalk, encrypted instant chat.													\n' +
 		' 																					\n' +
-		'----------------------------------------------------------------------------------	\n' +
+		'----------------------------------------------------------------------	\n' +
 		' 																					\n' +
 		'Available commands: 																\n' +
-		' 	/generate 					Generate a random room id					\n' +
-		'	/join		RoomId				Joins a room									\n' +
-		'	/leave						Leaves the current room									\n' +
-		'	/nick		NickName			Sets an optinal nickname							\n' +
-		'	/key		OurStrongPassphrase		Sets the password used for 					\n' +
-		'	 						encryption/decryption 									\n' +
-		'	/clear						Clears on-screen buffer 							\n' +
-		'	/help						This 												\n' +
-		'	 																				\n' +
-		'	Besides that, it\'s just to talk! 												\n' +
-		'	 																				\n' +
-		'Code available for review at https://www.github.com/hexagon/cryptalk 				\n' +
+		' 	/generate 				Generate random room					\n' +
+		'	/join		RoomId			Join a room									\n' +
+		'	/leave					Leave the room									\n' +
+		'	/nick		NickName		Sets an optional nick							\n' +
+		'	/key		OurStrongPassphrase	Sets encryption key 					\n' +
+		'	/clear					Clear on-screen buffer 							\n' +
+		'	/help					This 												\n' +
 		'																					\n' +
-		'---------------------------------------------------------------------------------	\n' +
+		'----------------------------------------------------------------------	\n' +
 		'</li>																				',
 
 	default_nick: 'Anonymous',
 
 	post: {
+		motd: 		'<li><i class="motd">{text}</i></li>',
 		info: 		'<li>INF> <i class="info">{text}</i></li>',
 		server: 	'<li>SRV> <i class="server">{text}</i></li>',
 		error: 		'<li>ERR> <i class="error">{text}</i></li>',

@@ -42,12 +42,11 @@ define('cryptalk', {
 		// Chat related commands
 		commands = {
 			help: function () {
-				post('info', templates.help);
+				post('motd', templates.help);
 			},
 
 			clear: function () {
 				components.chat.html('');
-				components.input[0].value = '';
 			},
 
 			leave: function () {
@@ -133,6 +132,10 @@ define('cryptalk', {
 
 				// Execute command handler
 				commands[command](payload);
+
+				// Clear input field
+				components.input[0].value = '';
+
 			} else /* Handle ordinary message */ {
 				// Make sure that the users has joined a room
 				if (!room) {
@@ -200,7 +203,7 @@ define('cryptalk', {
 		});
 
 	// Post the help/welcome message
-	post('info', templates.help, true);
+	post('motd', templates.motd, true);
 
 	// It's possible to provide room and key using the hashtag.
 	// The room and key is then seperated by semicolon (room:key).

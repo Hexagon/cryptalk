@@ -39,7 +39,7 @@ body, html {
 /* Messages */
 #chat li {
 	white-space: pre;
-	padding: 2px 10px;
+	padding: 2px 15px;
 }
 
 /* Message types */
@@ -47,7 +47,8 @@ body, html {
 #chat i {
 	font-style: normal;
 }
-#chat i.info	{ color: #7777ff; }
+#chat i.motd	{ color: #99FF99; display:inline-block; line-height: 12px !important; }
+#chat i.info	{ color: #999999; }
 #chat i.server	{ color: #999999; }
 #chat i.error	{ color: #ff7777; }
 #chat i.message	{ color: #eeeeee; }
@@ -61,7 +62,7 @@ body, html {
 	left:0;
 	position: absolute;
 
-	height:40px;
+	height:30px;
 }
 
 #input {
@@ -75,6 +76,6 @@ body, html {
 
 	padding: 5px 5px 5px 15px;
 
-	color: #00dd00;
+	color: #FFFFFF;
 	background-color:#141414;
 }
