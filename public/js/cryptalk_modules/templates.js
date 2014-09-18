@@ -16,25 +16,28 @@ define({
 		'                                                                      \n'+
 		' Tip of the day: /help                                                \n'+
 		'                                                                      \n'+
-		'----------------------------------------------------------------------\n',
+		'----------------------------------------------------------------------',
 
-	help: '' +
-		'<li>																				\n' +
-		'Cryptalk, encrypted instant chat.													\n' +
-		' 																					\n' +
+	help: '                                                                       \n' +
+		'Cryptalk, encrypted instant chat.                                      \n' +
+		'                                                                       \n' +
 		'----------------------------------------------------------------------	\n' +
-		' 																					\n' +
-		'Available commands: 																\n' +
-		' 	/generate 				Generate random room					\n' +
-		'	/join		RoomId			Join a room									\n' +
-		'	/leave					Leave the room									\n' +
-		'	/nick		NickName		Sets an optional nick							\n' +
-		'	/key		OurStrongPassphrase	Sets encryption key 					\n' +
-		'	/clear					Clear on-screen buffer 							\n' +
-		'	/help					This 												\n' +
-		'																					\n' +
+		'                                                                       \n' +
+		'Available commands:                                                    \n' +
+		' 	/generate 				Generate random room                        \n' +
+		'	/join		RoomId			Join a room	                            \n' +
+		'	/leave					Leave the room                              \n' +
+		'	/nick		NickName		Sets an optional nick                   \n' +
+		'	/key		OurStrongPassphrase	Sets encryption key                 \n' +
+		'	/clear					Clear on-screen buffer                      \n' +
+		'	/help					This                                        \n' +
+		'                                                                       \n' +
+		'                                                                       \n' +
+		'<strong>It is highly recommended to use incognito mode while chatting, \n' +
+		'to prevent browsers from keeping history or cache.</strong>            \n' +
+		'                                                                       \n' +
 		'----------------------------------------------------------------------	\n' +
-		'</li>																				',
+		'                                                                    ',
 
 	default_nick: 'Anonymous',
 
