@@ -2,7 +2,7 @@
 define('cryptalk', {
 	data: {
 		// If no host is given it will default to localhost.
-		host: 'http://www.huset.nu:8080'
+		host: ''
 	},
 	compiles: ['$'],
 	requires: ['templates']
