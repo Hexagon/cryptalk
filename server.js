@@ -41,7 +41,6 @@ app.io.sockets.on('connection', function(socket) {
       // Notify other users of the room
       if( socket.current_room !== undefined ) {
         socket.broadcast.to(socket.current_room).emit('message:server', 'A person left this room');
-        console.log('Person left' + socket.current_room);
       }
    });
 });
