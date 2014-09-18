@@ -149,7 +149,7 @@ define('cryptalk', {
 				socket.emit('message:send', {
 					room: room,
 					msg: $.AES.encrypt(buffer, room + key).toString(),
-					nick: nick
+					nick: (nick && nick != undefined) ? $.AES.encrypt(nick, room + key).toString() : false
 				});
 
 				// Adn the the buffer
@@ -184,7 +184,7 @@ define('cryptalk', {
 		.on('message:send', function (data) {
 			var decrypted = $.AES.decrypt(data.msg, room + key),
 				sanitized = $.escapeHtml(decrypted),
-				nick = 		(data.nick == undefined || !data.nick ) ? templates.default_nick : $.escapeHtml(data.nick);
+				nick = 		(data.nick == undefined || !data.nick ) ? templates.default_nick : $.escapeHtml($.AES.decrypt(data.nick, room + key));
 
 			if (!decrypted) {
 				post('error', templates.messages.unable_to_decrypt);

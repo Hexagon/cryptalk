@@ -10,7 +10,7 @@ define({
 		'Available commands: 																\n' +
 		' 	/generate 					Generate a random room id					\n' +
 		'	/join		RoomId				Joins a room									\n' +
-		'	/leave							Leaves the current room									\n' +
+		'	/leave						Leaves the current room									\n' +
 		'	/nick		NickName			Sets an optinal nickname							\n' +
 		'	/key		OurStrongPassphrase		Sets the password used for 					\n' +
 		'	 						encryption/decryption 									\n' +
@@ -25,7 +25,7 @@ define({
 		'</li>																				',
 
 	default_nick: 'Anonymous',
-	
+
 	post: {
 		info: 		'<li>INF> <i class="info">{text}</i></li>',
 		server: 	'<li>SRV> <i class="server">{text}</i></li>',
