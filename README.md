@@ -7,10 +7,22 @@ Cryptalk is a Node.js based encrypted instant chat
 Installation
 ========
 
+Install node.js, procedure depending on platform and distribution.
+
 Clone this repo
+```bash
+git clone https://github.com/Hexagon/cryptalk.git
+cd cryptalk
+```
 
+Pull express.io and node-uuid from npm.
+```bash
+npm install node-uuid express.io
+```
 
-Install Node.js, preferably the latest version, then pull express.io and 
-node-uuid from npm.
+Start server
+```bash
+node server.js
+```
 
-```npm install node
+Browse to http://localhost:8080
