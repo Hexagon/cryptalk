@@ -11,6 +11,7 @@ define('cryptalk', {
 		key,
 		room,
 		hash,
+		nick,
 
 		// Collection of DOM components
 		components = {
@@ -22,10 +23,11 @@ define('cryptalk', {
 		templates = requires.templates,
 
 		// Adds a new message to the DOM
-		post = function (type, text, clearChat, clearBuffer) {
+		post = function (type, text, clearChat, clearBuffer, nick) {
 			var tpl = templates.post[type],
 				post = $.template(tpl, text && {
-					text: text
+					text: text,
+					nick: nick
 				});
 
 			// Always clear the input after a post
@@ -49,13 +51,18 @@ define('cryptalk', {
 			},
 
 			leave: function () {
-				socket.emit('room:leave', room);
+				if( room ) {
+					socket.emit('room:leave', room);
+				} else {
+					post('error', templates.messages.leave_from_nowhere);
+				}
+				
 			},
 
 			key: function (payload) {
 				// Make sure the key meets the length requirements
 				if (payload.length < 8) {
-					return post('info', templates.messages.key_weak);
+					return post('error', templates.messages.key_weak);
 				}
 
 				// Set key
@@ -65,16 +72,33 @@ define('cryptalk', {
 				post('info', (room ? templates.messages.key_ok_ready : templates.messages.key_ok_but_no_room));
 			},
 
+			nick: function (payload) {
+				// Make sure the nick meets the length requirements
+				if (payload.length < 2) {
+					return post('error', templates.messages.nick_short);
+				}
+
+				// Set nick
+				nick = payload;
+
+				// Inform that the key has been set
+				post('info', $.template(templates.messages.nick_set, { nick: nick}));
+			},
+
 			join: function (payload) {
 				return (
 					room
-						? post('info', $.template(templates.messages.already_in_room, { roomName: room}))
+						? post('error', $.template(templates.messages.already_in_room, { roomName: room}))
 						: socket.emit('room:join', payload)
 				);
 			},
 
-			create: function (payload) {
-				socket.emit('room:create');
+			generate: function (payload) {
+				return (
+					room
+						? post('error', $.template(templates.messages.already_in_room, { roomName: room}))
+						: socket.emit('room:generate')
+				);
 			}
 		},
 
@@ -124,7 +148,8 @@ define('cryptalk', {
 				// Encrypt message using room UUID as salt and key as pepper.
 				socket.emit('message:send', {
 					room: room,
-					msg: $.AES.encrypt(buffer, room + key)
+					msg: $.AES.encrypt(buffer, room + key).toString(),
+					nick: nick
 				});
 
 				// Adn the the buffer
@@ -142,7 +167,7 @@ define('cryptalk', {
 			components.input.focus();
 		})
 
-		.on('room:created', function (data) {
+		.on('room:generated', function (data) {
 			socket.emit('room:join', data);
 		})
 
@@ -157,18 +182,20 @@ define('cryptalk', {
 		})
 
 		.on('message:send', function (data) {
-			var decrypted = $.AES.decrypt(data, room + key),
-				sanitized = $.escapeHtml(decrypted);
+			var decrypted = $.AES.decrypt(data.msg, room + key),
+				sanitized = $.escapeHtml(decrypted),
+				nick = 		(data.nick == undefined || !data.nick ) ? templates.default_nick : $.escapeHtml(data.nick);
 
 			if (!decrypted) {
-				post('info', templates.messages.unable_to_decrypt);
+				post('error', templates.messages.unable_to_decrypt);
 			} else {
 				// Post the message, but do not clear either the chat nor the buffer.
-				post('message', sanitized, false, false);
+				post('message', sanitized, false, false, nick);
 			}
 		})
 
 		.on('message:server', function (data) {
+			var sanitized = $.escapeHtml(data);
 			post('server', data);
 		});
 

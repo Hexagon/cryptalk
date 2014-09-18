@@ -6,10 +6,10 @@ app = express();app.http().io();
 app.use(express.static(__dirname + '/public'));
 
 app.io.route('room', {
-    create: function(req) {
+    generate: function(req) {
       var room = uuid.v4();
-      req.socket.emit('message:server', 'Room ' + room + ' created');
-      req.socket.emit('room:created',room);
+      req.socket.emit('message:server', 'Room ' + room + ' generated');
+      req.socket.emit('room:generated',room);
     },
     join: function(req) {
       if(req.data) {
@@ -29,8 +29,8 @@ app.io.route('room', {
 
 app.io.route('message', {
     send: function(req) {
-      if(req.data && req.data.room) req.socket.broadcast.to(req.data.room).emit('message:send', req.data.msg);
-      req.socket.emit('message:send', req.data.msg);
+      if(req.data && req.data.room) req.socket.broadcast.to(req.data.room).emit('message:send', { msg: req.data.msg, nick: req.data.nick} );
+      req.socket.emit('message:send', { msg: req.data.msg, nick: req.data.nick} );
     }
 });
 
