@@ -1,4 +1,4 @@
 cryptalk
 ========
 
-Encrypter instant chat
+Encrypted instant chat
