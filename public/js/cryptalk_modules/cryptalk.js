@@ -58,6 +58,15 @@ define('cryptalk', {
 				
 			},
 
+			count: function () {
+				if( room ) {
+					socket.emit('room:count');
+				} else {
+					post('error', templates.messages.not_in_room);
+				}
+				
+			},
+
 			key: function (payload) {
 				// Make sure the key meets the length requirements
 				if (payload.length < 8) {
@@ -177,6 +186,9 @@ define('cryptalk', {
 		.on('room:joined', function (data) {
 			room = data;
 			post('info', $.template(templates.messages.joined_room, { roomName: room }));
+
+			// Automatically count persons on join
+			socket.emit('room:count');
 		})
 
 		.on('room:left', function () {
@@ -198,8 +210,21 @@ define('cryptalk', {
 		})
 
 		.on('message:server', function (data) {
-			var sanitized = $.escapeHtml(data);
-			post('server', data);
+			if( data.msg ) {
+				var sanitized = $.escapeHtml(data.msg);
+				if( templates.server[sanitized] ) {
+					if( data.payload !== undefined ) {
+						var sanitized_payload = $.escapeHtml(data.payload);
+						post('server', $.template(templates.server[sanitized], { payload: sanitized_payload }));
+					} else {
+						post('server', templates.server[sanitized]);
+					}
+				} else {
+					post('error', templates.server.bogus);
+				}
+			} else {
+				post('error', templates.server.bogus);
+			}
 		});
 
 	// Post the help/welcome message

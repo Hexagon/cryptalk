@@ -26,9 +26,10 @@ define({
 		'Available commands:                                                    \n' +
 		' 	/generate 				Generate random room                        \n' +
 		'	/join		RoomId			Join a room	                            \n' +
-		'	/leave					Leave the room                              \n' +
+		'	/count					Count participants of room                  \n' +
 		'	/nick		NickName		Sets an optional nick                   \n' +
 		'	/key		OurStrongPassphrase	Sets encryption key                 \n' +
+		'	/leave					Leave the room                              \n' +
 		'	/clear					Clear on-screen buffer                      \n' +
 		'	/help					This                                        \n' +
 		'                                                                       \n' +
@@ -43,10 +44,10 @@ define({
 
 	post: {
 		motd: 		'<li><i class="motd">{text}</i></li>',
-		info: 		'<li>INF> <i class="info">{text}</i></li>',
-		server: 	'<li>SRV> <i class="server">{text}</i></li>',
-		error: 		'<li>ERR> <i class="error">{text}</i></li>',
-		message: 	'<li>{nick}> <i class="message">{text}</i></li>'
+		info: 		'<li>INF&gt; <i class="info">{text}</i></li>',
+		server: 	'<li>SRV&gt; <i class="server">{text}</i></li>',
+		error: 		'<li>ERR&gt; <i class="error">{text}</i></li>',
+		message: 	'<li><i class="nick">{nick}&gt;</i> <i class="message">{text}</i></li>'
 	},
 
 	messages: {
@@ -54,6 +55,7 @@ define({
 		key_ok_ready: 			'Key set, you can now start communicating.',
 		key_ok_but_no_room: 	'Key set, you can now join a room and start communicating.',
 		msg_no_room: 			'You have to join a room before sending messages. See /help.',
+		not_in_room: 			'You have to be in a room to count participants...',
 		msg_no_key: 			'You have to set an encryption key before sending a message. See /help.',
 		nick_short: 			'Nickname is too short, try again.',
 		nick_set: 				'From now on, you\'re referred to as \'{nick}\'.',
@@ -68,5 +70,13 @@ define({
 		already_in_room: 		'You are already in a room ({roomName}), stoopid.',
 
 		unable_to_decrypt: 		'Unabled to decrypt received message, keys does not match.'
+	},
+
+	server: {
+		person_joined: 			'A person joined this room.',
+		person_left: 			'A person left this room.',
+		person_count: 			'There is {payload} person(s) in this room, including you.',
+		command_failed: 		'Server command failed, you\'re probably trying to du something bogus.',
+		bogus: 					'Received a bogus message from server.',
 	}
 });
