@@ -12,7 +12,6 @@ Features
   * Quick-links (not recommended) using http://server/#Room:Passphrase
   * Super simple setup
   * ~~Flashing title on new messages~~
-  * ~~Flashing title on new messages~~
 
 
 Setup
