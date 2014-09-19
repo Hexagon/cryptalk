@@ -37,3 +37,19 @@ node server.js
 ```
 
 Browse to ```http://localhost:8080```
+
+
+Usage
+========
+
+```
+Available commands:                                                    
+    /generate 				         Generate random room                        
+	/join		RoomId			     Join a room	                            
+	/count					         Count participants of room                  
+	/nick		NickName		     Sets an optional nick                   
+	/key		OurStrongPassphrase	 Sets encryption key                 
+	/leave					         Leave the room                              
+	/clear					         Clear on-screen buffer                      
+	/help					         This                                        
+```
