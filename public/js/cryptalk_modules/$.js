@@ -73,8 +73,9 @@ define('$', ['fandango', 'websocket', 'aes'], function (fandango, websocket, aes
 		});
 	};
 
-	// Originating from mustasche.js
-	// https://github.com/janl/mustache.js/blob/master/mustache.js#L43
+	// Part of this is originating from mustasche.js
+	// Code: 		https://github.com/janl/mustache.js/blob/master/mustache.js#L43
+	// License: 	https://github.com/janl/mustache.js/blob/master/LICENSE
 	utils.escapeHtml = (function () {
 		var pattern = /[&<>"'\/]/g,
 			entities = {
