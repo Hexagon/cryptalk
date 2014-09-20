@@ -11,6 +11,7 @@ Features
   * Random (UUID v4) channel name generation för less guessability
   * Quick-links (not recommended) using http://server/#Room:Passphrase
   * Super simple setup
+  * Notification sounds (mutable)
   * ~~Flashing title on new messages~~
 
 
@@ -50,5 +51,6 @@ Available commands:
 	/key		OurStrongPassphrase	 Sets encryption key                 
 	/leave					         Leave the room                              
 	/clear					         Clear on-screen buffer                      
+	/mute					         Toggle notification sounds                  
 	/help					         This                                        
 ```

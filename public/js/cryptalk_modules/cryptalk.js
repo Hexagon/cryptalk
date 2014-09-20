@@ -5,13 +5,14 @@ define('cryptalk', {
 		host: ''
 	},
 	compiles: ['$'],
-	requires: ['templates']
+	requires: ['templates','sound']
 }, function ($, requires, data) {
 	var socket,
 		key,
 		room,
 		hash,
 		nick,
+		mute = false,
 
 		// Collection of DOM components
 		components = {
@@ -20,7 +21,8 @@ define('cryptalk', {
 		},
 
 		// Shortcut
-		templates = requires.templates,
+		templates = requires.templates;
+		sound = requires.sound;
 
 		// Adds a new message to the DOM
 		post = function (type, text, clearChat, clearBuffer, nick) {
@@ -91,6 +93,17 @@ define('cryptalk', {
 
 				// Inform that the key has been set
 				post('info', $.template(templates.messages.nick_set, { nick: nick}));
+			},
+
+			mute: function () {
+				// Set nick
+				mute = !mute;
+
+				// Inform that the key has been set
+				if( mute )
+					post('info', $.template(templates.messages.muted ));
+				else
+					post('info', $.template(templates.messages.unmuted ));
 			},
 
 			join: function (payload) {
@@ -204,8 +217,8 @@ define('cryptalk', {
 			if (!decrypted) {
 				post('error', templates.messages.unable_to_decrypt);
 			} else {
-				// Post the message, but do not clear either the chat nor the buffer.
 				post('message', sanitized, false, false, nick);
+				if( !mute ) sound.playTones(sound.messages.message);
 			}
 		})
 
@@ -219,6 +232,10 @@ define('cryptalk', {
 					} else {
 						post('server', templates.server[sanitized]);
 					}
+
+					// Play sound
+					if (sound.messages[sanitized] !== undefined && !mute ) sound.playTones(sound.messages[sanitized]);
+
 				} else {
 					post('error', templates.server.bogus);
 				}

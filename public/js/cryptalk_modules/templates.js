@@ -28,6 +28,7 @@ define({
 		'	/join		RoomId			Join a room	                            \n' +
 		'	/count					Count participants of room                  \n' +
 		'	/nick		NickName		Sets an optional nick                   \n' +
+		'	/mute  				Toggle notification sounds						\n' +
 		'	/key		OurStrongPassphrase	Sets encryption key                 \n' +
 		'	/leave					Leave the room                              \n' +
 		'	/clear					Clear on-screen buffer                      \n' +
@@ -60,6 +61,10 @@ define({
 		nick_short: 			'Nickname is too short, try again.',
 		nick_set: 				'From now on, you\'re referred to as \'{nick}\'.',
 		leave_from_nowhere: 	'How are you supposed to leave, while being nowhere?',
+
+		// Sounds
+		muted: 					'Notification sounds is now muted.',
+		unmuted: 					'Notifications sounds is now on.',
 
 		// Available variables: 'commandName'
 		unrecognized_command: 	'Unrecognized command: "{commandName}"',
