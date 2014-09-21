@@ -13,6 +13,9 @@ define('cryptalk', {
 		hash,
 		nick,
 		mute = false,
+		history = [],
+		history_pos = -1,
+		history_keep = 4,
 
 		// Collection of DOM components
 		components = {
@@ -49,6 +52,9 @@ define('cryptalk', {
 
 			clear: function () {
 				components.chat.html('');
+				
+				// Clear command history on clearing buffer
+				history = []; history_pos = -1;
 			},
 
 			leave: function () {
@@ -123,12 +129,21 @@ define('cryptalk', {
 			}
 		},
 
+		// Push input buffer to command history
+		pushHistory = function (b) {
+			history.push(b); 
+
+			// Shift oldest buffer if we have more than we should keep
+			if( history.length > history_keep ) history.shift();
+		},
+					
 		// Handler for the document`s keyDown-event.
 		onKeyDown = function (e) {
 			var buffer,
 				parts,
 				payload,
-				command;
+				command,
+				save;
 
 			// The Document object is bound to this element.
 			// If the active element is not the input, focus on it and exit the function.
@@ -136,10 +151,28 @@ define('cryptalk', {
 				return components.input.focus();
 			}
 
+			// Check for escape key, this does nothing but clear the input buffer and reset history position
+			if ( e.keyCode == 27 ) {
+				history_pos = -1;
+				components.input[0].value = '';
+			} 
+
+			// Check for up or down-keys, they handle the history position
+			if( e.keyCode == 38 || e.keyCode == 40) {
+
+				if 	(e.keyCode == 38 ) { history_pos = (history_pos > history.length - 2) ? -1 : history_pos = history_pos + 1; } 
+				else { history_pos = (history_pos <= 0) ? -1 : history_pos = history_pos - 1; }
+
+				return components.input[0].value = (history_pos == -1) ? '' : history[history.length-1-history_pos];
+			}
+			
 			// Return immediatly if the buffer is empty or if the hit key was not <enter>
 			if (e.keyCode !== 13 || !(buffer = components.input[0].value)) {
 				return;
 			}
+
+			// Reset current history position to 0 (last command)
+			history_pos = -1;
 
 			// Handle command
 			if (buffer[0] === '/') {
@@ -149,6 +182,7 @@ define('cryptalk', {
 
 				// Check that there is an handler for this command
 				if (!commands[command]) {
+					pushHistory(buffer);
 					return post('error', $.template(templates.messages.unrecognized_command, { commandName: command }));
 				}
 
@@ -158,18 +192,19 @@ define('cryptalk', {
 				// Clear input field
 				components.input[0].value = '';
 
-			} else /* Handle ordinary message */ {
-
-				// Make sure that the user has joined a room
-				if (!room) {
-					components.input[0].value = '';
-					return post('error', templates.messages.msg_no_room);
+				// Save to history
+				if(command !== 'key') {
+					pushHistory(buffer);
 				}
 
-				// And that a valid key is set
-				if (!key) {
-					components.input[0].value = '';
-					return post('error', templates.messages.msg_no_key);
+			} else /* Handle ordinary message */ {
+
+				if (!room || !key) {
+					// Push buffer to history and clear input field
+					pushHistory(buffer); components.input[0].value = ''; 
+
+					// Make sure that the user has joined a room and the key is set
+					return (!room) ? post('error', templates.messages.msg_no_room) : post('error', templates.messages.msg_no_key);
 				}
 
 				// Before sending the message.
@@ -180,9 +215,15 @@ define('cryptalk', {
 					nick: (nick && nick != undefined) ? $.AES.encrypt(nick, room + key).toString() : false
 				});
 
-				// Adn the the buffer
+				// And clear the the buffer
 				components.input[0].value = '';
+
+				// Save to history
+				pushHistory(buffer);
 			}
+
+			
+
 		};
 
 	// Connect to server
@@ -209,6 +250,10 @@ define('cryptalk', {
 
 		.on('room:left', function () {
 			post('info', $.template(templates.messages.left_room, { roomName: room }));
+
+			// Clear history on leaving room
+			history = []; history_pos = -1;
+
 			room = false;
 		})
 
