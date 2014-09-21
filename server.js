@@ -8,7 +8,6 @@ app.use(express.static(__dirname + '/public'));
 app.io.route('room', {
     generate: function(req) {
       var room = uuid.v4();
-      req.socket.emit('message:server', 'Room ' + room + ' generated');
       req.socket.emit('room:generated',room);
     },
     join: function(req) {

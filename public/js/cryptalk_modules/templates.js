@@ -85,6 +85,7 @@ define({
 	server: {
 		person_joined: 			'A person joined this room.',
 		person_left: 			'A person left this room.',
+		room_generated: 		'Room {payload} generated.',
 		person_count: 			'There is {payload} person(s) in this room, including you.',
 		command_failed: 		'Server command failed, you\'re probably trying to du something bogus.',
 		bogus: 					'Received a bogus message from server.',

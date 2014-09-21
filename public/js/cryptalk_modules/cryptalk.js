@@ -12,7 +12,9 @@ define('cryptalk', {
 		room,
 		hash,
 		nick,
+
 		mute = false,
+
 		history = [],
 		history_pos = -1,
 		history_keep = 4,
@@ -154,7 +156,8 @@ define('cryptalk', {
 
 			// The Document object is bound to this element.
 			// If the active element is not the input, focus on it and exit the function.
-			if (components.input[0] !== $.activeElement()) {
+			// Ignore this when ctrl and/or alt is pressed!
+			if (components.input[0] !== $.activeElement() && !e.ctrlKey && !e.altKey) {
 				return components.input.focus();
 			}
 
@@ -174,8 +177,14 @@ define('cryptalk', {
 				if 	(e.keyCode == 38 ) { history_pos = (history_pos > history.length - 2) ? -1 : history_pos = history_pos + 1; } 
 				else { history_pos = (history_pos <= 0) ? -1 : history_pos = history_pos - 1; }
 
-				return components.input[0].value = (history_pos == -1) ? '' : history[history.length-1-history_pos];
-			}
+				var input = components.input[0];
+				input.value = (history_pos == -1) ? '' : history[history.length-1-history_pos];
+
+				// Wierd hack to move caret to end of input-box
+				setTimeout(function() {if(input.setSelectionRange) input.setSelectionRange(input.value.length, input.value.length);}, 0);
+
+	            return;
+	        }
 			
 			// Return immediatly if the buffer is empty or if the hit key was not <enter>
 			if (e.keyCode !== 13 || !(buffer = components.input[0].value)) {
@@ -248,7 +257,9 @@ define('cryptalk', {
 		})
 
 		.on('room:generated', function (data) {
-			socket.emit('room:join', data);
+			var sanitized = $.escapeHtml(data);
+			post('server', $.template(templates.server.room_generated, { payload: sanitized }));
+			socket.emit('room:join', sanitized);
 		})
 
 		.on('room:joined', function (data) {
