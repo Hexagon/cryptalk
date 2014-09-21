@@ -79,7 +79,13 @@ define({
 		left_room: 				'Left room {roomName}',
 		already_in_room: 		'You are already in a room ({roomName}), stoopid.',
 
-		unable_to_decrypt: 		'Unabled to decrypt received message, keys does not match.'
+		unable_to_decrypt: 		'Unabled to decrypt received message, keys does not match.',
+
+		socket_error: 			'A network error has occurred. A restart may be required to bring back full functionality.<br>Examine the logs for more details.',
+
+		// Available variable: 'host'
+		connecting: 			'Connecting to host {host}...',
+		connected: 				'A connection to the server has been established. Happy chatting!'
 	},
 
 	server: {

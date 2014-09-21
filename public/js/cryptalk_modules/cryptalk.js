@@ -248,21 +248,21 @@ define({
 				// Save to history
 				pushHistory(buffer);
 			}
-
-			
-
 		};
 
-	// Connect to server
+	// Post the help/welcome message
+	post('motd', templates.motd, true);
+
+	// Push 'Connecting...' message
+	post('info', $.template(templates.messages.connecting, {
+		host: data.host || 'localhost'
+	}));
+
+	// The one  and only socket
 	socket = $.Websocket.connect(data.host);
 
 	// Bind socket events
 	socket
-		.on('connect', function () {
-			$(document).on('keydown', onKeyDown);
-			components.input.focus();
-		})
-
 		.on('room:generated', function (data) {
 			var sanitized = $.escapeHtml(data);
 			post('server', $.template(templates.server.room_generated, { payload: sanitized }));
@@ -319,18 +319,32 @@ define({
 			} else {
 				post('error', templates.server.bogus);
 			}
+		})
+
+		.on('connect', function () {
+			// Bind the necessary DOM events
+			$(document).on('keydown', onKeyDown);
+
+			// Put focus on the message input
+			components.input.focus();
+
+			// Tell the user that the chat is ready to interact with
+			post('info', $.template(templates.messages.connected, {
+				host: data.host || 'localhost'
+			}));
+
+			// It's possible to provide room and key using the hashtag.
+			// The room and key is then seperated by semicolon (room:key).
+			// If there is no semicolon present, the complete hash will be treated as the room name and the key has to be set manually.
+			if (hash = window.location.hash) {
+				parts = hash.slice(1).split(':');
+
+				parts[0] && commands.join(parts[0]);
+				parts[1] && commands.key(parts[1]);
+			}
+		})
+
+		.on('error', function () {
+			post('error', templates.messages.socket_error);
 		});
-
-	// Post the help/welcome message
-	post('motd', templates.motd, true);
-
-	// It's possible to provide room and key using the hashtag.
-	// The room and key is then seperated by semicolon (room:key).
-	// If there is no semicolon present, the complete hash will be treated as the room name and the key has to be set manually.
-	if (hash = window.location.hash) {
-		parts = hash.slice(1).split(':');
-
-		parts[0] && commands.join(parts[0]);
-		parts[1] && commands.key(parts[1]);
-	}
 });
