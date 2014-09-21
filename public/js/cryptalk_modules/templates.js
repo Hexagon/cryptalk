@@ -65,6 +65,9 @@ define({
 		key_to_long: 			'Man that\'s a long key. Make it a tad short, \'kay?',
 		key_ok_ready: 			'Key set, you can now start communicating.',
 		key_ok_but_no_room: 	'Key set, you can now join a room and start communicating.',
+		key_no_host: 			'You have to connect to a host before setting the key.',
+
+		join_no_host: 			'You have to connect to a host before joining a room.',
 
 		nick_to_short: 			'Nickname is too short, it has to be at least {nick_minLen} characters long. Try again.',
 		nick_to_long: 			'Nickname is too long, it can be at most {nick_maxLen} characters long. Try again.',
@@ -90,7 +93,13 @@ define({
 
 		socket_error: 			'A network error has occurred. A restart may be required to bring back full functionality.<br>Examine the logs for more details.',
 		connecting: 			'Connecting to host {host}...',
-		connected: 				'A connection to the server has been established. Happy chatting!'
+		connected: 				'A connection to the server has been established. Happy chatting!',
+		disconnected: 			'Disconnected from host {host}.',
+		already_connected:		'You have to disconnect from {host} before joining another.',
+		reconnect_no_host:		'There is no host to reconnect with.',
+
+		host_available: 		'<span class="info">{index}</span>	<span class="good">[AVAILABLE]</span>	<span class="neutral">{name}</span>\n',
+		host_unavailable: 		'<span class="info">{index}</span>	<span class="bad">[UNAVAILABLE]</span>	<span class="neutral">{name}</span>\n'
 	},
 
 	server: {

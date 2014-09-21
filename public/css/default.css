@@ -24,6 +24,12 @@ body, html {
 	color: #00DD00;
 }
 
+.good 		{ color: #99FF99; }
+.bad 		{ color: #ff7777; }
+.info 		{ color:#99FFFF; }
+.neutral	{ color: #eeeeee; }
+
+
 /*------------------------------------*\
 	CHAT
 \*------------------------------------*/
@@ -58,7 +64,7 @@ body, html {
 #chat i.fatal	{ color: #ff7777; }
 
 /*------------------------------------*\
-	INPUT
+	INPUT & LOADER
 \*------------------------------------*/
 #input_wrapper {
 	right:0;
@@ -69,7 +75,8 @@ body, html {
 	height:30px;
 }
 
-#input {
+#input,
+#loader {
 	top: 0;
 	bottom: 0;
 	width: 100%;
@@ -78,9 +85,28 @@ body, html {
 	border: 0;
 	outline: 0;
 
+	
+
 	padding: 5px 5px 5px 15px;
 
 	color: #FFFFFF;
 	background-color:#141414;
 	height:30px;
+}
+
+#input { z-index: 1; }
+#loader { z-index: 0; line-height: 20px; font-size: 14px; font-weight: 100; font-family: tahoma;}
+
+/*------------------------------------*\
+	SPINNER
+\*------------------------------------*/
+.loading #loader { z-index: 2; }
+.loading #loader span {
+	margin-left:-2px;
+	-webkit-animation: rotation 1s infinite linear;
+}
+
+@-webkit-keyframes rotation {
+    from {-webkit-transform: rotate(0deg);}
+    to   {-webkit-transform: rotate(359deg);}
 }

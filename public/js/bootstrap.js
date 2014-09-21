@@ -5,6 +5,9 @@ fandango.defaults({
 	baseUrl: 'js/cryptalk_modules/',
 	paths: {
 		websocket: 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js',
+		// Newer version:
+		// We'll have to fix the Access Control issue first though (https://github.com/Automattic/socket.io-client/issues/641).
+		// websocket: 'https://cdn.socket.io/socket.io-1.1.0.js',
 		aes: 'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js',
 		domReady: 'https://cdnjs.cloudflare.com/ajax/libs/require-domReady/2.0.1/domReady.min.js'
 	},
