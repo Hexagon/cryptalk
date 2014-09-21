@@ -159,13 +159,16 @@ define('cryptalk', {
 				components.input[0].value = '';
 
 			} else /* Handle ordinary message */ {
-				// Make sure that the users has joined a room
+
+				// Make sure that the user has joined a room
 				if (!room) {
+					components.input[0].value = '';
 					return post('error', templates.messages.msg_no_room);
 				}
 
 				// And that a valid key is set
 				if (!key) {
+					components.input[0].value = '';
 					return post('error', templates.messages.msg_no_key);
 				}
 
