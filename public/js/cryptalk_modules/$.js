@@ -62,7 +62,7 @@ define(['fandango', 'websocket', 'aes'], function (fandango, websocket, aes) {
 	}
 
 	/**
-	 * A very simple implementation of sprintf()
+	 * A very simple templating function.
 	 * @param  {} str [description]
 	 * @param  {[type]} map [description]
 	 * @return {[type]}     [description]

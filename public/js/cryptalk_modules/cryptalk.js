@@ -1,14 +1,11 @@
 // Main cryptalk module
 define({
-	data: {
-		// If no host is given it will default to localhost.
-		host: ''
-	},
 	compiles: ['$'],
-	requires: ['templates', 'sound', 'fandango']
+	requires: ['settings', 'templates', 'sound', 'fandango']
 }, function ($, requires, data) {
 	var socket,
 		key,
+		host,
 		room,
 		hash,
 		nick,
@@ -27,6 +24,7 @@ define({
 		},
 
 		// Shortcut
+		settings = requires.settings;
 		fandango = requires.fandango;
 		templates = requires.templates;
 		sound = requires.sound;
@@ -34,10 +32,15 @@ define({
 		// Adds a new message to the DOM
 		post = function (type, text, clearChat, clearBuffer, nick) {
 			var tpl = templates.post[type],
-				post = $.template(tpl, text && {
-					text: text,
-					nick: nick
+				post,
+				data = fandango.merge({}, settings, {
+					nick: nick,
+					room: room,
+					mute: mute
 				});
+
+			data.text = $.template(text, data);
+			post = $.template(tpl, data);
 
 			// Always clear the input after a post
 			if (clearBuffer) {
@@ -79,8 +82,10 @@ define({
 
 			key: function (payload) {
 				// Make sure the key meets the length requirements
-				if (payload.length < 8) {
-					return post('error', templates.messages.key_weak);
+				if (payload.length > settings.key_maxLen) {
+					return post('error', templates.messages.key_to_long);
+				} else if (payload.length < settings.key_minLen) {
+					return post('error', templates.messages.key_to_short);
 				}
 
 				// Set key
@@ -91,9 +96,11 @@ define({
 			},
 
 			nick: function (payload) {
-				// Make sure the nick meets the length requirements
-				if (payload.length < 2) {
-					return post('error', templates.messages.nick_short);
+				// Make sure the key meets the length requirements
+				if (payload.length > settings.nick_maxLen) {
+					return post('error', templates.messages.nick_to_long);
+				} else if (payload.length < settings.nick_minLen) {
+					return post('error', templates.messages.nick_to_short);
 				}
 
 				// Set nick
@@ -114,7 +121,7 @@ define({
 			join: function (payload) {
 				return (
 					room
-						? post('error', $.template(templates.messages.already_in_room, { roomName: room}))
+						? post('error', templates.messages.already_in_room)
 						: socket.emit('room:join', payload)
 				);
 			},
@@ -122,7 +129,7 @@ define({
 			generate: function (payload) {
 				return (
 					room
-						? post('error', $.template(templates.messages.already_in_room, { roomName: room}))
+						? post('error', templates.messages.already_in_room)
 						: socket.emit('room:generate')
 				);
 			}
@@ -250,16 +257,18 @@ define({
 			}
 		};
 
+	host = settings.host;
+
 	// Post the help/welcome message
 	post('motd', templates.motd, true);
 
 	// Push 'Connecting...' message
 	post('info', $.template(templates.messages.connecting, {
-		host: data.host || 'localhost'
+		host: host || 'localhost'
 	}));
 
 	// The one  and only socket
-	socket = $.Websocket.connect(data.host);
+	socket = $.Websocket.connect(host);
 
 	// Bind socket events
 	socket
@@ -330,7 +339,7 @@ define({
 
 			// Tell the user that the chat is ready to interact with
 			post('info', $.template(templates.messages.connected, {
-				host: data.host || 'localhost'
+				host: host || 'localhost'
 			}));
 
 			// It's possible to provide room and key using the hashtag.

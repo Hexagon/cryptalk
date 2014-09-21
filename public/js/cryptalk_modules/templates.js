@@ -48,6 +48,8 @@ define({
 
 	default_nick: 'Anonymous',
 
+	// All post templates will have access to the properties in the 'settings' module, 
+	// along with the current nick, room, mute-status and of course the message ('text').
 	post: {
 		motd: 		'<li><i class="motd">{text}</i></li>',
 		info: 		'<li>INF&gt; <i class="info">{text}</i></li>',
@@ -56,34 +58,37 @@ define({
 		message: 	'<li><i class="nick">{nick}&gt;</i> <i class="message">{text}</i></li>'
 	},
 
+	// All message templates will have access to the properties in the 'settings' module, 
+	// along with the current nick, room and mute-status.
 	messages: {
-		key_weak: 				'Hmm, that\'s a weak key, try again...',
+		key_to_short: 			'Hmm, that\'s a weak key, try again...',
+		key_to_long: 			'Man that\'s a long key. Make it a tad short, \'kay?',
 		key_ok_ready: 			'Key set, you can now start communicating.',
 		key_ok_but_no_room: 	'Key set, you can now join a room and start communicating.',
+
+		nick_to_short: 			'Nickname is too short, it has to be at least {nick_minLen} characters long. Try again.',
+		nick_to_long: 			'Nickname is too long, it can be at most {nick_maxLen} characters long. Try again.',
+		nick_set: 				'From now on, you\'re referred to as \'{nick}\'.',
+
 		msg_no_room: 			'You have to join a room before sending messages. See /help.',
 		not_in_room: 			'You have to be in a room to count participants...',
 		msg_no_key: 			'You have to set an encryption key before sending a message. See /help.',
-		nick_short: 			'Nickname is too short, try again.',
-		nick_set: 				'From now on, you\'re referred to as \'{nick}\'.',
 		leave_from_nowhere: 	'How are you supposed to leave, while being nowhere?',
 
 		// Sounds
 		muted: 					'Notification sounds is now muted.',
-		unmuted: 					'Notifications sounds is now on.',
+		unmuted: 				'Notifications sounds is now on.',
 
-		// Available variables: 'commandName'
+		// Extra variables: 'commandName'
 		unrecognized_command: 	'Unrecognized command: "{commandName}"',
 
-		// Available variables: 'roomName'
-		joined_room: 			'Joined room {roomName}',
-		left_room: 				'Left room {roomName}',
-		already_in_room: 		'You are already in a room ({roomName}), stoopid.',
+		joined_room: 			'Joined room {room}',
+		left_room: 				'Left room {room}',
+		already_in_room: 		'You are already in a room ({room}), stoopid.',
 
 		unable_to_decrypt: 		'Unabled to decrypt received message, keys does not match.',
 
 		socket_error: 			'A network error has occurred. A restart may be required to bring back full functionality.<br>Examine the logs for more details.',
-
-		// Available variable: 'host'
 		connecting: 			'Connecting to host {host}...',
 		connected: 				'A connection to the server has been established. Happy chatting!'
 	},
