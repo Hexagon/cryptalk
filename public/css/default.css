@@ -16,6 +16,7 @@ html {
 
 body, html {
 	min-height: 100%;
+	min-width: 600px;
 	background-color: #000000;
 	overflow: hidden;
 	padding: 0px;
