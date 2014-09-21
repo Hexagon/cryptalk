@@ -53,4 +53,10 @@ Available commands:
 	/clear					         Clear on-screen buffer                      
 	/mute					         Toggle notification sounds                  
 	/help					         This                                        
+
+  You can select any of the five last commands/messages with up/down key.
+
+  Due to security reasons, /key command is not saved, and command 
+  history is  automatically cleared after one minute of inactivity.
+
 ```

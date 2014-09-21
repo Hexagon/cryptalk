@@ -28,12 +28,17 @@ define({
 		'	/join		RoomId			Join a room	                            \n' +
 		'	/count					Count participants of room                  \n' +
 		'	/nick		NickName		Sets an optional nick                   \n' +
-		'	/mute  				Toggle notification sounds						\n' +
+		'	/mute  					Toggle notification sounds					\n' +
 		'	/key		OurStrongPassphrase	Sets encryption key                 \n' +
 		'	/leave					Leave the room                              \n' +
 		'	/clear					Clear on-screen buffer                      \n' +
 		'	/help					This                                        \n' +
 		'                                                                       \n' +
+		'                                                                       \n' +
+		'You can select any of the five last commands/messages with up/down key.\n' +
+		'                                                                       \n' + 
+		'Due to security reasons, /key command is not saved, and command        \n' + 
+  		'history is  automatically cleared after one minute of inactivity.      \n' + 
 		'                                                                       \n' +
 		'<strong>It is highly recommended to use incognito mode while chatting, \n' +
 		'to prevent browsers from keeping history or cache.</strong>            \n' +

@@ -16,6 +16,7 @@ define('cryptalk', {
 		history = [],
 		history_pos = -1,
 		history_keep = 4,
+		history_timer,
 
 		// Collection of DOM components
 		components = {
@@ -54,7 +55,7 @@ define('cryptalk', {
 				components.chat.html('');
 				
 				// Clear command history on clearing buffer
-				history = []; history_pos = -1;
+				clearHistory();
 			},
 
 			leave: function () {
@@ -129,12 +130,18 @@ define('cryptalk', {
 			}
 		},
 
-		// Push input buffer to command history
+		// Push input buffer to history
 		pushHistory = function (b) {
 			history.push(b); 
 
 			// Shift oldest buffer if we have more than we should keep
 			if( history.length > history_keep ) history.shift();
+		},
+
+		// Clear input buffer history
+		clearHistory = function() {
+			history = [];
+			history_pos = -1;
 		},
 					
 		// Handler for the document`s keyDown-event.
@@ -150,6 +157,10 @@ define('cryptalk', {
 			if (components.input[0] !== $.activeElement()) {
 				return components.input.focus();
 			}
+
+			// Reset command history clear timer
+			clearTimeout(history_timer);
+			history_timer = setTimeout(function(){clearHistory()}, 60000);
 
 			// Check for escape key, this does nothing but clear the input buffer and reset history position
 			if ( e.keyCode == 27 ) {
@@ -252,7 +263,7 @@ define('cryptalk', {
 			post('info', $.template(templates.messages.left_room, { roomName: room }));
 
 			// Clear history on leaving room
-			history = []; history_pos = -1;
+			clearHistory();
 
 			room = false;
 		})
