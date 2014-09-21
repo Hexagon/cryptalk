@@ -4,7 +4,9 @@ define('sound',{requires: ['queue']}, function (requires) {
 	var exports = { messages: {} },
 		queue = requires.queue,
 
-		ac = new (window.AudioContext || window.webkitAudioContext || false);
+		ac = false;
+
+	if( window.AudioContext || window.webkitAudioContext ) ac = new ( window.AudioContext || window.webkitAudioContext );
 
 	// Recursive function for playing tones, takes an array of [tone,start_ms,duration_ms] - entries
 	// i is only used for recursion

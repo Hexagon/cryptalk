@@ -40,7 +40,7 @@ define('cryptalk', {
 
 			// Always clear the input after a post
 			if (clearBuffer) {
-				components.input[0].value = '';
+				clearInput();
 			}
 
 			// Append the post to the chat DOM element
@@ -145,6 +145,11 @@ define('cryptalk', {
 			history = [];
 			history_pos = -1;
 		},
+
+		// Clear input buffer
+		clearInput = function() {
+			setTimeout(function(){components.input[0].value = '';},0);
+		},
 					
 		// Handler for the document`s keyDown-event.
 		onKeyDown = function (e) {
@@ -168,7 +173,9 @@ define('cryptalk', {
 			// Check for escape key, this does nothing but clear the input buffer and reset history position
 			if ( e.keyCode == 27 ) {
 				history_pos = -1;
-				components.input[0].value = '';
+				clearInput();
+
+				return;
 			} 
 
 			// Check for up or down-keys, they handle the history position
@@ -210,7 +217,7 @@ define('cryptalk', {
 				commands[command](payload);
 
 				// Clear input field
-				components.input[0].value = '';
+				clearInput();
 
 				// Save to history
 				if(command !== 'key') {
@@ -221,7 +228,7 @@ define('cryptalk', {
 
 				if (!room || !key) {
 					// Push buffer to history and clear input field
-					pushHistory(buffer); components.input[0].value = ''; 
+					pushHistory(buffer); clearInput();
 
 					// Make sure that the user has joined a room and the key is set
 					return (!room) ? post('error', templates.messages.msg_no_room) : post('error', templates.messages.msg_no_key);
@@ -236,7 +243,7 @@ define('cryptalk', {
 				});
 
 				// And clear the the buffer
-				components.input[0].value = '';
+				clearInput();
 
 				// Save to history
 				pushHistory(buffer);
