@@ -1,48 +1,44 @@
-define('queue', function(){
+define(function (){
+    var exports = {},
+        queue = [],
+        now = function () {
+            return performance.now() || Date.now();
+        };
 
-    var exports = {};
-    
-    queue = [];
-
-    exports.add_function_delayed = function(d,callback,data) { 
-        
-        queue.push(
-            {
-                func:
-                    function(){
-                        var finished = callback();
-                    },
-                pushed:Date.now(),
-                delay:d,
-                data:data
-            }
-        );
-
+    exports.add_function_delayed = function(delay, callback, data) {
+        queue.push({
+            func:   callback,
+            pushed: now(),
+            delay:  delay,
+            data:   data
+        });
     }
 
-    exports.get = function() {
+    exports.get = function () {
         return queue;
     }
 
-    exports.run = function(){
+    exports.run = function () {
+        var i = 0,
+            current,
+            lrt_inner;
 
-        for(var i=0;i<queue.length;i++){
-            var current = queue[i];
-            if (Date.now() - current.pushed > current.delay) {
+        while (current = queue[i++]) {
+            if (now() - current.pushed > current.delay) {
                 current.func();
-                queue.splice(i,1);
+                queue.splice(i - 1, 1);
             }
         }
-        if(!queue.length) return;
 
-        // Waste a ms to prevent callstack overflow
-        lrt_inner = Date.now();
-        while (Date.now() - lrt_inner < 1) { var a=1+1; };
+        if (queue.length) {
+            // Waste a ms to prevent callstack overflow
+            lrt_inner = now();
 
-        exports.run();
-        
+            while (now() - lrt_inner < 1) { void 0; };
+
+            exports.run();
+        }
     }
 
     return exports;
-
 });

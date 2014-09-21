@@ -19,12 +19,8 @@ fandango.defaults({
 	}
 });
 
-// Fetch our modules asynchronously, when the DOM is finished loading.
-//define('bootstrap_module', ['domReady'], function (domReady) {
-//	domReady(function () {
-//		require(['cryptalk']);
-//	});
-//});
-
-// No need to wait for DOM - the Javascript is at the bottom
-require(['cryptalk']);
+// Require main cryptalk module.
+require(['cryptalk'], function () {}, function (e) {
+	document.getElementById('chat').innerHTML = '<li><i class="fatal">Fatal: An error was thrown during initialization causing the application to stop.<br>Examine the logs for more details.</i></li>';
+	throw e;
+});

@@ -1,4 +1,4 @@
-define('$', ['fandango', 'websocket', 'aes'], function (fandango, websocket, aes) {
+define(['fandango', 'websocket', 'aes'], function (fandango, websocket, aes) {
 	var exports = {
 			selector: 0,
 			utilities: {},
@@ -10,7 +10,7 @@ define('$', ['fandango', 'websocket', 'aes'], function (fandango, websocket, aes
 		proto = exports.prototype,
 
 		each = fandango.each;
-
+	
 	// The DOM selector engine
 	exports.selector = function (selector) {
 		var match,

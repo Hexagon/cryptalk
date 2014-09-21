@@ -55,6 +55,7 @@ body, html {
 #chat i.error	{ color: #ff7777; }
 #chat i.message	{ color: #eeeeee; }
 #chat i.nick	{ color: #99FF99; }
+#chat i.fatal	{ color: #ff7777; }
 
 /*------------------------------------*\
 	INPUT

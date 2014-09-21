@@ -1,8 +1,7 @@
 // Sounds module, used for emitting those annoying bl-up sounds when receiving a message
-define('sound',{requires: ['queue']}, function (requires) {
+define(['queue'], function (queue) {
 
 	var exports = { messages: {} },
-		queue = requires.queue,
 
 		ac = false;
 

@@ -1,11 +1,11 @@
-// Main cryptalk module. Will be called by bootstrap.js when the DOM is ready to interact with.
-define('cryptalk', {
+// Main cryptalk module
+define({
 	data: {
 		// If no host is given it will default to localhost.
 		host: ''
 	},
 	compiles: ['$'],
-	requires: ['templates','sound']
+	requires: ['templates', 'sound', 'fandango']
 }, function ($, requires, data) {
 	var socket,
 		key,
@@ -27,6 +27,7 @@ define('cryptalk', {
 		},
 
 		// Shortcut
+		fandango = requires.fandango;
 		templates = requires.templates;
 		sound = requires.sound;
 
@@ -61,21 +62,19 @@ define('cryptalk', {
 			},
 
 			leave: function () {
-				if( room ) {
+				if (room) {
 					socket.emit('room:leave', room);
 				} else {
 					post('error', templates.messages.leave_from_nowhere);
 				}
-				
 			},
 
 			count: function () {
-				if( room ) {
+				if (room) {
 					socket.emit('room:count');
 				} else {
 					post('error', templates.messages.not_in_room);
 				}
-				
 			},
 
 			key: function (payload) {
@@ -105,14 +104,11 @@ define('cryptalk', {
 			},
 
 			mute: function () {
-				// Set nick
+				// Invert mute
 				mute = !mute;
 
 				// Inform that the key has been set
-				if( mute )
-					post('info', $.template(templates.messages.muted ));
-				else
-					post('info', $.template(templates.messages.unmuted ));
+				post('info', $.template(templates.messages[mute ? 'muted' : 'unmuted']));
 			},
 
 			join: function (payload) {
@@ -137,7 +133,9 @@ define('cryptalk', {
 			history.push(b); 
 
 			// Shift oldest buffer if we have more than we should keep
-			if( history.length > history_keep ) history.shift();
+			if (history.length > history_keep) {
+				history.shift();
+			}
 		},
 
 		// Clear input buffer history
@@ -148,7 +146,9 @@ define('cryptalk', {
 
 		// Clear input buffer
 		clearInput = function() {
-			setTimeout(function(){components.input[0].value = '';},0);
+			fandango.subordinate(function () {
+				components.input[0].value = '';
+			});
 		},
 					
 		// Handler for the document`s keyDown-event.
@@ -168,7 +168,7 @@ define('cryptalk', {
 
 			// Reset command history clear timer
 			clearTimeout(history_timer);
-			history_timer = setTimeout(function(){clearHistory()}, 60000);
+			history_timer = setTimeout(clearHistory, 60000);
 
 			// Check for escape key, this does nothing but clear the input buffer and reset history position
 			if ( e.keyCode == 27 ) {
