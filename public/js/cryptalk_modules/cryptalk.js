@@ -26,7 +26,7 @@ define({
 		},
 
 		// Shortcut
-		hosts = requires.hosts.hosts,
+		hosts = requires.hosts,
 		fandango = requires.fandango,
 		templates = requires.templates,
 		sound = requires.sound,
@@ -95,7 +95,7 @@ define({
 
 			hosts: function (force, done) {
 				var i = 0,
-					left = hosts.length,
+					left = hosts.hosts.length,
 					host,
 					strhosts = '\n',
 					callback = function (host, index, isUp) {
@@ -119,7 +119,7 @@ define({
 				force = (force && force.toLowerCase() === 'force');
 
 				// Loop through all the hosts
-				while (host = hosts[i]) {
+				while (host = hosts.hosts[i]) {
 					if (!force && host.settings !== undefined) {
 						if (host.settings) {
 							callback(host, i, 1)();
@@ -145,7 +145,7 @@ define({
 				}
 
 				if ($.isDigits(toHost)) {
-					if (host = hosts[+toHost]) {
+					if (host = hosts.hosts[+toHost]) {
 						if (host.settings) {
 							settings = host.settings;
 						} else {
@@ -523,7 +523,7 @@ define({
 	// It's possible to provide room and key using the hashtag.
 	// The room and key is then seperated by semicolon (room:key).
 	// If there is no semicolon present, the complete hash will be treated as the room name and the key has to be set manually.
-	commands.connect(0, function() {
+	commands.connect(hosts.autoconnect, function() {
 		if (host && (hash = window.location.hash)) {
 			parts = hash.slice(1).split(':');
 

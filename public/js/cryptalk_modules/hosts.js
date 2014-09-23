@@ -7,9 +7,14 @@ define({
 	// A collection of hosts to choose from
 	hosts: [
 		{
-			name: 'localhost',
-			host: 'http://localhost:8080',
-			path: 'http://localhost:8080/js/cryptalk_modules/settings.js'
-		}
+			name: 'default',
+			host: '',
+			path: '/js/cryptalk_modules/settings.js'
+		}/*,
+		{
+			name: 'Example',
+			host: 'http://www.example.com',
+			path: 'http://www.example.com/js/cryptalk_modules/settings.js'
+		}*/
 	]
 });
