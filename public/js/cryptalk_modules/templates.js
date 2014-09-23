@@ -79,8 +79,8 @@ define({
 		leave_from_nowhere: 	'How are you supposed to leave, while being nowhere?',
 
 		// Sounds
-		muted: 					'Notification sounds is now muted.',
-		unmuted: 				'Notifications sounds is now on.',
+		muted: 					'Notifications and sounds are now muted.',
+		unmuted: 				'Notifications and sounds are now on.',
 
 		// Extra variables: 'commandName'
 		unrecognized_command: 	'Unrecognized command: "{commandName}"',

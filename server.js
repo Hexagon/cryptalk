@@ -1,7 +1,7 @@
 var express = require('express.io'),
-    uuid = require('node-uuid');
+    uuid = require('node-uuid'),
 
-app = express();app.http().io();
+    app = express();app.http().io();
 
 app.use(express.static(__dirname + '/public'));
 
@@ -43,9 +43,38 @@ app.io.route('room', {
 
 app.io.route('message', {
     send: function(req) {
-      if(req.data && req.data.room) req.socket.broadcast.to(req.data.room).emit('message:send', { msg: req.data.msg, nick: req.data.nick} );
-      req.socket.emit('message:send', { msg: req.data.msg, nick: req.data.nick} );
+
+      // Check that the user is in a room
+      if(req.data && req.data.room) {
+
+        // Check that the message size is within bounds
+        var total_msg_size = (req.data.msg) ? req.data.msg.length : 0 + (req.data.nick) ? req.data.nick.length : 0;
+        if( total_msg_size <= 4096) {
+
+          // Check that at least 100ms has passed since last message
+          if( req.socket.last_message === undefined || new Date().getTime() - req.socket.last_message > 100 ) {
+
+            req.socket.broadcast.to(req.data.room).emit('message:send', { msg: req.data.msg, nick: req.data.nick} );
+            req.socket.emit('message:send', { msg: req.data.msg, nick: req.data.nick} );
+
+            req.socket.last_message = new Date().getTime();
+
+          } else {
+
+            // Do not complain if message rate is too fast, that would only generate more traffic
+
+          }
+
+        } else {
+
+          // Message size is out of bounds, complain
+          req.socket.emit('message:server', {msg:'command_failed'} );
+        }
+
+      } 
+
     }
+
 });
 
 app.io.sockets.on('connection', function(socket) {

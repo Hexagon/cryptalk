@@ -1,7 +1,7 @@
 // Main cryptalk module
 define({
 	compiles: ['$'],
-	requires: ['hosts', 'templates', 'sound', 'fandango']
+	requires: ['hosts', 'templates', 'sound', 'fandango','notifications']
 }, function ($, requires, data) {
 	var socket,
 		key,
@@ -26,10 +26,11 @@ define({
 		},
 
 		// Shortcut
-		hosts = requires.hosts.hosts;
-		fandango = requires.fandango;
-		templates = requires.templates;
-		sound = requires.sound;
+		hosts = requires.hosts.hosts,
+		fandango = requires.fandango,
+		templates = requires.templates,
+		sound = requires.sound,
+		notifications = requires.notifications,
 
 		lockInput = function () {
 			components.input[0].setAttribute('disabled', 'disabled');
@@ -42,8 +43,22 @@ define({
 			components.input.focus();
 		},
 
+		showNotification = function (type, nick, text) {
+			if (!mute) {
+				if ( type == 'message') {
+					notifications.notify(nick.substring(0, 20), text.substring(0, 80),'gfx/icon_128x128.png',true);
+				} else if ( type == 'error' ) {
+					notifications.notify('Cryptalk', text.substring(0, 80),'gfx/icon_128x128_error.png',true);
+				} else {
+					notifications.notify('Cryptalk', text.substring(0, 80),'gfx/icon_128x128_info.png',true);
+				}
+				
+			}
+		},
+
 		// Adds a new message to the DOM
 		post = function (type, text, clearChat, clearBuffer, nick) {
+
 			var tpl = templates.post[type],
 				post,
 				data = fandango.merge({}, settings, {
@@ -59,6 +74,9 @@ define({
 			if (clearBuffer) {
 				clearInput();
 			}
+
+			showNotification(type, nick, text)
+
 
 			// Append the post to the chat DOM element
 			components.chat[clearChat ? 'html' : 'append'](post);
@@ -196,7 +214,7 @@ define({
 							post('error', templates.messages.unable_to_decrypt);
 						} else {
 							post('message', sanitized, false, false, nick);
-							if( !mute ) sound.playTones(sound.messages.message);
+							//if( !mute && !notifications.windowActive()) sound.playTones(sound.messages.message);
 						}
 					})
 
@@ -212,7 +230,7 @@ define({
 								}
 
 								// Play sound
-								if (sound.messages[sanitized] !== undefined && !mute ) sound.playTones(sound.messages[sanitized]);
+								//if (sound.messages[sanitized] !== undefined && !mute && !notifications.windowActive() ) sound.playTones(sound.messages[sanitized]);
 
 							} else {
 								post('error', templates.server.bogus);
@@ -500,13 +518,18 @@ define({
 
 	unlockInput();
 
+	notifications.enableNative();
+
 	// It's possible to provide room and key using the hashtag.
 	// The room and key is then seperated by semicolon (room:key).
 	// If there is no semicolon present, the complete hash will be treated as the room name and the key has to be set manually.
-	if (host && (hash = window.location.hash)) {
-		parts = hash.slice(1).split(':');
+	commands.connect(0, function() {
+		if (host && (hash = window.location.hash)) {
+			parts = hash.slice(1).split(':');
 
-		parts[0] && commands.join(parts[0]);
-		parts[1] && commands.key(parts[1]);
-	}
+			parts[0] && commands.join(parts[0]);
+			parts[1] && commands.key(parts[1]);
+		}	
+	});
+
 });
