@@ -1,8 +1,9 @@
 // Main cryptalk module
 define({
 	compiles: ['$'],
-	requires: ['mediator','hosts', 'templates', 'audio', 'fandango','notifications','sounds']
+	requires: ['mediator','hosts', 'templates', 'audio', 'fandango','notifications','sounds','win']
 }, function ($, requires, data) {
+
 	var socket,
 		key,
 		host,
@@ -31,6 +32,7 @@ define({
 		templates = requires.templates,
 		sounds = requires.sounds,
 		channel = requires.mediator(),
+		win = requires.win,
 
 		lockInput = function () {
 			components.input[0].setAttribute('disabled', 'disabled');
@@ -346,10 +348,17 @@ define({
 
 			mute: function () {
 				mute = true;
+				return post('info', templates.messages.muted);
 			},
 
 			unmute: function () {
 				mute = false;
+				return post('info', templates.messages.unmuted);
+			},
+
+			title: function (payload) {
+				win.setTitle(payload);
+				return post('info', $.template(templates.messages.title_set, { title: payload}));
 			},
 
 			join: function (payload) {

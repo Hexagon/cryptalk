@@ -15,7 +15,7 @@ Usage
 	channel.emit('notification:off');
 
 */
-define(['mediator','window'],function (mediator,win){
+define(['mediator','win'],function (mediator,win){
  
 	var enabled = true,
  
@@ -111,7 +111,7 @@ define(['mediator','window'],function (mediator,win){
  	enableNative();
 
  	off();
- 	
+
 	// Make sure we are at square one
 	resetState();
  

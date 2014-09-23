@@ -23,22 +23,30 @@ define({
 		'                                                                       \n' +
 		'----------------------------------------------------------------------	\n' +
 		'                                                                       \n' +
-		'Available commands:                                                    \n' +
-		' 	/generate 				Generate random room                        \n' +
-		'	/join		RoomId			Join a room	                            \n' +
-		'	/count					Count participants of room                  \n' +
+		'Client:                                                    			\n' +
+		'	/key		StrongPassphrase	Sets encryption key                 \n' +
 		'	/nick		NickName		Sets an optional nick                   \n' +
-		'	/mute  					Toggle notification sounds					\n' +
-		'	/key		OurStrongPassphrase	Sets encryption key                 \n' +
-		'	/leave					Leave the room                              \n' +
+		'	/mute  					Audio on									\n' +
+		'	/unmute  				Audio off									\n' +
 		'	/clear					Clear on-screen buffer                      \n' +
 		'	/help					This                                        \n' +
+		'	/title					Set your local page title					\n' +
 		'                                                                       \n' +
+		'Room:                                                    				\n' +
+		' 	/generate 				Generate random room                        \n' +
+		'	/join		RoomId			Join a room	                            \n' +
+		'	/leave					Leave the room                              \n' +
+		'	/count					Count participants                          \n' +
+		'                                                                       \n' +
+		'Host:  		                                                    	\n' +
+		'	/hosts					List available hosts                   		\n' +
+		'	/connect	HostIndex		Connect to selected host               	\n' +
+		'	/disconnect				Disconnect from host    			        \n' +
 		'                                                                       \n' +
 		'You can select any of the five last commands/messages with up/down key.\n' +
 		'                                                                       \n' + 
 		'Due to security reasons, /key command is not saved, and command        \n' + 
-  		'history is  automatically cleared after one minute of inactivity.      \n' + 
+		'history is  automatically cleared after one minute of inactivity.      \n' + 
 		'                                                                       \n' +
 		'<strong>It is highly recommended to use incognito mode while chatting, \n' +
 		'to prevent browsers from keeping history or cache.</strong>            \n' +
@@ -78,11 +86,11 @@ define({
 		msg_no_key: 			'You have to set an encryption key before sending a message. See /help.',
 		leave_from_nowhere: 	'How are you supposed to leave, while being nowhere?',
 
-		// Sounds
+		title_set: 				'The title of this window is now \'{title}\'.',
+
 		muted: 					'Notifications and sounds are now muted.',
 		unmuted: 				'Notifications and sounds are now on.',
 
-		// Extra variables: 'commandName'
 		unrecognized_command: 	'Unrecognized command: "{commandName}"',
 
 		joined_room: 			'Joined room {room}',

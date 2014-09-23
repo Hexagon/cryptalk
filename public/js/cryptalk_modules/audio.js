@@ -9,7 +9,7 @@
 // Sounds module, used for emitting those annoying bl-up sounds when receiving a message
 define(['queue','mediator'], function (queue,mediator) {
  
-	var 	ac = false,
+	var ac = false,
 		enabled = true,
  
 		channel = mediator(),
