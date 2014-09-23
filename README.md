@@ -12,6 +12,8 @@ Features
   * Quick-links (not recommended) using http://server/#Room:Passphrase
   * Super simple setup
   * Notification sounds (mutable)
+  * Native popup notifications
+  * Configurable page title
   * ~~Flashing title on new messages~~
 
 
@@ -43,20 +45,32 @@ Usage
 ========
 
 ```
-Available commands:                                                    
-    /generate 				         Generate random room                        
-	/join		RoomId			     Join a room	                            
-	/count					         Count participants of room                  
-	/nick		NickName		     Sets an optional nick                   
-	/key		OurStrongPassphrase	 Sets encryption key                 
-	/leave					         Leave the room                              
-	/clear					         Clear on-screen buffer                      
-	/mute					         Toggle notification sounds                  
-	/help					         This                                        
 
-  You can select any of the five last commands/messages with up/down key.
+Available commands:
 
-  Due to security reasons, /key command is not saved, and command 
-  history is  automatically cleared after one minute of inactivity.
+Client:                                                    			
+	/key		StrongPassphrase	Sets encryption key                
+	/nick		NickName			Sets an optional nick         
+	/mute  							Audio on
+	/unmute  						Audio off	
+	/clear							Clear on-screen buffer   
+	/help							This                                      
+	/title							Set your local page title				
+                                                                       
+Room:                                                    				
+ 	/generate 						Generate random room        
+	/join		RoomId				Join a room	         
+	/leave							Leave the room          
+	/count							Count participants 
+                                                                       
+Host:  		                                                    	
+	/hosts							List available hosts   
+	/connect	HostIndex			Connect to selected host    
+	/disconnect						Disconnect from host         
+                                                                       
+You can select any of the five last commands/messages with up/down key.
+                                                                       
+Due to security reasons, /key command is not saved, and command        
+history is  automatically cleared after one minute of inactivity.      
 
 ```
