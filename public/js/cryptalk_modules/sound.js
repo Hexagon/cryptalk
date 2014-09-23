@@ -15,7 +15,7 @@ define(['queue'], function (queue) {
 		i = (i === undefined) ? 0 : i;
 
 		// Stop if we've reached the end of iteration, and require ac
-		if( !(i < Object.keys(tones).length) || !ac ) return;
+		if( ac && !(i < Object.keys(tones).length) || !ac ) return;
 
 		// Add tones to execution queue
 		var 	current_tones = tones[i],

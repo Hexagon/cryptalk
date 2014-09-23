@@ -71,6 +71,10 @@ define({
 				done();
 			},
 
+			host: function () {
+				post('info', JSON.stringify(host || {}));
+			},
+
 			hosts: function (force, done) {
 				var i = 0,
 					left = hosts.length,
@@ -86,7 +90,7 @@ define({
 								index: index
 							});
 
-							if (!--left) {
+							if (--left === 0) {
 								post('info', strhosts);
 								done();
 							}
@@ -415,8 +419,8 @@ define({
 				// Wierd hack to move caret to end of input-box
 				setTimeout(function() {if(input.setSelectionRange) input.setSelectionRange(input.value.length, input.value.length);}, 0);
 
-	            return;
-	        }
+				return;
+			}
 			
 			// Return immediatly if the buffer is empty or if the hit key was not <enter>
 			if (e.keyCode !== 13 || !(buffer = components.input[0].value)) {
@@ -427,7 +431,7 @@ define({
 			history_pos = -1;
 
 			// Handle command
-			if (buffer[0] === '/') {
+			if ((buffer[0] || buffer.slice(0, 1)) === '/') {
 				parts = $.ssplit(buffer.slice(1), ' ');
 				command = parts[0];
 				payload = parts[1];

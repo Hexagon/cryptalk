@@ -1,24 +1,24 @@
 // The templating function only supports variables.
 // Define a variable as so: {variable_name}
 define({
-	motd: '\n\n' + 
+	motd: '<pre>\n\n' +
 		'▄████▄   ██▀███ ▓██   ██▓ ██▓███  ▄▄▄█████▓ ▄▄▄       ██▓     ██ ▄█▀  \n' +
-		'▒██▀ ▀█  ▓██ ▒ ██▒▒██  ██▒▓██░  ██▒▓  ██▒ ▓▒▒████▄    ▓██▒     ██▄█▒  \n'+
-		'▒▓█    ▄ ▓██ ░▄█ ▒ ▒██ ██░▓██░ ██▓▒▒ ▓██░ ▒░▒██  ▀█▄  ▒██░    ▓███▄░  \n'+
-		'▒▓▓▄ ▄██▒▒██▀▀█▄   ░ ▐██▓░▒██▄█▓▒ ▒░ ▓██▓ ░ ░██▄▄▄▄██ ▒██░    ▓██ █▄  \n'+
-		'▒ ▓███▀ ░░██▓ ▒██▒ ░ ██▒▓░▒██▒ ░  ░  ▒██▒ ░  ▓█   ▓██▒░██████▒▒██▒ █▄ \n'+
-		'░ ░▒ ▒  ░░ ▒▓ ░▒▓░  ██▒▒▒ ▒▓▒░ ░  ░  ▒ ░░    ▒▒   ▓▒█░░ ▒░▓  ░▒ ▒▒ ▓▒ \n'+
-		'  ░  ▒     ░▒ ░ ▒░▓██ ░▒░ ░▒ ░         ░      ▒   ▒▒ ░░ ░ ▒  ░░ ░▒ ▒░ \n'+
-		'░          ░░   ░ ▒ ▒ ░░  ░░         ░        ░   ▒     ░ ░   ░ ░░ ░  \n'+
-		'░ ░         ░     ░ ░                             ░  ░    ░  ░░  ░    \n'+
-		'░                 ░ ░                                                 \n'+
-		'                                  https://github.com/hexagon/cryptalk \n'+
-		'                                                                      \n'+
-		' Tip of the day: /help                                                \n'+
-		'                                                                      \n'+
-		'----------------------------------------------------------------------',
+		'▒██▀ ▀█  ▓██ ▒ ██▒▒██  ██▒▓██░  ██▒▓  ██▒ ▓▒▒████▄    ▓██▒     ██▄█▒  \n' +
+		'▒▓█    ▄ ▓██ ░▄█ ▒ ▒██ ██░▓██░ ██▓▒▒ ▓██░ ▒░▒██  ▀█▄  ▒██░    ▓███▄░  \n' +
+		'▒▓▓▄ ▄██▒▒██▀▀█▄   ░ ▐██▓░▒██▄█▓▒ ▒░ ▓██▓ ░ ░██▄▄▄▄██ ▒██░    ▓██ █▄  \n' +
+		'▒ ▓███▀ ░░██▓ ▒██▒ ░ ██▒▓░▒██▒ ░  ░  ▒██▒ ░  ▓█   ▓██▒░██████▒▒██▒ █▄ \n' +
+		'░ ░▒ ▒  ░░ ▒▓ ░▒▓░  ██▒▒▒ ▒▓▒░ ░  ░  ▒ ░░    ▒▒   ▓▒█░░ ▒░▓  ░▒ ▒▒ ▓▒ \n' +
+		'  ░  ▒     ░▒ ░ ▒░▓██ ░▒░ ░▒ ░         ░      ▒   ▒▒ ░░ ░ ▒  ░░ ░▒ ▒░ \n' +
+		'░          ░░   ░ ▒ ▒ ░░  ░░         ░        ░   ▒     ░ ░   ░ ░░ ░  \n' +
+		'░ ░         ░     ░ ░                             ░  ░    ░  ░░  ░    \n' +
+		'░                 ░ ░                                                 \n' +
+		'                                  https://github.com/hexagon/cryptalk \n' +
+		'                                                                      \n' +
+		' Tip of the day: /help                                                \n' +
+		'----------------------------------------------------------------------' +
+		'</pre>',
 
-	help: '                                                                       \n' +
+	help: '<pre>                                                                \n' +
 		'Cryptalk, encrypted instant chat.                                      \n' +
 		'                                                                       \n' +
 		'----------------------------------------------------------------------	\n' +
@@ -44,7 +44,7 @@ define({
 		'to prevent browsers from keeping history or cache.</strong>            \n' +
 		'                                                                       \n' +
 		'----------------------------------------------------------------------	\n' +
-		'                                                                    ',
+		'</pre>',
 
 	default_nick: 'Anonymous',
 
@@ -108,6 +108,6 @@ define({
 		room_generated: 		'Room {payload} generated.',
 		person_count: 			'There is {payload} person(s) in this room, including you.',
 		command_failed: 		'Server command failed, you\'re probably trying to du something bogus.',
-		bogus: 					'Received a bogus message from server.',
+		bogus: 					'Received a bogus message from server.'
 	}
 });

@@ -50,9 +50,10 @@ define(['fandango', 'websocket', 'aes'], function (fandango, websocket, aes) {
 		decrypt: function (string, fgh) {
 			return aes.decrypt(string, fgh).toString(CryptoJS.enc.Utf8);
 		},
+		
 		encrypt: function (string, fgh) {
 			return aes.encrypt(string, fgh).toString();
-		},
+		}
 	};
 
 	// Namespace websocket
@@ -149,18 +150,22 @@ define(['fandango', 'websocket', 'aes'], function (fandango, websocket, aes) {
 	};
 
 	proto.append = function (string) {
-		each(this, function (element) {
-			element.innerHTML += string;
-		});
+		for (var i = 0, len = this.length; i < len; i++) {
+			this[0].innerHTML += string;
+		}
 
 		return this;
 	};
 
-	// Extremely naive implementations of .on()
+	// Naive implementations of .on()
 	proto.on = function (eventName, callback) {
-		each(this, function (element) {
-			element.addEventListener(eventName, callback);
-		});
+		for (var i = 0, len = this.length; i < len; i++) {
+			if (this[0].addEventListener) {
+				this[0].addEventListener(eventName, callback, false);
+			} else if (this[0].attachEvent) {
+				this[0].attachEvent('on' + eventName, callback);
+			}
+		}
 
 		return this;
 	};

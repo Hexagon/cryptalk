@@ -25,5 +25,6 @@ fandango.defaults({
 // Require main cryptalk module.
 require(['cryptalk'], function () {}, function (e) {
 	document.getElementById('chat').innerHTML = '<li><i class="fatal">Fatal: An error was thrown during initialization causing the application to stop.<br>Examine the logs for more details.</i></li>';
+	console.log && console.log(e);
 	throw e;
 });
