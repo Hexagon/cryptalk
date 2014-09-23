@@ -1,7 +1,7 @@
 // Main cryptalk module
 define({
 	compiles: ['$'],
-	requires: ['hosts', 'templates', 'sound', 'fandango','notifications']
+	requires: ['mediator','hosts', 'templates', 'audio', 'fandango','notifications','sounds']
 }, function ($, requires, data) {
 	var socket,
 		key,
@@ -9,7 +9,7 @@ define({
 		room,
 		hash,
 		nick,
-		mute,
+		mute = false,
 
 		settings = {},
 
@@ -29,8 +29,8 @@ define({
 		hosts = requires.hosts,
 		fandango = requires.fandango,
 		templates = requires.templates,
-		sound = requires.sound,
-		notifications = requires.notifications,
+		sounds = requires.sounds,
+		channel = requires.mediator(),
 
 		lockInput = function () {
 			components.input[0].setAttribute('disabled', 'disabled');
@@ -44,16 +44,21 @@ define({
 		},
 
 		showNotification = function (type, nick, text) {
-			if (!mute) {
-				if ( type == 'message') {
-					notifications.notify(nick.substring(0, 20), text.substring(0, 80),'gfx/icon_128x128.png',true);
-				} else if ( type == 'error' ) {
-					notifications.notify('Cryptalk', text.substring(0, 80),'gfx/icon_128x128_error.png',true);
-				} else {
-					notifications.notify('Cryptalk', text.substring(0, 80),'gfx/icon_128x128_info.png',true);
-				}
-				
-			}
+
+			var title = (type!='message') ? 'Cryptalk' : nick,
+				icon = (type == 'message') ? 'gfx/icon_128x128.png' : (type == 'error') ? 'gfx/icon_128x128_error.png' : 'gfx/icon_128x128_info.png';
+
+			// Emit notification
+			channel.emit('notification:send', 
+				{ 
+					title: 	title.substring(0, 20), 
+					body: 	text.substring(0, 80), 
+					icon: 	icon
+				});
+
+			// Emit sound
+			if ( type == 'message' ) channel.emit('audio:play',sounds.message);
+		
 		},
 
 		// Adds a new message to the DOM
@@ -63,8 +68,7 @@ define({
 				post,
 				data = fandango.merge({}, settings, {
 					nick: nick,
-					room: room,
-					mute: mute
+					room: room
 				});
 
 			data.text = $.template(text, data);
@@ -76,7 +80,6 @@ define({
 			}
 
 			showNotification(type, nick, text)
-
 
 			// Append the post to the chat DOM element
 			components.chat[clearChat ? 'html' : 'append'](post);
@@ -214,7 +217,6 @@ define({
 							post('error', templates.messages.unable_to_decrypt);
 						} else {
 							post('message', sanitized, false, false, nick);
-							//if( !mute && !notifications.windowActive()) sound.playTones(sound.messages.message);
 						}
 					})
 
@@ -228,10 +230,6 @@ define({
 								} else {
 									post('server', templates.server[sanitized]);
 								}
-
-								// Play sound
-								//if (sound.messages[sanitized] !== undefined && !mute && !notifications.windowActive() ) sound.playTones(sound.messages[sanitized]);
-
 							} else {
 								post('error', templates.server.bogus);
 							}
@@ -347,11 +345,11 @@ define({
 			},
 
 			mute: function () {
-				// Invert mute
-				mute = !mute;
+				mute = true;
+			},
 
-				// Inform that the key has been set
-				post('info', $.template(templates.messages[mute ? 'muted' : 'unmuted']));
+			unmute: function () {
+				mute = false;
 			},
 
 			join: function (payload) {
@@ -516,9 +514,17 @@ define({
 	// Post the help/welcome message
 	post('motd', templates.motd, true);
 
-	unlockInput();
+	// Route mediator messages
+	channel.on('window:focused',function() {
+		channel.emit('audio:off');
+		channel.emit('notification:off');
+	});
+	channel.on('window:blurred',function() {
+		if( !mute ) channel.emit('audio:on');
+		channel.emit('notification:on');
+	});
 
-	notifications.enableNative();
+	unlockInput();
 
 	// It's possible to provide room and key using the hashtag.
 	// The room and key is then seperated by semicolon (room:key).
