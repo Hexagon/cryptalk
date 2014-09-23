@@ -14,7 +14,6 @@ Features
   * Notification sounds (mutable)
   * Native popup notifications
   * Configurable page title
-  * ~~Flashing title on new messages~~
 
 
 Setup
