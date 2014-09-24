@@ -361,7 +361,7 @@ define({
 
 			title: function (payload) {
 				win.setTitle(payload);
-				return post('info', $.template(templates.messages.title_set, { title: payload}));
+				return post('info', $.template(templates.messages.title_set, { title: $.escapeHtml(payload)}));
 			},
 
 			join: function (payload) {
