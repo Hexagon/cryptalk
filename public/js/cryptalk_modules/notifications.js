@@ -15,8 +15,7 @@ Usage
 	mediator.emit('notification:off');
 
 */
-define(['mediator','win'],function (mediator, win){
- 
+define(['mediator','win'], function (mediator, win) { 
 	var enabled = true,
  
 		native_supported = false,

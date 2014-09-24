@@ -36,5 +36,4 @@ define(['mediator'],function (mediator){
 	}
  
 	return exports;
- 
 });

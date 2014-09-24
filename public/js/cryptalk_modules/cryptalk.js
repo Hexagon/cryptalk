@@ -1,7 +1,7 @@
 // Main cryptalk module
 define({
 	compiles: ['$'],
-	requires: ['mediator','hosts', 'templates', 'audio', 'fandango','notifications', 'sounds', 'win']
+	requires: ['mediator', 'hosts', 'templates', 'audio', 'fandango','notifications', 'sounds', 'win']
 }, function ($, requires, data) {
 	var socket,
 		key,
