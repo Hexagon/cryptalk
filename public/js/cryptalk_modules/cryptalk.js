@@ -143,9 +143,10 @@ define({
 
 				if (host && host.connected) {
 					done();
-					return post('error', $.template(templates.messages.already_connected, {
+					post('error', $.template(templates.messages.already_connected, {
 						host: host.name || 'localhost'
 					}));
+					return done();
 				}
 
 				if ($.isDigits(toHost)) {
@@ -156,7 +157,8 @@ define({
 							request = host.path;
 						}
 					} else {
-						return post('error', 'Undefined host index: ' + toHost);
+						post('error', 'Undefined host index: ' + toHost);
+						return done();
 					}
 				} else if (fandango.is(toHost, 'untyped')) {
 					settings = toHost.settings;
@@ -165,12 +167,14 @@ define({
 				}
 
 				if (request) {
-					return require([request], function (settings) {
+					require([request], function (settings) {
 						host.settings = settings;
 						commands.connect(toHost, done);
 					}, function () {
-						return post('error', 'Could not fetch host settings: ' + request);
+						post('error', 'Could not fetch host settings: ' + request);
+						return done();
 					});
+					return done();
 				}
 
 				// Push 'Connecting...' message
@@ -193,7 +197,7 @@ define({
 					})
 
 					.on('room:joined', function (data) {
-						room = data;
+						room = $.escapeHtml(data);
 						post('info', $.template(templates.messages.joined_room, { roomName: room }));
 
 						// Automatically count persons on join
@@ -342,7 +346,7 @@ define({
 				nick = payload;
 
 				// Inform that the key has been set
-				post('info', $.template(templates.messages.nick_set, { nick: nick}));
+				post('info', $.template(templates.messages.nick_set, { nick: $.escapeHtml(nick)}));
 			},
 
 			mute: function () {
