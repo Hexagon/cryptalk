@@ -1,8 +1,12 @@
 {
   "name" : "cryptalk",
   "version" : "0.0.0",
-  "description" : "Encrypted instant chat",
+  "description" : "Encrypted HTML5/Node.JS instant chat",
   "main" : "server.js",
+  "subdomain": "cryptalk",
+  "analyze": true,
+  "preferGlobal": false,
+  "private": true,
   "keywords": [
     "cryptalk",
     "fandango",
@@ -12,6 +16,10 @@
     "html5"
   ],
   "author": "Hexagon <Hexagon@GitHub>",
+  "contributors": [{
+    "name": "Pehr Boman",
+    "email": "unkelpehr@gmail.com"
+  }],
   "license": "MIT",
   "repository": {
     "type": "git",
