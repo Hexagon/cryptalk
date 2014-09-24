@@ -23,7 +23,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Hexagon/node-telldus.git"
+    "url": "git://github.com/Hexagon/cryptalk.git"
   },
   "dependencies": {
     "node-uuid": ">= 1.4.1",
