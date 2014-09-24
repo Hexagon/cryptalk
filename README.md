@@ -27,9 +27,9 @@ git clone https://github.com/Hexagon/cryptalk.git
 cd cryptalk
 ```
 
-Pull express.io and node-uuid from npm.
+Pull dependencies from npm
 ```bash
-npm install node-uuid express.io
+npm install
 ```
 
 Start server
