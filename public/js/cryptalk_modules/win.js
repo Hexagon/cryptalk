@@ -12,14 +12,13 @@
 define(['mediator'],function (mediator){
  
 	var exports = {},
-		channel = mediator(),
 
 		focusCallback = function() {
-			channel.emit('window:focused');
+			mediator.emit('window:focused');
 		},
  
 		blurCallback = function() {
-			channel.emit('window:blurred');
+			mediator.emit('window:blurred');
 		};
 
 	exports.setTitle = function(t) 	{ document.title = t; },

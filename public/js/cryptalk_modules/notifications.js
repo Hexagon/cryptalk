@@ -2,20 +2,20 @@
 Usage
 
 	// Send an notification
-	channel.emit('notification:send',{
+	mediator.emit('notification:send',{
 		title: 'Woop',
 		body: 'Woop woop',
 		icon: 'gfx/icon.png'
 	});
 
 	// Turn notifications on
-	channel.emit('notification:on');
+	mediator.emit('notification:on');
 
 	// Turn notifications off
-	channel.emit('notification:off');
+	mediator.emit('notification:off');
 
 */
-define(['mediator','win'],function (mediator,win){
+define(['mediator','win'],function (mediator, win){
  
 	var enabled = true,
  
@@ -25,8 +25,6 @@ define(['mediator','win'],function (mediator,win){
 		original_title,
 		blink_timer,
 		interval,
-
-		channel = mediator(),
 
 		now = function () {
 			return performance.now() || Date.now();
@@ -104,9 +102,9 @@ define(['mediator','win'],function (mediator,win){
 	 
 	native_supported = (window.Notification !== undefined);
 
-	channel.on('notification:send',function(data) { notify(data.title,data.body,data.icon,true); });
-	channel.on('notification:on',function() { on(); });
-	channel.on('notification:off',function() { off(); });
+	mediator.on('notification:send',function(data) { notify(data.title,data.body,data.icon,true); });
+	mediator.on('notification:on',function() { on(); });
+	mediator.on('notification:off',function() { off(); });
 
  	enableNative();
 

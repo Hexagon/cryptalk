@@ -1,9 +1,8 @@
 // Main cryptalk module
 define({
 	compiles: ['$'],
-	requires: ['mediator','hosts', 'templates', 'audio', 'fandango','notifications','sounds','win']
+	requires: ['mediator','hosts', 'templates', 'audio', 'fandango','notifications', 'sounds', 'win']
 }, function ($, requires, data) {
-
 	var socket,
 		key,
 		host,
@@ -29,9 +28,9 @@ define({
 		// Shortcut
 		hosts = requires.hosts,
 		fandango = requires.fandango,
+		mediator = requires.mediator,
 		templates = requires.templates,
 		sounds = requires.sounds,
-		channel = requires.mediator(),
 		win = requires.win,
 
 		lockInput = function () {
@@ -51,7 +50,7 @@ define({
 				icon = (type == 'message') ? 'gfx/icon_128x128.png' : (type == 'error') ? 'gfx/icon_128x128_error.png' : 'gfx/icon_128x128_info.png';
 
 			// Emit notification
-			channel.emit('notification:send', 
+			mediator.emit('notification:send', 
 				{ 
 					title: 	title.substring(0, 20), 
 					body: 	text.substring(0, 80), 
@@ -59,7 +58,7 @@ define({
 				});
 
 			// Emit sound
-			if ( type == 'message' ) channel.emit('audio:play',sounds.message);
+			if ( type == 'message' ) mediator.emit('audio:play',sounds.message);
 		
 		},
 
@@ -81,7 +80,7 @@ define({
 				clearInput();
 			}
 
-			showNotification(type, nick, text)
+			showNotification(type, nick, text);
 
 			// Append the post to the chat DOM element
 			components.chat[clearChat ? 'html' : 'append'](post);
@@ -117,14 +116,14 @@ define({
 								post('info', strhosts);
 								done();
 							}
-						}
+						};
 					};
 
 				// 
 				force = (force && force.toLowerCase() === 'force');
 
 				// Loop through all the hosts
-				while (host = hosts.hosts[i]) {
+				while ((host = hosts.hosts[i])) {
 					if (!force && host.settings !== undefined) {
 						if (host.settings) {
 							callback(host, i, 1)();
@@ -150,7 +149,7 @@ define({
 				}
 
 				if ($.isDigits(toHost)) {
-					if (host = hosts.hosts[+toHost]) {
+					if ((host = hosts.hosts[+toHost])) {
 						if (host.settings) {
 							settings = host.settings;
 						} else {
@@ -213,7 +212,7 @@ define({
 					.on('message:send', function (data) {
 						var decrypted = $.AES.decrypt(data.msg, room + key),
 							sanitized = $.escapeHtml(decrypted),
-							nick = 		(data.nick == undefined || !data.nick ) ? templates.default_nick : $.escapeHtml($.AES.decrypt(data.nick, room + key));
+							nick = 		!data.nick ? templates.default_nick : $.escapeHtml($.AES.decrypt(data.nick, room + key));
 
 						if (!decrypted) {
 							post('error', templates.messages.unable_to_decrypt);
@@ -274,7 +273,7 @@ define({
 			reconnect: function (foo, done) {
 				if (host) {
 					if (host.connected) {
-						commands.disconnect()
+						commands.disconnect();
 						commands.connect(host, done);
 					} else {
 						commands.connect(host, done);
@@ -503,7 +502,7 @@ define({
 				socket.emit('message:send', {
 					room: room,
 					msg: $.AES.encrypt(buffer, room + key).toString(),
-					nick: (nick && nick != undefined) ? $.AES.encrypt(nick, room + key).toString() : false
+					nick: nick ? $.AES.encrypt(nick, room + key).toString() : false
 				});
 
 				// And clear the the buffer
@@ -524,13 +523,13 @@ define({
 	post('motd', templates.motd, true);
 
 	// Route mediator messages
-	channel.on('window:focused',function() {
-		channel.emit('audio:off');
-		channel.emit('notification:off');
+	mediator.on('window:focused',function() {
+		mediator.emit('audio:off');
+		mediator.emit('notification:off');
 	});
-	channel.on('window:blurred',function() {
-		if( !mute ) channel.emit('audio:on');
-		channel.emit('notification:on');
+	mediator.on('window:blurred',function() {
+		if( !mute ) mediator.emit('audio:on');
+		mediator.emit('notification:on');
 	});
 
 	unlockInput();

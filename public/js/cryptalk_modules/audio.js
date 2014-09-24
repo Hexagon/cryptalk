@@ -1,8 +1,8 @@
 /* Usage:
  
-	channel.emit('audio:play',message);
-	channel.emit('audio:on');
-	channel.emit('audio:off');
+	mediator.emit('audio:play',message);
+	mediator.emit('audio:on');
+	mediator.emit('audio:off');
  
 */
  
@@ -12,8 +12,6 @@ define(['queue','mediator'], function (queue,mediator) {
 	var ac = false,
 		enabled = true,
  
-		channel = mediator(),
- 
 		// Recursive function for playing tones, takes an array of [tone,start_ms,duration_ms] - entries
 		// i is only used for recursion
 		playTones = function (tones, i) {
@@ -22,7 +20,9 @@ define(['queue','mediator'], function (queue,mediator) {
 			i = (i === undefined) ? 0 : i;
  
 			// Stop if we've reached the end of iteration, and require ac
-			if( !(i < Object.keys(tones).length) || !ac || !enabled ) return;
+			if (!ac || !enabled || !(i < Object.keys(tones).length)) {
+				return;
+			}
  
 			// Add tones to execution queue
 			var 	current_tones = tones[i],
@@ -58,10 +58,12 @@ define(['queue','mediator'], function (queue,mediator) {
 			enabled = false;
 		};
  
-	if( window.AudioContext || window.webkitAudioContext ) ac = new ( window.AudioContext || window.webkitAudioContext );
+	if (window.AudioContext || window.webkitAudioContext) {
+		ac = new (window.AudioContext || window.webkitAudioContext);
+	}
  
-	channel.on('audio:play',function(message) { playTones(message) });
-	channel.on('audio:on',function(message) { on(); });
-	channel.on('audio:off',function(message) { off(); });
+	mediator.on('audio:play', function (message) { playTones(message); });
+	mediator.on('audio:on', function (message) { on(); });
+	mediator.on('audio:off', function (message) { off(); });
  
 });

@@ -30,7 +30,7 @@ define(['fandango', 'websocket', 'aes'], function (fandango, websocket, aes) {
 		} else {
 			selector = selector.slice(1);
 
-			if (match = document.getElementById(selector)) {
+			if ((match = document.getElementById(selector))) {
 				matches.push(match);
 			}
 		}
@@ -69,7 +69,7 @@ define(['fandango', 'websocket', 'aes'], function (fandango, websocket, aes) {
 
 	utils.activeElement = function () {
 		try { return document.activeElement; } catch (e) {}
-	}
+	};
 
 	/**
 	 * Removes all characters but 0 - 9 from given string.
