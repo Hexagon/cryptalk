@@ -1,4 +1,4 @@
-define(['fandango', 'websocket', 'aes'], function (fandango, websocket, aes) {
+define(['fandango', 'websocket', 'aes', 'SHA1'], function (fandango, websocket, aes, SHA1) {
 	var exports = {
 			selector: 0,
 			utilities: {},
@@ -19,7 +19,7 @@ define(['fandango', 'websocket', 'aes'], function (fandango, websocket, aes) {
 		 * @private
 		 */
 		reDigits = /^\d+$/;
-	
+
 	// The DOM selector engine
 	exports.selector = function (selector) {
 		var match,
@@ -39,10 +39,9 @@ define(['fandango', 'websocket', 'aes'], function (fandango, websocket, aes) {
 		return matches;
 	};
 
-	// Namespace AES
-	utils.AES = {
-		decrypt: aes.decrypt,
-		encrypt: aes.encrypt
+	// Namespace SHA1
+	utils.SHA1 = function (string) {
+		return SHA1(string).toString();
 	};
 
 	// Namespace encode

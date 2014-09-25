@@ -167,14 +167,13 @@ define({
 				}
 
 				if (request) {
-					require([request], function (settings) {
+					return require([request], function (settings) {
 						host.settings = settings;
 						commands.connect(toHost, done);
 					}, function () {
 						post('error', 'Could not fetch host settings: ' + request);
 						return done();
 					});
-					return done();
 				}
 
 				// Push 'Connecting...' message
@@ -372,7 +371,7 @@ define({
 				return (
 					room
 						? post('error', templates.messages.already_in_room)
-						: socket.emit('room:join', $.MD5(payload))
+						: socket.emit('room:join', $.SHA1(payload))
 				);
 			},
 
