@@ -1,6 +1,6 @@
 {
   "name" : "cryptalk",
-  "version" : "1.0.0",
+  "version" : "1.0.1",
   "description" : "Encrypted HTML5/Node.JS instant chat",
   "main" : "server.js",
   "subdomain": "cryptalk",
@@ -24,6 +24,10 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/Hexagon/cryptalk.git"
+  },
+  "bin" : { 
+    "npm" : "./server.js" 
+    
   },
   "dependencies": {
     "node-uuid": ">= 1.4.1",
