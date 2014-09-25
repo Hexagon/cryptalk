@@ -16,7 +16,21 @@ Features
   * Configurable page title
 
 
-Setup
+Regular setup
+========
+
+Install node.js, exact procedure is dependant on platform and distribution.
+
+Create a now folder, browse to it, and install the app from npm
+```bash
+npm install cryptalk
+````
+
+Browse to ```http://localhost:8080```
+
+Done!
+
+Developer setup
 ========
 
 Install node.js, exact procedure is dependant on platform and distribution.
@@ -38,7 +52,6 @@ node server.js
 ```
 
 Browse to ```http://localhost:8080```
-
 
 Usage
 ========
