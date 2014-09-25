@@ -21,27 +21,20 @@ Regular setup
 
 Install node.js, exact procedure is dependant on platform and distribution.
 
-Create a now folder, browse to it, and install the app from npm
+Install the app from npm
 ```bash
-npm install cryptalk
+npm install cryptalk -g
 ````
 
-Then, from the same folder, issue the following to start the app
+Then issue the following to start the app
 
 ```bash
-npm start cryptalk
+cryptalk
 ```
 
 Browse to ```http://localhost:8080```
 
 Done!
-
-If you want to install it globally, you'll have to append ```-g``` to both the install line, and the start line.
-
-```bash
-npm install cryptalk -g
-npm start cryptalk -g
-```
 
 Developer setup
 ========
