@@ -5,7 +5,6 @@
   "main" : "server.js",
   "subdomain": "cryptalk",
   "analyze": true,
-  "preferGlobal": true,
   "private": false,
   "keywords": [
     "cryptalk",
