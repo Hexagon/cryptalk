@@ -75,8 +75,7 @@ Client:
 	/help							This                                      
 	/title							Set your local page title				
                                                                        
-Room:                                                    				
- 	/generate 						Generate random room        
+Room:                                                    	     
 	/join		RoomId				Join a room	         
 	/leave							Leave the room          
 	/count							Count participants 
