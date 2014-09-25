@@ -27,3 +27,9 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 docs/Thumbs.db
+
+# Ignore all castrato files
+public\js\vendor\castrato\*
+
+# Except these
+public\js\vendor\castrato\!castrato.min.js
