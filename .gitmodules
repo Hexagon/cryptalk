@@ -1,0 +1,3 @@
+[submodule "public/js/vendor/castrato"]
+	path = public/js/vendor/castrato
+	url = https://github.com/unkelpehr/castrato.git
