@@ -5,7 +5,7 @@
   "main" : "server.js",
   "subdomain": "cryptalk",
   "analyze": true,
-  "preferGlobal": false,
+  "preferGlobal": true,
   "private": false,
   "keywords": [
     "cryptalk",
@@ -25,9 +25,7 @@
     "type": "git",
     "url": "git://github.com/Hexagon/cryptalk.git"
   },
-  "bin" : { 
-    "cryptalk" : "./server.js" 
-  },
+  "bin" : "./server.js",
   "dependencies": {
     "node-uuid": ">= 1.4.1",
     "express.io": ">= 1.1.13"
