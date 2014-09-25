@@ -6,7 +6,7 @@
   "subdomain": "cryptalk",
   "analyze": true,
   "preferGlobal": false,
-  "private": true,
+  "private": false,
   "keywords": [
     "cryptalk",
     "fandango",
