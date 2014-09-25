@@ -18,6 +18,11 @@ fandango.defaults({
 			exports: function () { // String (the global variable name) or a function; returning the desired variable.
 				return CryptoJS.AES;
 			}
+		},
+		md5: {
+			exports: function () {
+				return CryptoJS.MD5;
+			}
 		}
 	}
 });
