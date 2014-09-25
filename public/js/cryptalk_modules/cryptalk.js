@@ -372,7 +372,7 @@ define({
 				return (
 					room
 						? post('error', templates.messages.already_in_room)
-						: socket.emit('room:join', payload)
+						: socket.emit('room:join', $.MD5(payload))
 				);
 			},
 
