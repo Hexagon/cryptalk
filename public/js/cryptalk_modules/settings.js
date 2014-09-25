@@ -1,7 +1,21 @@
 define({
-	nick_maxLen: 20,
-	nick_minLen: 3,
 
-	key_maxLen: Infinity,
-	key_minLen: 8
+	client: {
+		title: "Cryptalk - Online"
+	},
+
+	nick: {
+		maxLen: 20,
+		minLen: 2,	
+	},
+
+	key: {
+		maxLen: Infinity,
+		minLen: 8,	
+	},
+
+	notifications: {
+		maxOnePerMs: 3000
+	}
+
 });

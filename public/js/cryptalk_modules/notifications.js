@@ -15,7 +15,8 @@ Usage
 	mediator.emit('notification:off');
 
 */
-define(['mediator','win'], function (mediator, win) { 
+define(['mediator','window','settings'], function (mediator, win, settings) { 
+
 	var enabled = true,
  
 		native_supported = false,
@@ -24,6 +25,8 @@ define(['mediator','win'], function (mediator, win) {
 		original_title,
 		blink_timer,
 		interval,
+
+		last,
 
 		now = function () {
 			return performance.now() || Date.now();
@@ -39,7 +42,7 @@ define(['mediator','win'], function (mediator, win) {
 
 		resetState = function() {
 			clearTimeout(blink_timer);
-			if (original_title !== undefined) setTitle(original_title);
+			if (original_title !== undefined) win.setTitle(original_title);
 			original_title = undefined;
 			new_title = undefined;
 			window_active = true;
@@ -68,16 +71,17 @@ define(['mediator','win'], function (mediator, win) {
  
 		blinkTitleUntilFocus = function(t,i) {
 			interval = (i == undefined) ? 1000 : i;
-			if ( enabled ) {
+			if ( enabled && original_title === undefined ) {
 				new_title = t;
-				original_title = getTitle();
+				original_title = win.getTitle();
 				doBlink();
 			}
 		},
  
 		notify = function(title,body,icon,fallback) {
-			// Only notify while in background
-			if( enabled) {
+
+			// Only notify while in background, and if sufficient time has passed
+			if( enabled && (now() - last) > settings.notifications.maxOnePerMs ) {
 
 				// Set default value for fallback parameter
 				if ( fallback === undefined) fallback = false;
@@ -93,8 +97,11 @@ define(['mediator','win'], function (mediator, win) {
 						setTimeout(function(){n.close();},3000);
 					}
 
+					last = now();
+
 				} else if ( fallback ) {
-					exports.blinkTitleUntilFocus("Attention",1000);
+					blinkTitleUntilFocus("Attention",1000);
+
 				}
 			}
 		};
@@ -105,9 +112,14 @@ define(['mediator','win'], function (mediator, win) {
 	mediator.on('notification:on',function() { on(); });
 	mediator.on('notification:off',function() { off(); });
 
+	// Always enable native notifications
  	enableNative();
 
+ 	// Start with notifications disabled
  	off();
+
+ 	// If this is undefined, notifications will fail to show
+	last = now();
 
 	// Make sure we are at square one
 	resetState();

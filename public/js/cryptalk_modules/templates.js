@@ -33,7 +33,6 @@ define({
 		'	/title					Set your local page title					\n' +
 		'                                                                       \n' +
 		'Room:                                                    				\n' +
-		' 	/generate 				Generate random room                        \n' +
 		'	/join		RoomId			Join a room	                            \n' +
 		'	/leave					Leave the room                              \n' +
 		'	/count					Count participants                          \n' +
@@ -93,8 +92,8 @@ define({
 
 		unrecognized_command: 	'Unrecognized command: "{commandName}"',
 
-		joined_room: 			'Joined room {room}',
-		left_room: 				'Left room {room}',
+		joined_room: 			'Joined room {roomName}.',
+		left_room: 				'Left room {roomName}.',
 		already_in_room: 		'You are already in a room ({room}), stoopid.',
 
 		unable_to_decrypt: 		'Unabled to decrypt received message, keys does not match.',
@@ -113,9 +112,12 @@ define({
 	server: {
 		person_joined: 			'A person joined this room.',
 		person_left: 			'A person left this room.',
-		room_generated: 		'Room {payload} generated.',
 		person_count: 			'There is {payload} person(s) in this room, including you.',
 		command_failed: 		'Server command failed, you\'re probably trying to du something bogus.',
 		bogus: 					'Received a bogus message from server.'
+	},
+
+	client: {
+		title: 					'Cryptalk - Offline'
 	}
 });

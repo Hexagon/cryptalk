@@ -1,12 +1,14 @@
 // Main cryptalk module
 define({
 	compiles: ['$'],
-	requires: ['mediator', 'hosts', 'templates', 'audio', 'fandango','notifications', 'sounds', 'win']
+	requires: ['mediator', 'hosts', 'templates', 'audio', 'fandango','notifications', 'sounds', 'window']
 }, function ($, requires, data) {
+
 	var socket,
 		key,
 		host,
 		room,
+		room_raw,
 		hash,
 		nick,
 		mute = false,
@@ -31,7 +33,7 @@ define({
 		mediator = requires.mediator,
 		templates = requires.templates,
 		sounds = requires.sounds,
-		win = requires.win,
+		win = requires.window,
 
 		lockInput = function () {
 			components.input[0].setAttribute('disabled', 'disabled');
@@ -187,29 +189,29 @@ define({
 					'force new connection': true
 				});
 
+				// Set window title
+				win.setTitle(settings.client.title);
+
 				// Bind socket events
 				socket
-					.on('room:generated', function (data) {
-						var sanitized = $.escapeHtml(data);
-						post('server', $.template(templates.server.room_generated, { payload: sanitized }));
-						socket.emit('room:join', sanitized);
-					})
 
 					.on('room:joined', function (data) {
 						room = $.escapeHtml(data);
-						post('info', $.template(templates.messages.joined_room, { roomName: room }));
+
+						post('info', $.template(templates.messages.joined_room, { roomName: $.escapeHtml(room_raw) }));
 
 						// Automatically count persons on join
 						socket.emit('room:count');
 					})
 
 					.on('room:left', function () {
-						post('info', $.template(templates.messages.left_room, { roomName: room }));
+						post('info', $.template(templates.messages.left_room, { roomName: $.escapeHtml(room_raw) }));
 
 						// Clear history on leaving room
 						clearHistory();
 
 						room = false;
+						room_raw = "";
 					})
 
 					.on('message:send', function (data) {
@@ -262,6 +264,9 @@ define({
 						post('info', $.template(templates.messages.disconnected, {
 							host: host.name || 'localhost'
 						}));
+
+						// Revert title
+						win.setTitle(templates.client.title);
 					})
 
 					.on('error', function () {
@@ -320,10 +325,10 @@ define({
 				}
 
 				// Make sure the key meets the length requirements
-				if (payload.length > settings.key_maxLen) {
-					return post('error', templates.messages.key_to_long);
-				} else if (payload.length < settings.key_minLen) {
-					return post('error', templates.messages.key_to_short);
+				if (payload.length > settings.key.maxLen) {
+					return post('error', $.template(templates.messages.key_to_long, { key_maxLen: settings.key_maxLen } ));
+				} else if (payload.length < settings.key.minLen) {
+					return post('error', $.template(templates.messages.key_to_short, { key_maxLen: settings.key_minLen } ));
 				}
 
 				// Set key
@@ -335,10 +340,10 @@ define({
 
 			nick: function (payload) {
 				// Make sure the key meets the length requirements
-				if (payload.length > settings.nick_maxLen) {
-					return post('error', templates.messages.nick_to_long);
-				} else if (payload.length < settings.nick_minLen) {
-					return post('error', templates.messages.nick_to_short);
+				if (payload.length > settings.nick.maxLen) {
+					return post('error', $.template(templates.messages.nick_to_long, { nick_maxLen: settings.nick.maxLen } ));
+				} else if (payload.length < settings.nick.minLen) {
+					return post('error', $.template(templates.messages.nick_to_short, {nick_minLen: settings.nick.minLen } ));
 				}
 
 				// Set nick
@@ -368,20 +373,14 @@ define({
 					return post('error', templates.messages.join_no_host);
 				}
 
-				return (
-					room
-						? post('error', templates.messages.already_in_room)
-						: socket.emit('room:join', $.SHA1(payload))
-				);
-			},
-
-			generate: function (payload) {
-				return (
-					room
-						? post('error', templates.messages.already_in_room)
-						: socket.emit('room:generate')
-				);
+				if (room) {
+					return post('error', templates.messages.already_in_room);
+				} else {
+					room_raw = payload;
+					return socket.emit('room:join', $.SHA1(payload))
+				}
 			}
+
 		},
 
 		// Push input buffer to history
@@ -536,6 +535,9 @@ define({
 	});
 
 	unlockInput();
+
+	// Revert title
+	win.setTitle(templates.client.title);
 
 	// It's possible to provide room and key using the hashtag.
 	// The room and key is then seperated by semicolon (room:key).

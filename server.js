@@ -1,17 +1,12 @@
 #!/usr/bin/env node
 
 var express = require('express.io'),
-    uuid = require('node-uuid'),
 
     app = express();app.http().io();
 
 app.use(express.static(__dirname + '/public'));
 
 app.io.route('room', {
-    generate: function(req) {
-      var room = uuid.v4();
-      req.socket.emit('room:generated',room);
-    },
     join: function(req) {
       if( req.data ) {
         req.socket.emit('room:joined',req.data);
