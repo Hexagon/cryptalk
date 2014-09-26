@@ -34,7 +34,6 @@ define(
 
 		emit = function(payload) {
 			// Route message from mediator to socket
-			console.log('EMIT:',payload.data,payload.payload);
 			if(socket) socket.emit(payload.data,payload.payload);
 		},
 
@@ -252,8 +251,6 @@ define(
 
 		param = function (p) {
 			parameters = fandango.merge({}, parameters, p );
-			console.log(p);
-			console.log(parameters);
 		};
 
 	mediator.on('command:host', host);

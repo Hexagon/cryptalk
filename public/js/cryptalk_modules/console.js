@@ -89,9 +89,15 @@ define(
 		message = function (payload, done) { post('message', payload.message , payload.nick ); },
 		server = function (payload, done) { post('server', payload); },
 
-		clear = function () {  
+		clearInput = function () {  
 			fandango.subordinate(function () {
 				components.input[0].value = '';
+			});
+		},
+
+		clear = function () { 
+			fandango.subordinate(function () {
+				components.chat[0].innerHTML=''
 			});
 		},
 
@@ -140,7 +146,7 @@ define(
 						if(recipients == 0) {
 							return post('error', $.template(templates.messages.unrecognized_command, { commandName: command }));
 						} else {
-							clear();
+							clearInput();
 						}
 					}
 				);
@@ -151,8 +157,6 @@ define(
 					// Make sure that the user has joined a room and the key is set
 					return (!parameters.room) ? post('error', templates.messages.msg_no_room) : post('error', templates.messages.msg_no_key);
 				}
-				
-				console.log(parameters.room);
 
 				// Before sending the message.
 				// Encrypt message using room UUID as salt and key as pepper.
@@ -169,7 +173,7 @@ define(
 				);
 
 				// And clear the the buffer
-				clear();
+				clearInput();
 
 			}
 		};

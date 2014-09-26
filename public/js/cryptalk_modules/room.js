@@ -31,6 +31,10 @@ define(
 		join = function(payload) {
 			if (room !== false) {
 				mediator.emit('console:error',$.template(templates.messages.already_in_room, { room: room }));
+			} else if (payload.length >= settings.room.maxLen) {
+				mediator.emit('console:error',$.template(templates.messages.room_name_too_long));
+			} else if (payload.length < settings.room.minLen) {
+				mediator.emit('console:error',$.template(templates.messages.room_name_too_short));
 			} else {
 				room = payload;
 				mediator.emit('room:changed', room );

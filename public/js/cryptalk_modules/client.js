@@ -5,6 +5,7 @@
 		mediator.on('command:nick', ...);
 		mediator.on('command:key', ...);
 		mediator.on('command:clear', ...);
+		mediator.on('command:title', ...);
 
 	Emits:
 		mediator.emit('nick:changed',...);
@@ -53,7 +54,7 @@ define(
 			return mediator.emit('console:info', templates.messages.key_ok );
 		},
 
-		help = function (payload, done) { mediator.emit('console:motd', templates.help); },
+		help = function () { mediator.emit('console:motd', templates.help); },
 
 		clear = function () { mediator.emit('console:clear'); },
 
@@ -75,11 +76,17 @@ define(
 			// Inform that the nick has been set
 			mediator.emit('console:info', $.template(templates.messages.nick_set, { nick: $.escapeHtml(nick)}));
 
+		},
+
+		title = function(payload) {
+			mediator.emit('window:title',payload);
+			mediator.emit('console:info', $.template(templates.messages.title_set, { title: $.escapeHtml(payload)}));
 		};
 
 	mediator.on('command:help', help);
 	mediator.on('command:clear', clear);
 	mediator.on('command:nick', nick);
 	mediator.on('command:key', setKey);
+	mediator.on('command:title', title);
 	
 });

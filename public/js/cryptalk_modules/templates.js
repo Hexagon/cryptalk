@@ -75,6 +75,9 @@ define({
 
 		unrecognized_command: 	'Unrecognized command: "{commandName}"',
 
+		room_name_too_long: 	'Isn\'t that a bit long?',
+		room_name_too_short: 	'Nah, too short.',
+
 		joined_room: 			'Joined room {roomName}.',
 		left_room: 				'Left room {roomName}.',
 		already_in_room: 		'You are already in a room ({room}), stoopid.',

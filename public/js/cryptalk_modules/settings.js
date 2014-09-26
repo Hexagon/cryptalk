@@ -29,6 +29,11 @@ define({
 		minLen: 8,	
 	},
 
+	room: {
+		minLen: 1,
+		maxLen: 64
+	},
+
 	notifications: {
 		maxOnePerMs: 3000
 	},
