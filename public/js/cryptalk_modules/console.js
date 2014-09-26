@@ -47,7 +47,8 @@ define(
 			var tpl = templates.post[type],
 				post,
 				data = fandango.merge({}, settings, {
-					nick: nick
+					nick: nick,
+					timestamp: new Date().toLocaleTimeString()
 				});
 
 			data.text = $.template(text, data);
