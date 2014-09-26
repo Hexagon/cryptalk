@@ -46,7 +46,7 @@ define({
 		info: 		'<li><i class="timestamp">[{timestamp}] </i>INF&gt; <i class="info">{text}</i></li>',
 		server: 	'<li><i class="timestamp">[{timestamp}] </i>SRV&gt; <i class="server">{text}</i></li>',
 		error: 		'<li><i class="timestamp">[{timestamp}] </i>ERR&gt; <i class="error">{text}</i></li>',
-		message: 	'<li><i class="timestamp">[{timestamp}] </i><i class="nick">{nick}&gt;</i> <i class="message">{text}</i></li>'
+		message: 	'<li><i class="timestamp">[{timestamp}] </i>MSG&gt; <i class="nick">{nick}&gt;</i> <i class="message">{text}</i></li>'
 	},
 
 	// All message templates will have access to the properties in the 'settings' module, 
