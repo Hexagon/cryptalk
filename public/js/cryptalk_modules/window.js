@@ -1,4 +1,6 @@
 /*
+	Accepts:
+		'window:title'
 
 	Emits:
 		'window:focused'
@@ -9,7 +11,7 @@
 		window.setTitle(title);
 
 */
-define(['mediator'],function (mediator){
+define(['castrato'],function (mediator){
  
 	var exports = {},
 
@@ -34,6 +36,9 @@ define(['mediator'],function (mediator){
 		window.observe("focusin", focusCallback);
 		window.observe("focusout", blurCallback);
 	}
+
+	mediator.on('window:title',exports.setTitle);
  
 	return exports;
+
 });

@@ -1,26 +1,31 @@
 /* Usage:
  
-	mediator.emit('audio:play',message);
-	mediator.emit('audio:on');
-	mediator.emit('audio:off');
+	mediator.on('audio:play', playTones );
+	mediator.on('audio:on', on );
+	mediator.on('audio:off', off );
+	mediator.on('audio:mute', mute );
+	mediator.on('audio:unmute', unmute );
  
 */
  
 // Sounds module, used for emitting those annoying bl-up sounds when receiving a message
-define(['queue','mediator'], function (queue,mediator) {
+define(['queue','castrato','templates'], function (queue,mediator,templates) {
  
-	var ac = false,
+	var 
+		// Private variables
+		ac = false,
 		enabled = true,
+		muted = false,
  
-		// Recursive function for playing tones, takes an array of [tone,start_ms,duration_ms] - entries
-		// i is only used for recursion
+		// Recursive function for playing tones
+		//   accepts an array of [tone,start_ms,duration_ms] - entries
 		playTones = function (tones, i) {
- 
+
 			// Parameter defaults
 			i = (i === undefined) ? 0 : i;
  
-			// Stop if we've reached the end of iteration, and require ac
-			if (!ac || !enabled || !(i < Object.keys(tones).length)) {
+			// Stop if we've reached the end of iteration, and require ac, also stop if we're muted
+			if (!ac || !enabled || !(i < Object.keys(tones).length) || muted) {
 				return;
 			}
  
@@ -56,14 +61,28 @@ define(['queue','mediator'], function (queue,mediator) {
  
 		off = function() {
 			enabled = false;
+		},
+
+		mute = function() {
+			muted = true;
+			mediator.emit('console:info',templates.messages.muted);
+		},
+ 
+		unmute = function() {
+			muted = false;
+			mediator.emit('console:info',templates.messages.unmuted);
 		};
  
+ 	// Find audio context
 	if (window.AudioContext || window.webkitAudioContext) {
 		ac = new (window.AudioContext || window.webkitAudioContext);
 	}
- 
-	mediator.on('audio:play', function (message) { playTones(message); });
-	mediator.on('audio:on', function (message) { on(); });
-	mediator.on('audio:off', function (message) { off(); });
- 
+
+ 	// Connect events
+	mediator.on('audio:play', function(tones) {playTones(tones); } );
+	mediator.on('audio:on', on );
+	mediator.on('audio:off', off );
+	mediator.on('audio:mute', mute );
+	mediator.on('audio:unmute', unmute );
+
 });

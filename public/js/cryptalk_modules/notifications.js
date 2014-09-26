@@ -15,7 +15,7 @@ Usage
 	mediator.emit('notification:off');
 
 */
-define(['mediator','window','settings'], function (mediator, win, settings) { 
+define(['castrato','window','settings'], function (mediator, win, settings) { 
 
 	var enabled = true,
  

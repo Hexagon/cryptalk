@@ -1,22 +1,6 @@
 // The templating function only supports variables.
 // Define a variable as so: {variable_name}
 define({
-	motd: '<pre>\n\n' +
-		'▄████▄   ██▀███ ▓██   ██▓ ██▓███  ▄▄▄█████▓ ▄▄▄       ██▓     ██ ▄█▀  \n' +
-		'▒██▀ ▀█  ▓██ ▒ ██▒▒██  ██▒▓██░  ██▒▓  ██▒ ▓▒▒████▄    ▓██▒     ██▄█▒  \n' +
-		'▒▓█    ▄ ▓██ ░▄█ ▒ ▒██ ██░▓██░ ██▓▒▒ ▓██░ ▒░▒██  ▀█▄  ▒██░    ▓███▄░  \n' +
-		'▒▓▓▄ ▄██▒▒██▀▀█▄   ░ ▐██▓░▒██▄█▓▒ ▒░ ▓██▓ ░ ░██▄▄▄▄██ ▒██░    ▓██ █▄  \n' +
-		'▒ ▓███▀ ░░██▓ ▒██▒ ░ ██▒▓░▒██▒ ░  ░  ▒██▒ ░  ▓█   ▓██▒░██████▒▒██▒ █▄ \n' +
-		'░ ░▒ ▒  ░░ ▒▓ ░▒▓░  ██▒▒▒ ▒▓▒░ ░  ░  ▒ ░░    ▒▒   ▓▒█░░ ▒░▓  ░▒ ▒▒ ▓▒ \n' +
-		'  ░  ▒     ░▒ ░ ▒░▓██ ░▒░ ░▒ ░         ░      ▒   ▒▒ ░░ ░ ▒  ░░ ░▒ ▒░ \n' +
-		'░          ░░   ░ ▒ ▒ ░░  ░░         ░        ░   ▒     ░ ░   ░ ░░ ░  \n' +
-		'░ ░         ░     ░ ░                             ░  ░    ░  ░░  ░    \n' +
-		'░                 ░ ░                                                 \n' +
-		'                                  https://github.com/hexagon/cryptalk \n' +
-		'                                                                      \n' +
-		' Tip of the day: /help                                                \n' +
-		'----------------------------------------------------------------------' +
-		'</pre>',
 
 	help: '<pre>                                                                \n' +
 		'Cryptalk, encrypted instant chat.                                      \n' +
@@ -70,8 +54,7 @@ define({
 	messages: {
 		key_to_short: 			'Hmm, that\'s a weak key, try again...',
 		key_to_long: 			'Man that\'s a long key. Make it a tad short, \'kay?',
-		key_ok_ready: 			'Key set, you can now start communicating.',
-		key_ok_but_no_room: 	'Key set, you can now join a room and start communicating.',
+		key_ok: 				'Key set, you can now start communicating.',
 		key_no_host: 			'You have to connect to a host before setting the key.',
 
 		join_no_host: 			'You have to connect to a host before joining a room.',
