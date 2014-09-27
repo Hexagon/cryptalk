@@ -8,7 +8,7 @@
 		mediator.on('console:server', server);
 		mediator.on('console:message', message);
 		mediator.on('console:lockinput', lockInput);
-		mediator.on('console:unlockinput', unlockInput);
+		mediator.on('console:unlockInput', unlockInput);
 		mediator.on('console:param', param);
 
 	Emits:
@@ -58,7 +58,7 @@ define(
 			showNotification(type, nick, text);
 
 			// Append the post to the chat DOM element
-			components.chat['append'](post);
+			components.chat.append(post);
 
 		},
 
@@ -80,11 +80,11 @@ define(
 				});
 
 			// Emit sound
-			if ( type == 'message' ) mediator.emit('audio:play',sounds.message);
+			if ( type == 'message' ) mediator.emit('audio:play', sounds.message);
 		
 		},
 
-		motd = function (payload, done) { post('motd', payload); },
+		motd = function (payload) { post('motd', settings.motd); },
 		info = function (payload, done) { post('info', payload); },
 		error = function (payload, done) { post('error', payload); },
 		message = function (payload, done) { post('message', payload.message , payload.nick ); },
@@ -98,7 +98,7 @@ define(
 
 		clear = function () { 
 			fandango.subordinate(function () {
-				components.chat[0].innerHTML=''
+				components.chat[0].innerHTML = '';
 			});
 		},
 
@@ -111,6 +111,20 @@ define(
 			components.input[0].removeAttribute('disabled');
 			components.inputWrapper[0].className = '';
 			components.input.focus();
+		},
+
+		_require = function (filepath, done) {
+			lockInput();
+			post('info', 'Requiring ' + filepath + '...');
+			require([filepath], function () {
+				post('info', 'Successfully required ' + filepath + '.');
+				unlockInput();
+				done();
+			}, function (e) {
+				post('error', 'An error occurred while trying to load "' + filepath + '":\n' + e);
+				unlockInput();
+				done();
+			});
 		},
 
 		// Handler for the document`s keyDown-event.
@@ -141,10 +155,10 @@ define(
 
 				// Shout this command to all modules
 				mediator.emit(
-					'command:'+command,
+					'console:' + command,
 					payload,
-					function(retvals,recipients) {
-						if(recipients == 0) {
+					function(retvals, recipients) {
+						if(!recipients) {
 							return post('error', $.template(templates.messages.unrecognized_command, { commandName: command }));
 						} else {
 							clearInput();
@@ -180,7 +194,7 @@ define(
 		};
 
 	// Bind the necessary DOM events
-	$(document).on('keydown', onKeyDown);;
+	$(document).on('keydown', onKeyDown);
 
 	// Put focus on the message input
 	components.input.focus();
@@ -195,5 +209,8 @@ define(
 	mediator.on('console:lockinput', lockInput);
 	mediator.on('console:unlockinput', unlockInput);
 	mediator.on('console:param', param);
-
+	mediator.on('console:require', _require);
+	mediator.on('console:post', function (data) {
+		post(data.type, data.data, data.nick);
+	});
 });
