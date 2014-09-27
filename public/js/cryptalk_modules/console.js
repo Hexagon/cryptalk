@@ -210,7 +210,7 @@ define({
 
 	// Connect events
 	for (var commandName in commands) {
-		if (commandName === '_require' && commandName !== 'post') {
+		if (commandName !== '_require' && commandName !== 'post') {
 			mediator.on('console:' + commandName, commands[commandName]);
 		}
 	}

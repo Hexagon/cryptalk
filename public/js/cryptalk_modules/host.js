@@ -252,7 +252,7 @@ define(
 		param = function (p) {
 			parameters = fandango.merge({}, parameters, p );
 		};
-
+	
 	mediator.on('command:host', host);
 	mediator.on('command:hosts', hosts);
 	mediator.on('command:connect', connect);
@@ -261,6 +261,4 @@ define(
 
 	mediator.on('socket:emit', emit);
 	mediator.on('host:param', param);
-
-	
 });
