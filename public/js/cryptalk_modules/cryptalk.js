@@ -26,9 +26,11 @@ define({
 		mediator.emit('console:param',{ room: room});
 		mediator.emit('host:param',{ room: room}); 
 	});
+
 	mediator.on('nick:changed', function(nick) { 
 		mediator.emit('console:param',{ nick: nick}); 
 	});
+
 	mediator.on('key:changed', function(key) { 
 		mediator.emit('console:param',{ key: key}); 
 		mediator.emit('host:param',{ key: key}); 
@@ -38,12 +40,16 @@ define({
 	// Connect to the default host
 	mediator.emit('command:connect', undefined, function() {
 		// Join room and set key if a hash in the format #Room:Key has been provided
-		if (hash = window.location.hash) {
+		if ((hash = window.location.hash)) {
 			parts = hash.slice(1).split(':');
 
-			parts[0] && mediator.emit('command:join',parts[0]);
-			parts[1] && mediator.emit('command:key',parts[1]);
+			if (parts[0]) {
+				mediator.emit('command:join', parts[0]);
+			}
+
+			if (parts[1]) {
+				mediator.emit('command:key', parts[1]);
+			}
 		}
 	});
-
 });
