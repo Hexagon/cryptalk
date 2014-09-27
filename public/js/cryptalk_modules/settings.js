@@ -36,6 +36,5 @@ define({
 
 	notifications: {
 		maxOnePerMs: 3000
-	},
-
+	}
 });

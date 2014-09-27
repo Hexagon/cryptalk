@@ -12,16 +12,12 @@
 
 */
 
-define(
-	{
-		compiles: ['$'],
-		requires: ['castrato','settings','templates']
-	}, function ($, requires, data) { 
-
-	var 
-
-		// Private properties
-		room=false,
+define({
+	compiles: ['$'],
+	requires: ['castrato','settings','templates']
+}, function ($, requires) { 
+	var // Private properties
+		room = false,
 
 		// Require shortcuts
 		mediator = requires.castrato,
@@ -30,30 +26,43 @@ define(
 
 		join = function(payload) {
 			if (room !== false) {
-				mediator.emit('console:error',$.template(templates.messages.already_in_room, { room: room }));
+				mediator.emit('console:error',
+					$.template(templates.messages.already_in_room, {
+						room: room
+					})
+				);
 			} else if (payload.length >= settings.room.maxLen) {
-				mediator.emit('console:error',$.template(templates.messages.room_name_too_long));
+				mediator.emit('console:error', $.template(templates.messages.room_name_too_long));
 			} else if (payload.length < settings.room.minLen) {
-				mediator.emit('console:error',$.template(templates.messages.room_name_too_short));
+				mediator.emit('console:error', $.template(templates.messages.room_name_too_short));
 			} else {
 				room = payload;
-				mediator.emit('room:changed', room );
-				mediator.emit('socket:emit',{ data: 'room:join' , payload: $.SHA1(room) } );
+				
+				mediator
+					.emit('room:changed', room)
+					.emit('socket:emit', {
+						data: 'room:join',
+						payload: $.SHA1(room)
+					});
 			}
 		},
 
 		leave = function() {
 			if (room !== false) {
-				mediator.emit('socket:emit',{ data: 'room:leave' , payload: $.SHA1(room) } );
+				mediator.emit('socket:emit', {
+					data: 'room:leave',
+					payload: $.SHA1(room)
+				});
+
 				room = false;
 			} else {
-				mediator.emit('console:error',templates.messages.leave_from_nowhere);
+				mediator.emit('console:error', templates.messages.leave_from_nowhere);
 			}
 		},
 
 		count = function() {
 			if (room) {
-				mediator.emit('socket:emit','room:count');
+				mediator.emit('socket:emit', 'room:count');
 			} else {
 				mediator.emit('console:error', templates.messages.not_in_room);
 			}
@@ -63,5 +72,4 @@ define(
 	mediator.on('command:join', join);
 	mediator.on('command:leave', leave);
 	mediator.on('command:count', count);
-	
 });
