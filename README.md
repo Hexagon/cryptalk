@@ -1,5 +1,7 @@
 ![cryptalk](/docs/screenshot.png)
 
+![Build](https://travis-ci.org/Hexagon/cryptalk.svg)
+
 Cyptalk is a HTML5/Node.js based, client side (E2EE) encrypted instant chat
 
 Features
@@ -15,6 +17,8 @@ Features
   * Native popup notifications
   * Configurable page title
   * Heroku support
+
+
 
 Heroku setup 
 ========
