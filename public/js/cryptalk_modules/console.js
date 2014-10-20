@@ -79,8 +79,8 @@ define({
 				}
 			},
 
-			motd: function () {
-				commands.post('motd', settings.motd);
+			motd: function (message) {
+				commands.post('motd', message);
 			},
 
 			info: function (message) {
@@ -165,7 +165,7 @@ define({
 
 				// Shout this command to all modules
 				mediator.emit(
-					'console:' + command,
+					'command:' + command,
 					payload,
 					function(retvals, recipients) {
 						if(!recipients) {

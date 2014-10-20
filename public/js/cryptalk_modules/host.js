@@ -63,7 +63,7 @@ define(
 						}
 					};
 				};
-
+			
 			force = (force && force.toLowerCase() === 'force');
 
 			// Loop through all the hosts
@@ -84,7 +84,7 @@ define(
 
 		connect = function (toHost, done) {
 
-			mediator.emit('console:lockinput');
+			mediator.emit('console:lockInput');
 
 			var 
 				request,
@@ -96,7 +96,7 @@ define(
 				mediator.emit('console:error', $.template(templates.messages.already_connected, {
 					host: host.name || 'localhost'
 				}));
-				mediator.emit('console:unlockinput');
+				mediator.emit('console:unlockInput');
 				return;
 			}
 
@@ -109,7 +109,7 @@ define(
 					}
 				} else {
 					mediator.emit('console:error', 'Undefined host index: ' + toHost);
-					mediator.emit('console:unlockinput');
+					mediator.emit('console:unlockInput');
 					return;
 				}
 
@@ -125,7 +125,7 @@ define(
 					return connect(toHost, done);
 				}, function () {
 					mediator.emit('console:error', 'Could not fetch host settings: ' + request);
-					mediator.emit('console:unlockinput');
+					mediator.emit('console:unlockInput');
 					return;
 				});
 			}
@@ -196,7 +196,7 @@ define(
 					mediator.emit('window:title', host.settings.title);
 
 					// Unlock input
-					mediator.emit('console:unlockinput');
+					mediator.emit('console:unlockInput');
 
 					done();
 
@@ -225,7 +225,7 @@ define(
 					mediator.emit('console:error', templates.messages.socket_error);
 
 					// Unlock input
-					mediator.emit('console:unlockinput');
+					mediator.emit('console:unlockInput');
 				});
 
 			return;
