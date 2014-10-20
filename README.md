@@ -1,6 +1,6 @@
 ![cryptalk](/docs/screenshot.png)
 
-Cyptalk is a HTML5/Node.js based encrypted instant chat
+Cyptalk is a HTML5/Node.js based, client side (E2EE) encrypted instant chat
 
 Features
 ========
@@ -14,6 +14,12 @@ Features
   * Notification sounds (mutable)
   * Native popup notifications
   * Configurable page title
+  * Heroku support
+
+Heroku setup 
+========
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/hexagon/cryptalk)
 
 
 Regular setup
@@ -35,6 +41,7 @@ cryptalk
 Browse to ```http://localhost:8080```
 
 Done!
+
 
 Developer setup
 ========
