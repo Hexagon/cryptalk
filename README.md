@@ -10,7 +10,7 @@ Features
   * Client side AES-256-CBC encryption/decryption (the server is just a messenger)
   * 256 bit key derived from your passphrase using PBKDF2
   * Optional nicknames
-  * Random (UUID v4) channel name generation för less guessability
+  * Random (UUID v4) channel name generation for less guessability
   * Quick-links (not recommended) using http://server/#Room:Passphrase
   * Super simple setup
   * Notification sounds (mutable)
