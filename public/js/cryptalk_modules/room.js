@@ -62,7 +62,7 @@ define({
 
 		count = function() {
 			if (room) {
-				mediator.emit('socket:emit', 'room:count');
+				mediator.emit('socket:emit', {data: 'room:count'});
 			} else {
 				mediator.emit('console:error', templates.messages.not_in_room);
 			}
