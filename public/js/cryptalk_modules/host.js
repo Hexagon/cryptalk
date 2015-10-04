@@ -58,7 +58,7 @@ define(
 						});
 
 						if (--left === 0) {
-							mediator.emit('info', strhosts);
+							mediator.emit('console:info', strhosts);
 							done();
 						}
 					};
