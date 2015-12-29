@@ -1,7 +1,10 @@
 ![cryptalk](/docs/screenshot.png)
 
 ![Build](https://travis-ci.org/Hexagon/cryptalk.svg)
+[![npm version](https://badge.fury.io/js/cryptalk.svg)](https://badge.fury.io/js/cryptalk)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 
+Latest release is 1.0.0, available at npm using ```npm install telldus```
 Cyptalk is a HTML5/Node.js based, client side (E2EE) encrypted instant chat
 
 Features
