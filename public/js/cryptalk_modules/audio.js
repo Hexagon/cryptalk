@@ -41,8 +41,8 @@ define(['queue','castrato','templates'], function (queue,mediator,templates) {
 			o.connect(g);
 			g.gain.value = 0.25;
 			g.connect(ac.destination);
-			queue.add_function_delayed(start,function() { o.noteOn && o.noteOn(0) || o.start(0); });
-			queue.add_function_delayed(start+duration,function() { o.noteOff && o.noteOff(0) || o.stop(0); });
+			queue.add_function_delayed(start,function() { o.noteOn ? o.noteOn(0) : o.start(0); });
+			queue.add_function_delayed(start+duration,function() { o.noteOff ? o.noteOff(0) : o.stop(0); });
  
 			// Iterate, or start playing
 			i++;
