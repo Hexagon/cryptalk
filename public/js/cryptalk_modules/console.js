@@ -2,6 +2,7 @@
 
 	Accepts:
 		mediator.on('console:clear', clear);
+		mediator.on('console:torch', ttl)
 		mediator.on('console:motd', motd);
 		mediator.on('console:info', info);
 		mediator.on('console:error', error);
@@ -42,10 +43,12 @@ define({
 		commands = {
 			post: function (type, text, nick) {
 				var tpl = templates.post[type],
+					uniqueId = 'msg_' + new Date().getTime() + '_' + Math.round(Math.random()*1000000),
 					post,
 					data = fandango.merge({}, settings, {
 						nick: nick,
-						timestamp: new Date().toLocaleTimeString()
+						timestamp: new Date().toLocaleTimeString(),
+						id: uniqueId
 					});
 
 				data.text = $.template(text, data);
@@ -54,8 +57,25 @@ define({
 				// Request a notification
 				commands.showNotification(type, nick, text);
 
+				// Expire message
+				setTimeout(function() {
+					var parent = components.chat.first(),
+						child = $('#'+uniqueId).first();
+					parent.removeChild(child);
+				}, settings.ttl);
+
 				// Append the post to the chat DOM element
 				components.chat.append(post);
+			},
+
+			torch: function (ttl) {
+				var ttl = parseInt(ttl);
+				if( ttl > 0 && ttl < 3600) {
+					mediator.emit('console:info', $.template(templates.messages.torch_is_now, { ttl: ttl }) );
+					settings.ttl = ttl*1000;
+				} else {
+					mediator.emit('console:error', $.template(templates.messages.torch_not_set) );
+				}
 			},
 
 			param: function (p) {

@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 var express = require('express.io'),
-
     app = express();app.http().io();
 
 app.use(express.static(__dirname + '/public'));

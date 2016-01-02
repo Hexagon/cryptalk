@@ -4,7 +4,8 @@
 		mediator.on('command:help', ...);
 		mediator.on('command:nick', ...);
 		mediator.on('command:key', ...);
-		mediator.on('command:clear', ...);
+		mediator.on('command:key', ...);
+		mediator.on('command:torch', ...);
 		mediator.on('command:title', ...);
 
 	Emits:
@@ -58,6 +59,8 @@ define(
 
 		clear = function () { mediator.emit('console:clear'); },
 
+		setTorch = function (payload) { mediator.emit('console:torch',payload); },
+
 		nick = function (payload) {
 
 			// Make sure the nick meets the length requirements
@@ -87,6 +90,7 @@ define(
 	mediator.on('command:clear', clear);
 	mediator.on('command:nick', nick);
 	mediator.on('command:key', setKey);
+	mediator.on('command:torch', setTorch);
 	mediator.on('command:title', title);
 	
 });

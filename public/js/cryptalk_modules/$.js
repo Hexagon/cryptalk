@@ -152,8 +152,11 @@ define(['fandango', 'websocket', 'aes', 'SHA1'], function (fandango, websocket, 
 		for (var i = 0, len = this.length; i < len; i++) {
 			this[0].innerHTML += string;
 		}
-
 		return this;
+	};
+
+	proto.first = function () {
+		return this[0];
 	};
 
 	// Naive implementations of .on()

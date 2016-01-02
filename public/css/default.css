@@ -26,9 +26,8 @@ body, html {
 
 .good 		{ color: #99FF99; }
 .bad 		{ color: #ff7777; }
-.info 		{ color:#99FFFF; }
+.info 		{ color: #99FFFF; }
 .neutral	{ color: #eeeeee; }
-
 
 /*------------------------------------*\
 	CHAT
@@ -47,7 +46,11 @@ body, html {
 #chat li {
 	white-space: pre;
 	padding: 2px 15px;
-	color: #343434;
+	color: #606006;
+}
+
+#chat li .timestamp {
+	color: #808008;
 }
 
 /* Message types */
