@@ -8,7 +8,7 @@ define({
 	hosts: [
 		{
 			name: 'default',
-			host: 'localhost:8080',
+			host: '',
 			path: '/js/cryptalk_modules/settings.js'
 		}/*,
 		{
