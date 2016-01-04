@@ -27,7 +27,7 @@ define({
 	},
 
 	key: {
-		maxLen: Infinity,
+		maxLen: 1024,
 		minLen: 8,	
 	},
 

@@ -81,27 +81,34 @@ Usage
 Available commands:
 
 Client:                                                    			
-	/key		StrongPassphrase	Sets encryption key                
-	/nick		NickName			Sets an optional nick         
-	/mute  							Audio on
-	/unmute  						Audio off	
-	/clear							Clear on-screen buffer   
-	/help							This                                      
-	/title							Set your local page title				
-                                                                       
-Room:                                                    	     
-	/join		RoomId				Join a room	         
-	/leave							Leave the room          
-	/count							Count participants 
-                                                                       
+	/key		StrongPassphrase	Sets encryption key                 
+	/nick		NickName		Sets an optional nick                   
+	/mute  					Audio on									
+	/unmute  				Audio off									
+	/clear					Clear on-screen buffer                      
+	/help					This                                        
+	/title					Set your local page title					
+	/torch		AfterSeconds		Console messages are torched  		
+						after this amount of seconds 					
+						(default 600).									
+
+Room:                                                    				
+	/join		RoomId			Join a room	                            
+	/leave					Leave the room                              
+	/count					Count participants                          
+
 Host:  		                                                    	
-	/hosts							List available hosts   
-	/connect	HostIndex			Connect to selected host    
-	/disconnect						Disconnect from host         
-                                                                       
+	/hosts					List available hosts                   		
+	/connect	HostIndex		Connect to selected host               	
+	/disconnect				Disconnect from host    			        
+
 You can select any of the five last commands/messages with up/down key.
-                                                                       
-Due to security reasons, /key command is not saved, and command        
-history is  automatically cleared after one minute of inactivity.      
+
+Due to security reasons, /key command is not saved, and command         
+history is  automatically cleared after one minute of inactivity.       
+
+It is highly recommended to use incognito mode while chatting, 
+to prevent browsers from keeping history or cache.            
+
 
 ```

@@ -1,6 +1,6 @@
 {
   "name" : "cryptalk",
-  "version" : "1.1.1",
+  "version" : "1.1.2",
   "description" : "Encrypted HTML5/Node.JS instant chat",
   "main" : "server.js",
   "subdomain": "cryptalk",
