@@ -1,89 +1,88 @@
 #!/usr/bin/env node
+var express = require('express'),
+    app = express(),
+    server = require('http').createServer(app),
+    io = require('socket.io')(server),
+    port = process.env.PORT || 8080;
 
-var express = require('express.io'),
-    app = express();app.http().io();
-
-app.use(express.static(__dirname + '/public'));
-
-app.io.route('room', {
-    join: function(req) {
-      if( req.data ) {
-        req.socket.emit('room:joined',req.data);
-        req.socket.join(req.data);
-        req.socket.broadcast.to(req.data).emit('message:server', {msg:'person_joined'} );
-        req.socket.current_room = req.data;
-      } else {
-        req.socket.emit('message:server', {msg:'command_failed'} );
-      }
-    },
-    leave: function(req) {
-      if( req.data ) {
-        req.socket.emit('room:left');
-        req.socket.leave(req.data);
-        req.socket.broadcast.to(req.data).emit('message:server', {msg:'person_left'} );
-        req.socket.current_room = undefined;
-      } else {
-        req.socket.emit('message:server', {msg:'command_failed'} );
-      }
-    },
-    count: function(req) {
-      if( req.socket.current_room !== undefined ) {
-        // This will fail on socket.io >= 1.0
-        var client_count = app.io.sockets.clients(req.socket.current_room).length;
-        req.socket.emit('message:server', {msg:'person_count', payload: client_count } );
-      } else {
-        req.socket.emit('message:server', {msg:'command_failed'} );
-      }
-    }
+server.listen(port, function(){
+  console.log('listening on *:'+port);
 });
 
-app.io.route('message', {
-    send: function(req) {
+// Serve /public/* as /
+app.use(express.static(__dirname + '/public'));
 
-      // Check that the user is in a room
-      if(req.data && req.data.room) {
+io.on('connection', function(socket) {
 
-        // Check that the message size is within bounds
-        var total_msg_size = (req.data.msg) ? req.data.msg.length : 0 + (req.data.nick) ? req.data.nick.length : 0;
-        if( total_msg_size <= 4096) {
+  socket.on('room:join', function(req) {
+      if( req ) {
+        socket.emit('room:joined',req);
+        socket.join(req);
+        socket.broadcast.to(req).emit('message:server', {msg:'person_joined'} );
+        socket.current_room = req;
+      } else {
+        socket.emit('message:server', {msg:'command_failed'} );
+      }
+  });
 
-          // Check that at least 100ms has passed since last message
-          if( req.socket.last_message === undefined || new Date().getTime() - req.socket.last_message > 100 ) {
+  socket.on('room:leave', function(req) {
+        if( req ) {
+          socket.emit('room:left');
+          socket.leave(req);
+          socket.broadcast.to(req).emit('message:server', {msg:'person_left'} );
+          socket.current_room = undefined;
+        } else {
+          socket.emit('message:server', {msg:'command_failed'} );
+        }
+  });
 
-            req.socket.broadcast.to(req.data.room).emit('message:send', { msg: req.data.msg, nick: req.data.nick} );
-            req.socket.emit('message:send', { msg: req.data.msg, nick: req.data.nick} );
+  socket.on('room:count', function (req) {
+        if( socket.current_room !== undefined ) {
+          var clientsList = io.sockets.adapter.rooms[socket.current_room];
+          socket.emit('message:server', {msg:'person_count', payload: Object.keys(clientsList).length } );
+        } else {
+          socket.emit('message:server', {msg:'command_failed'} );
+        }
+  });
 
-            req.socket.last_message = new Date().getTime();
+  socket.on('message:send', function(req) {
+
+        // Check that the user is in a room
+        if(req && req.room) {
+
+          // Check that the message size is within bounds
+          var total_msg_size = (req.msg) ? req.msg.length : 0 + (req.nick) ? req.nick.length : 0;
+          if( total_msg_size <= 4096) {
+
+            // Check that at least 100ms has passed since last message
+            if( socket.last_message === undefined || new Date().getTime() - socket.last_message > 100 ) {
+
+              socket.broadcast.to(req.room).emit('message:send', { msg: req.msg, nick: req.nick} );
+              socket.emit('message:send', { msg: req.msg, nick: req.nick} );
+
+              socket.last_message = new Date().getTime();
+
+            } else {
+
+              // Do not complain if message rate is too fast, that would only generate more traffic
+
+            }
 
           } else {
 
-            // Do not complain if message rate is too fast, that would only generate more traffic
-
+            // Message size is out of bounds, complain
+            socket.emit('message:server', {msg:'command_failed'} );
           }
 
-        } else {
+        } 
 
-          // Message size is out of bounds, complain
-          req.socket.emit('message:server', {msg:'command_failed'} );
-        }
+  });
 
-      } 
-
+ socket.on('disconnect', function() {
+    // Notify other users of the room
+    if( socket.current_room !== undefined ) {
+      socket.broadcast.to(socket.current_room).emit('message:server', {msg:'person_left'} );
     }
+  });
 
-});
-
-app.io.sockets.on('connection', function(socket) {
-   socket.on('disconnect', function() {
-      // Notify other users of the room
-      if( socket.current_room !== undefined ) {
-        socket.broadcast.to(socket.current_room).emit('message:server', {msg:'person_left'} );
-      }
-   });
-});
-
-var port = process.env.PORT || 8080;
-
-app.listen(port, function(){
-  console.log('listening on *:'+port);
 });

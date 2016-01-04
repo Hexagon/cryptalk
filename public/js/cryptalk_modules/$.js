@@ -1,4 +1,5 @@
 define(['fandango', 'websocket', 'aes', 'SHA1'], function (fandango, websocket, aes, SHA1) {
+
 	var exports = {
 			selector: 0,
 			utilities: {},
@@ -56,10 +57,7 @@ define(['fandango', 'websocket', 'aes', 'SHA1'], function (fandango, websocket, 
 	};
 
 	// Namespace websocket
-	utils.Websocket = {
-		connect: websocket.connect,
-		on: websocket.on
-	};
+	utils.io = websocket;
 
 	utils.ssplit = function (string, seperator) {
 		var components = string.split(seperator);
@@ -144,14 +142,13 @@ define(['fandango', 'websocket', 'aes', 'SHA1'], function (fandango, websocket, 
 		each(this, function (element) {
 			element.innerHTML = string;
 		});
-
 		return this;
 	};
 
 	proto.append = function (string) {
-		for (var i = 0, len = this.length; i < len; i++) {
-			this[0].innerHTML += string;
-		}
+		each(this, function (element) {
+			element.innerHTML += string;
+		});
 		return this;
 	};
 
@@ -161,20 +158,21 @@ define(['fandango', 'websocket', 'aes', 'SHA1'], function (fandango, websocket, 
 
 	// Naive implementations of .on()
 	proto.on = function (eventName, callback) {
-		for (var i = 0, len = this.length; i < len; i++) {
-			if (this[0].addEventListener) {
-				this[0].addEventListener(eventName, callback, false);
-			} else if (this[0].attachEvent) {
-				this[0].attachEvent('on' + eventName, callback);
+		each(this, function (element) {
+			if (element.addEventListener) {
+				element.addEventListener(eventName, callback, false);
+			} else if (element.attachEvent) {
+				element.attachEvent('on' + eventName, callback);
 			}
-		}
-
+		});
 		return this;
 	};
 
 	proto.focus = function () {
-		this[0].focus();
-
+		// It doesn't make sense to focus all matched elements. So we settle for the first one
+		if(this[0]) {
+			this[0].focus();
+		}
 		return this;
 	};
 

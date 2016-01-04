@@ -12,7 +12,7 @@
 
 */
 define(['castrato'],function (mediator){
- 
+
 	var exports = {},
 
 		focusCallback = function() {
@@ -26,6 +26,7 @@ define(['castrato'],function (mediator){
 	exports.setTitle = function(t) 	{ document.title = t; },
 	exports.getTitle = function() 	{ return document.title; };
  
+
 	// Keep track of document focus/blur
 	if (window.addEventListener){
 		// Normal browsers

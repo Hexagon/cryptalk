@@ -116,7 +116,7 @@ define(
 			} else if (fandango.is(toHost, 'untyped')) {
 				settings = toHost.settings;
 			} else { // Assume string
-				request = toHost;
+				request = toHost.settings;
 			}
 
 			if (request) {
@@ -137,7 +137,7 @@ define(
 			mediator.emit('console:motd', host.settings.motd);
 
 			// The one  and only socket
-			socket = $.Websocket.connect(host.host, {
+			socket = $.io(host.host, {
 				forceNew: true,
 				'force new connection': true
 			});
@@ -187,6 +187,7 @@ define(
 				})
 
 				.on('connect', function () {
+
 					// Tell the user that the chat is ready to interact with
 					mediator.emit('console:info', $.template(templates.messages.connected, {
 						host: host.name || 'localhost'
@@ -204,6 +205,7 @@ define(
 				})
 
 				.on('disconnect', function () {
+
 					room = 0;
 					key = 0;
 					host.connected = 0;
@@ -218,7 +220,8 @@ define(
 					mediator.emit('window:title',templates.client.title);
 				})
 
-				.on('error', function () {
+				.on('connect_error', function () {
+
 					room = 0;
 					key = 0;
 					host.connected = 0;
