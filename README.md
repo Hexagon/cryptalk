@@ -82,25 +82,25 @@ Available commands:
 
 Client:                                                    			
 	/key		StrongPassphrase	Sets encryption key                 
-	/nick		NickName		Sets an optional nick                   
-	/mute  					Audio on									
-	/unmute  				Audio off									
-	/clear					Clear on-screen buffer                      
-	/help					This                                        
-	/title					Set your local page title					
+	/nick		NickName			Sets an optional nick                   
+	/mute  							Audio on									
+	/unmute  						Audio off									
+	/clear							Clear on-screen buffer                      
+	/help							This                                        
+	/title							Set your local page title					
 	/torch		AfterSeconds		Console messages are torched  		
-						after this amount of seconds 					
-						(default 600).									
+									after this amount of seconds 					
+									(default 600).									
 
 Room:                                                    				
-	/join		RoomId			Join a room	                            
-	/leave					Leave the room                              
-	/count					Count participants                          
+	/join		RoomId				Join a room	                            
+	/leave							Leave the room                              
+	/count							Count participants                          
 
 Host:  		                                                    	
-	/hosts					List available hosts                   		
-	/connect	HostIndex		Connect to selected host               	
-	/disconnect				Disconnect from host    			        
+	/hosts							List available hosts                   		
+	/connect	HostIndex			Connect to selected host               	
+	/disconnect						Disconnect from host    			        
 
 You can select any of the five last commands/messages with up/down key.
 
