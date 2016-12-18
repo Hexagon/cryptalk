@@ -50,6 +50,26 @@ Browse to ```http://localhost:8080```
 Done!
 
 
+Docker setup
+========
+
+Clone this repo, enter the new directory.
+
+Build image
+```bash
+docker build . --tag="hexagon/cryptalk"
+```
+
+Run container, enable start on boot, expose to port 80 at host
+```bash
+sudo docker run -d --restart=always -p 80:8080 hexagon/cryptalk
+```
+
+Browse to ```http://<ip-of-server>:1443/```
+
+Done!
+
+
 Developer setup
 ========
 
@@ -72,6 +92,7 @@ node server.js
 ```
 
 Browse to ```http://localhost:8080```
+
 
 Usage
 ========
