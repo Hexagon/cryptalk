@@ -4,5 +4,5 @@ WORKDIR /usr/src/app
 COPY . /usr/src/app
 RUN npm install
 EXPOSE 8080
-ENTRYPOINT [ "docker-entrypoint.sh" ]
+ENTRYPOINT [ "/usr/src/app/docker-entrypoint.sh" ]
 CMD [ "npm", "start"]
