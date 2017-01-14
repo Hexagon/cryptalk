@@ -54,6 +54,16 @@ Done!
 Docker setup
 ========
 
+To run latest cryptalk with docker, exposed on host port 80, simply run the following command to pull it from docker hub
+
+```bash
+sudo docker run -d --restart=always -p 80:8080 hexagon/cryptalk
+```
+
+
+Docker setup (manual)
+========
+
 Clone this repo, enter the new directory.
 
 Build image
@@ -66,7 +76,7 @@ Run container, enable start on boot, expose to port 80 at host
 sudo docker run -d --restart=always -p 80:8080 hexagon/cryptalk
 ```
 
-Browse to ```http://<ip-of-server>:1443/```
+Browse to ```http://<ip-of-server>/```
 
 Done!
 
