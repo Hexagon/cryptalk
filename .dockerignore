@@ -1,8 +1,6 @@
 # Node.js/npm stuff
 node_modules
 npm-debug.log
-npm-shrinkwrap.json
-package.json
 
 # Cryptalk documentation
 docs
