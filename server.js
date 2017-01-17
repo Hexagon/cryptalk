@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const
   static = require('node-static'),
   port = process.env.PORT || 8080,
@@ -13,8 +14,8 @@ var
 file = new static.Server(path.resolve(__dirname, 'public'));
 
 // Create http server, handle static assets
-server = require('http').createServer(function (req) {
-    req.addListener('end', file.serve).resume();
+server = require('http').createServer(function (req, res) {
+    req.addListener('end', function () { file.serve(req, res); }).resume();
 });
 
 // Append socket.io to http server
