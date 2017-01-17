@@ -1,0 +1,10 @@
+# Docker stuff
+.dockerignore
+Dockerfile
+docker-entrypoint.sh
+
+# Heroku stuff
+app.json
+
+# GitHub documentation
+docs/

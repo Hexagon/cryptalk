@@ -13,24 +13,56 @@ Features
 
   * Client side AES-256-CBC encryption/decryption (the server is just a messenger)
   * 256 bit key derived from your passphrase using PBKDF2
-  * Message is torched after a configurable delay, default is 600s.
-  * Optional nicknames
-  * Quick-links (not recommended!) using http://server/#Room:Passphrase
-  * Super simple setup
+  * Messages torched after a configurable delay, default is 600s.
+  * Simple setup using npm, Docker or Heroku
   * Notification sounds (mutable)
   * Native popup notifications
   * Configurable page title
-  * Heroku support
+  * Nicknames, optional.
+  * Quick-links using http://server/#Room:Passphrase, optional and insecure
 
+
+Docker setup
+========
+
+To run latest cryptalk with docker, exposed on host port 80, simply run the following command to pull it from docker hub
+
+```bash
+sudo docker run -d --restart=always -p 80:8080 hexagon/cryptalk
+```
 
 
 Heroku setup 
 ========
 
+Click the button below
+
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/hexagon/cryptalk)
 
 
-Regular setup
+
+Docker setup without using docker hub
+========
+
+Clone this repo, enter the new directory.
+
+Build image
+```bash
+docker build . --tag="hexagon/cryptalk"
+```
+
+Run container, enable start on boot, expose to port 80 at host
+```bash
+sudo docker run -d --restart=always -p 80:8080 hexagon/cryptalk
+```
+
+Browse to ```http://<ip-of-server>/```
+
+Done!
+
+
+
+npm setup
 ========
 
 Install node.js, exact procedure is dependant on platform and distribution.
@@ -50,35 +82,6 @@ Browse to ```http://localhost:8080```
 
 Done!
 
-
-Docker setup
-========
-
-To run latest cryptalk with docker, exposed on host port 80, simply run the following command to pull it from docker hub
-
-```bash
-sudo docker run -d --restart=always -p 80:8080 hexagon/cryptalk
-```
-
-
-Docker setup (manual)
-========
-
-Clone this repo, enter the new directory.
-
-Build image
-```bash
-docker build . --tag="hexagon/cryptalk"
-```
-
-Run container, enable start on boot, expose to port 80 at host
-```bash
-sudo docker run -d --restart=always -p 80:8080 hexagon/cryptalk
-```
-
-Browse to ```http://<ip-of-server>/```
-
-Done!
 
 
 Developer setup
