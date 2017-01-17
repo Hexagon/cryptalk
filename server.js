@@ -1,16 +1,29 @@
 #!/usr/bin/env node
-var express = require('express'),
-    app = express(),
-    server = require('http').createServer(app),
-    io = require('socket.io')(server),
-    port = process.env.PORT || 8080;
+const
+  static = require('node-static'),
+  port = process.env.PORT || 8080,
+  path = require('path');
 
+var
+  file,
+  server,
+  io;
+
+// Set up static file location
+file = new static.Server(path.resolve(__dirname, 'public'));
+
+// Create http server, handle static assets
+server = require('http').createServer(function (req) {
+    req.addListener('end', file.serve).resume();
+});
+
+// Append socket.io to http server
+io = require('socket.io')(server),
+
+// Listen to port env:PORT or 8080
 server.listen(port, function(){
   console.log('listening on *:'+port);
 });
-
-// Serve /public/* as /
-app.use(express.static(__dirname + '/public'));
 
 io.on('connection', function(socket) {
 
