@@ -27,3 +27,6 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 docs/Thumbs.db
+
+# Vim temp files
+*.swp
