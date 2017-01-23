@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const
-  static = require('node-static'),
+  files = require('node-static'),
   port = process.env.PORT || 8080,
   path = require('path');
 
@@ -10,10 +10,10 @@ var
   server,
   io;
 
-// Set up static file location
-file = new static.Server(path.resolve(__dirname, 'public'));
+// Set up files.file location
+file = new files.Server(path.resolve(__dirname, 'public'));
 
-// Create http server, handle static assets
+// Create http server, handle files.assets
 server = require('http').createServer(function (req, res) {
     req.addListener('end', function () { file.serve(req, res); }).resume();
 });
