@@ -12,17 +12,9 @@
 
 */
 
-define({
-	compiles: ['$'],
-	requires: ['castrato','settings','templates']
-}, function ($, requires) { 
+define(['$', 'castrato', 'settings', 'templates'], function ($, mediator, settings, templates) { 
 	var // Private properties
 		room = false,
-
-		// Require shortcuts
-		mediator = requires.castrato,
-		settings = requires.settings,
-		templates = requires.templates,
 
 		join = function(payload) {
 			if (room !== false) {

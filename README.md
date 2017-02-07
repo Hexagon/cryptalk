@@ -108,6 +108,28 @@ node server.js
 Browse to ```http://localhost:8080```
 
 
+To work on the JavaScript, update public/index.html to use js/lib/main.js instead of js/cryptalk.min.js
+
+
+To update the bundled and minified client JavaScript, install require.js
+
+```
+npm install require.js -g
+```
+
+... and run this in the project root directory
+
+```
+r.js -o requirejs.build.js
+```
+
+(or in windows)
+
+```
+r.js.cmd -o requirejs.build.js
+```
+
+
 Usage
 ========
 

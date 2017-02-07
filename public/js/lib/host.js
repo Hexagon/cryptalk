@@ -10,24 +10,13 @@
 	Emits:
 		mediator.on('socket:emit', emit); 
 */
-define(
-	{
-		compiles: ['$'],
-		requires: ['fandango','castrato','settings','templates','hosts','window']
-	}, function ($, requires, data) { 
+define(['$', 'castrato','settings','templates','hosts','window'], function ($, mediator, settings, templates, hostconfig, window) { 
 
 	var 
 
 		// Private properties
 		socket,
 		host,
-
-		// Require shortcuts
-		fandango = requires.fandango,
-		mediator = requires.castrato,
-		settings = requires.settings,
-		templates = requires.templates,
-		hostconfig = requires.hosts,
 
 		// Collection of parameters
 		parameters = {},
@@ -113,7 +102,7 @@ define(
 					return;
 				}
 
-			} else if (fandango.is(toHost, 'untyped')) {
+			} else if (!toHost) {
 				settings = toHost.settings;
 			} else { // Assume string
 				request = toHost.settings;
@@ -253,7 +242,7 @@ define(
 		},
 
 		param = function (p) {
-			parameters = fandango.merge({}, parameters, p );
+			parameters = Object.assign({}, parameters, p );
 		};
 	
 	mediator.on('command:host', host);

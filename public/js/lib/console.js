@@ -17,19 +17,9 @@
 		mediator.emit('audio:play',...);
 		ToDo
 */
-define({
-	compiles: ['$'],
-	requires: ['castrato', 'fandango', 'settings', 'templates', 'sounds', 'room', 'notifications', 'audio']
-}, function ($, requires, data) {
+define(['$', 'castrato', 'settings', 'templates', 'sounds', 'room', 'notifications', 'audio'], function ($, mediator, settings, templates, sounds) {
 
-	var // Require shortcuts
-		fandango = requires.fandango,
-		mediator = requires.castrato,
-		settings = requires.settings,
-		templates = requires.templates,
-		sounds = requires.sounds,
-
-		// Collection of DOM components
+	var // Collection of DOM components
 		components = {
 			chat: 	$('#chat'),
 			input: 	$('#input'),
@@ -45,7 +35,7 @@ define({
 				var tpl = templates.post[type],
 					uniqueId = 'msg_' + new Date().getTime() + '_' + Math.round(Math.random()*1000000),
 					post,
-					data = fandango.merge({}, settings, {
+					data = Object.assign({}, settings, {
 						nick: nick,
 						timestamp: new Date().toLocaleTimeString(),
 						id: uniqueId
@@ -79,7 +69,7 @@ define({
 			},
 
 			param: function (p) {
-				parameters = fandango.merge({}, parameters, p);
+				parameters = Object.assign({}, parameters, p);
 			},
 
 			showNotification: function (type, nick, text) {
@@ -120,15 +110,11 @@ define({
 			},
 
 			clearInput: function () {  
-				fandango.subordinate(function () {
-					components.input[0].value = '';
-				});
+				components.input[0].value = '';
 			},
 
 			clear: function () { 
-				fandango.subordinate(function () {
-					components.chat[0].innerHTML = '';
-				});
+				components.chat[0].innerHTML = '';
 			},
 
 			lockInput: function () {

@@ -17,22 +17,13 @@
 
 
 */
-define(
-	{
-		compiles: ['$'],
-		requires: ['castrato','settings','templates']
-	}, function ($, requires, data) { 
+define(['$','castrato','settings','templates'], function ($, mediator, settings, templates) { 
 
 	var 
 		// Private properties
 		nick,
 		key,
-
-		// Require shortcuts
-		mediator = requires.castrato,
-		settings = requires.settings,
-		templates = requires.templates,
-
+		
 		setKey = function(payload) {
 			/*if (!host) {
 				return post('error', templates.messages.key_no_host);

@@ -9,7 +9,7 @@ define({
 		{
 			name: 'default',
 			host: '',
-			path: '/js/cryptalk_modules/settings.js'
+			path: '/js/lib/settings.js'
 		}/*,
 		{
 			name: 'Example',
