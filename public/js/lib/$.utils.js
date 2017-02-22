@@ -30,7 +30,7 @@ define(['websocket','crypto-js/aes', 'crypto-js/sha1', 'crypto-js/enc-utf8'],fun
 	};
 
 	exports.activeElement = function () {
-		try { return document.activeElement; } catch (e) {}
+		try { return document.activeElement; } catch (e) { return; }
 	};
 
 	/**
@@ -60,7 +60,7 @@ define(['websocket','crypto-js/aes', 'crypto-js/sha1', 'crypto-js/enc-utf8'],fun
 	};
 
 	exports.getJSON = function (path, onSuccess, onError) {
-		var data, request = new XMLHttpRequest();
+		var request = new XMLHttpRequest();
 		request.open('GET', path, true);
 
 		request.onreadystatechange = function() {
@@ -91,7 +91,7 @@ define(['websocket','crypto-js/aes', 'crypto-js/sha1', 'crypto-js/enc-utf8'],fun
 				'<': '&lt;',
 				'>': '&gt;',
 				'"': '&quot;',
-				"'": '&#39;',
+				'\'': '&#39;',
 				'/': '&#x2F;'
 			};
 

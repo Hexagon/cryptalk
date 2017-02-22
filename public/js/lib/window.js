@@ -30,12 +30,12 @@ define(['castrato'],function (mediator){
 	// Keep track of document focus/blur
 	if (window.addEventListener){
 		// Normal browsers
-		window.addEventListener("focus", focusCallback, true);
-		window.addEventListener("blur", blurCallback, true);
+		window.addEventListener('focus', focusCallback, true);
+		window.addEventListener('blur', blurCallback, true);
 	} else {
 		// IE
-		window.observe("focusin", focusCallback);
-		window.observe("focusout", blurCallback);
+		window.observe('focusin', focusCallback);
+		window.observe('focusout', blurCallback);
 	}
 
 	mediator.on('window:title',exports.setTitle);

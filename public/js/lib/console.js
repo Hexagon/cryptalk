@@ -59,7 +59,7 @@ define(['$', 'castrato', 'settings', 'templates', 'sounds', 'room', 'notificatio
 			},
 
 			torch: function (ttl) {
-				var ttl = parseInt(ttl);
+				ttl = parseInt(ttl);
 				if( ttl > 0 && ttl < 3600) {
 					mediator.emit('console:info', $.template(templates.messages.torch_is_now, { ttl: ttl }) );
 					settings.ttl = ttl*1000;
@@ -73,8 +73,8 @@ define(['$', 'castrato', 'settings', 'templates', 'sounds', 'room', 'notificatio
 			},
 
 			showNotification: function (type, nick, text) {
-				var title = type !== 'message' ? 'Cryptalk' : nick,
-					icon = type === 'message'? 'gfx/icon_128x128.png' : (type == 'error' ? 'gfx/icon_128x128_error.png' : 'gfx/icon_128x128_info.png');
+				var title = (type !== 'message' ? 'Cryptalk' : nick),
+					icon = (type === 'message' ? 'gfx/icon_128x128.png' : (type === 'error' ? 'gfx/icon_128x128_error.png' : 'gfx/icon_128x128_info.png'));
 
 				// Emit notification
 				mediator.emit('notification:send', { 
@@ -148,8 +148,7 @@ define(['$', 'castrato', 'settings', 'templates', 'sounds', 'room', 'notificatio
 			var buffer,
 				parts,
 				payload,
-				command,
-				save;
+				command;
 
 			// The Document object is bound to this element.
 			// If the active element is not the input, focus on it and exit the function.

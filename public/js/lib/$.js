@@ -1,9 +1,9 @@
 define(['$.utils', '$.proto'], function (utils, proto) {
 
 	// Create a custom edition of Array, extended with  $.proto
-	function ElementArray () {};
+	function ElementArray () {}
 	ElementArray.prototype = new Array;
-	for(var key in proto) ElementArray.prototype[key] = proto[key];
+	for(var k in proto) ElementArray.prototype[k] = proto[k];
 
 	// Create to actual dollar function
 	function Dollar (selector) {
@@ -30,7 +30,7 @@ define(['$.utils', '$.proto'], function (utils, proto) {
 	}
 
 	// Add utils to Dollar
-	for(var key in utils) Dollar[key] = utils[key];
+	for(var l in utils) Dollar[l] = utils[l];
 
 	return Dollar;
 

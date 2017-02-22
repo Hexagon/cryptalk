@@ -1,5 +1,5 @@
 // Main cryptalk module
-define(['castrato','host','client','console'], function (mediator, host, client) {
+define(['castrato','host','client','console'], function (mediator) {
 
 	// Route mediator messages
 	mediator

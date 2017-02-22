@@ -10,7 +10,7 @@
 	Emits:
 		mediator.on('socket:emit', emit); 
 */
-define(['$', 'castrato','settings','templates','hosts','window'], function ($, mediator, settings, templates, hostconfig, window) { 
+define(['$', 'castrato','settings','templates','hosts','window'], function ($, mediator, settings, templates, hostconfig) { 
 
 	var 
 
@@ -26,7 +26,7 @@ define(['$', 'castrato','settings','templates','hosts','window'], function ($, m
 			if(socket) socket.emit(payload.data,payload.payload);
 		},
 
-		host = function () {
+		hostInfo = function () {
 			mediator.emit('info', JSON.stringify(host || {}));
 		},
 
@@ -76,10 +76,10 @@ define(['$', 'castrato','settings','templates','hosts','window'], function ($, m
 			mediator.emit('console:lockInput');
 
 			var 
-				request,
+				request;
 
-				// Use hostconfig.autoconnect as default host
-				toHost = (toHost == undefined) ? hostconfig.autoconnect : toHost;
+			// Use hostconfig.autoconnect as default host
+			toHost = (toHost === undefined) ? hostconfig.autoconnect : toHost;
 
 			if (host && host.connected) {
 				mediator.emit('console:error', $.template(templates.messages.already_connected, {
@@ -133,7 +133,7 @@ define(['$', 'castrato','settings','templates','hosts','window'], function ($, m
 
 			// Bind socket events
 			socket
-				.on('room:joined', function (data) {
+				.on('room:joined', function () {
 
 					mediator.emit('console:info', $.template(templates.messages.joined_room, { roomName: $.escapeHtml(parameters.room) } ));
 
@@ -195,8 +195,6 @@ define(['$', 'castrato','settings','templates','hosts','window'], function ($, m
 
 				.on('disconnect', function () {
 
-					room = 0;
-					key = 0;
 					host.connected = 0;
 
 					// Tell the user that the chat is ready to interact with
@@ -211,8 +209,6 @@ define(['$', 'castrato','settings','templates','hosts','window'], function ($, m
 
 				.on('connect_error', function () {
 
-					room = 0;
-					key = 0;
 					host.connected = 0;
 					mediator.emit('console:error', templates.messages.socket_error);
 
@@ -245,11 +241,11 @@ define(['$', 'castrato','settings','templates','hosts','window'], function ($, m
 			parameters = Object.assign({}, parameters, p );
 		};
 	
-	mediator.on('command:host', host);
+	mediator.on('command:host', hostInfo);
 	mediator.on('command:hosts', hosts);
 	mediator.on('command:connect', connect);
 	mediator.on('command:disconnect', disconnect);
-	mediator.on('command:reconnect', disconnect);
+	mediator.on('command:reconnect', reconnect);
 
 	mediator.on('socket:emit', emit);
 	mediator.on('host:param', param);

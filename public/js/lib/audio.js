@@ -30,11 +30,11 @@ define(['queue','castrato','templates'], function (queue,mediator,templates) {
 			}
  
 			// Add tones to execution queue
-			var 	current_tones = tones[i],
-					freqs = current_tones[0],
-					start = current_tones[1],
-					duration = current_tones[2];
- 
+			var current_tones = tones[i],
+				freqs = current_tones[0],
+				start = current_tones[1],
+				duration = current_tones[2];
+
 			var o = ac.createOscillator();
 			var g = ac.createGain();
 			o.frequency.value = freqs;
@@ -73,12 +73,12 @@ define(['queue','castrato','templates'], function (queue,mediator,templates) {
 			mediator.emit('console:info',templates.messages.unmuted);
 		};
  
- 	// Find audio context
+	// Find audio context
 	if (window.AudioContext || window.webkitAudioContext) {
 		ac = new (window.AudioContext || window.webkitAudioContext);
 	}
 
- 	// Connect events
+	// Connect events
 	mediator.on('audio:play', function(tones) {playTones(tones); } );
 	mediator.on('audio:on', on );
 	mediator.on('audio:off', off );

@@ -45,12 +45,11 @@ define(['castrato','window','settings'], function (mediator, win, settings) {
 			if (original_title !== undefined) win.setTitle(original_title);
 			original_title = undefined;
 			new_title = undefined;
-			window_active = true;
 		},
 
 		doBlink = function() {
 			if(enabled) {
-				if( win.getTitle() == original_title )
+				if( win.getTitle() === original_title )
 					win.setTitle( new_title );
 				else
 					win.setTitle( original_title);
@@ -70,7 +69,7 @@ define(['castrato','window','settings'], function (mediator, win, settings) {
 		},
  
 		blinkTitleUntilFocus = function(t,i) {
-			interval = (i == undefined) ? 1000 : i;
+			interval = (i === undefined) ? 1000 : i;
 			if ( enabled && original_title === undefined ) {
 				new_title = t;
 				original_title = win.getTitle();
@@ -86,7 +85,7 @@ define(['castrato','window','settings'], function (mediator, win, settings) {
 				// Set default value for fallback parameter
 				if ( fallback === undefined) fallback = false;
 
-				if ( native_supported && Notification.permission === "granted") {
+				if ( native_supported && Notification.permission === 'granted') {
 
 					// Create notification
 					var n = new Notification(title, {body: body, icon:icon});
@@ -95,17 +94,17 @@ define(['castrato','window','settings'], function (mediator, win, settings) {
 					n.onshow = function () { 
 						// Automatically close the notification after 5000ms
 						setTimeout(function(){n.close();},3000);
-					}
+					};
 
 					last = now();
 
 				} else if ( fallback ) {
-					blinkTitleUntilFocus("Attention",1000);
+					blinkTitleUntilFocus('Attention', 1000);
 
 				}
 			}
 		};
-	 
+
 	native_supported = (window.Notification !== undefined);
 
 	mediator.on('notification:send',function(data) { notify(data.title,data.body,data.icon,true); });
@@ -113,12 +112,12 @@ define(['castrato','window','settings'], function (mediator, win, settings) {
 	mediator.on('notification:off',function() { off(); });
 
 	// Always enable native notifications
- 	enableNative();
+	enableNative();
 
- 	// Start with notifications disabled
- 	off();
+	// Start with notifications disabled
+	off();
 
- 	// If this is undefined, notifications will fail to show
+	// If this is undefined, notifications will fail to show
 	last = now();
 
 	// Make sure we are at square one

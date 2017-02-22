@@ -12,9 +12,9 @@ define({
 			path: '/js/lib/settings.js'
 		}/*,
 		{
-			name: 'Example',
-			host: 'http://www.example.com',
-			path: 'http://www.example.com/js/cryptalk_modules/settings.js'
+			name: 'Official host - cryptalk.56k.guru',
+			host: 'https://cryptalk.56k.guru',
+			path: 'https://cryptalk.56k.guru/js/cryptalk_modules/settings.js'
 		}*/
 	]
 });

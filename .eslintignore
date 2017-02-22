@@ -1,0 +1,3 @@
+public/js/vendor
+public/js/cryptalk.min.js
+requirejs.build.js

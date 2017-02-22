@@ -52,7 +52,7 @@ define(['$','castrato','settings','templates'], function ($, mediator, settings,
 
 		setTorch = function (payload) { mediator.emit('console:torch',payload); },
 
-		nick = function (payload) {
+		setNick = function (payload) {
 
 			// Make sure the nick meets the length requirements
 			if (payload.length > settings.nick.maxLen) {
@@ -65,7 +65,7 @@ define(['$','castrato','settings','templates'], function ($, mediator, settings,
 			nick = payload;
 
 			// Keep other modules informed
-			mediator.emit('nick:changed',nick);
+			mediator.emit('nick:changed', nick);
 
 			// Inform that the nick has been set
 			mediator.emit('console:info', $.template(templates.messages.nick_set, { nick: $.escapeHtml(nick)}));
@@ -79,7 +79,7 @@ define(['$','castrato','settings','templates'], function ($, mediator, settings,
 
 	mediator.on('command:help', help);
 	mediator.on('command:clear', clear);
-	mediator.on('command:nick', nick);
+	mediator.on('command:nick', setNick);
 	mediator.on('command:key', setKey);
 	mediator.on('command:torch', setTorch);
 	mediator.on('command:title', title);
