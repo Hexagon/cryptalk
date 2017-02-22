@@ -17,7 +17,7 @@ html {
 body, html {
 	min-height: 100%;
 	min-width: 600px;
-	background-color: #000000;
+	background-color: #181A1D;
 	overflow: hidden;
 	padding: 0px;
 	margin:0px;
@@ -46,11 +46,11 @@ body, html {
 #chat li {
 	white-space: pre;
 	padding: 2px 15px;
-	color: #606006;
+	color: #808008;
 }
 
 #chat li .timestamp {
-	color: #808008;
+	color: #A0A00A;
 }
 
 /* Message types */
@@ -91,8 +91,10 @@ body, html {
 	padding: 5px 5px 5px 15px;
 
 	color: #FFFFFF;
-	background-color:#141414;
+	background-color:#272A2E;
 	height:30px;
+
+	border-top: 2px solid #153315;
 }
 
 #input { z-index: 1; }

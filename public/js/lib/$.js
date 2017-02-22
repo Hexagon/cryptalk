@@ -1,9 +1,8 @@
 define(['$.utils', '$.proto'], function (utils, proto) {
 
 	// Create a custom edition of Array, extended with  $.proto
-	var ElementArray = function () {};
+	function ElementArray () {};
 	ElementArray.prototype = new Array;
-	ElementArray.constructor = Array;
 	for(var key in proto) ElementArray.prototype[key] = proto[key];
 
 	// Create to actual dollar function
