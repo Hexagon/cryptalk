@@ -146,14 +146,19 @@ define(['$', 'castrato','settings','templates','hosts','window'], function ($, m
 				})
 
 				.on('message:send', function (data) {
-					var decrypted = $.AES.decrypt(data.msg, $.SHA1(parameters.room) + parameters.key),
-						sanitized = $.escapeHtml(decrypted),
-						nick = 		!data.nick ? templates.default_nick : $.escapeHtml($.AES.decrypt(data.nick, $.SHA1(parameters.room) + parameters.key));
-
-					if (!decrypted) {
+					// Do not trust incoming data
+					try {
+						var plain = $.AES.decrypt(data.data, parameters.room + parameters.key),
+							plainObj = JSON.parse(plain),
+							sanitized = $.escapeHtml(plainObj.msg),
+							nick = 		!plainObj.nick ? templates.default_nick : plainObj.nick;
+						if (!plain) {
+							mediator.emit('console:error', templates.messages.unable_to_decrypt);
+						} else {
+							mediator.emit('console:message', { message: sanitized, nick: nick, uuid: data.uuid } );
+						}
+					} catch (e) {
 						mediator.emit('console:error', templates.messages.unable_to_decrypt);
-					} else {
-						mediator.emit('console:message', { message: sanitized, nick: nick } );
 					}
 				})
 

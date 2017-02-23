@@ -106,7 +106,7 @@ define(['$', 'castrato', 'settings', 'templates', 'sounds', 'room', 'notificatio
 			},
 
 			message: function (data) {
-				commands.post('message', data.message, data.nick);
+				commands.post('message', data.message, '[' + data.uuid.substring(0,8) + '] ' + data.nick);
 			},
 
 			clearInput: function () {  
@@ -188,16 +188,22 @@ define(['$', 'castrato', 'settings', 'templates', 'sounds', 'room', 'notificatio
 					return (!parameters.room) ? commands.post('error', templates.messages.msg_no_room) : commands.post('error', templates.messages.msg_no_key);
 				}
 
-				// Before sending the message.
-				// Encrypt message using room UUID as salt and key as pepper.
+				var plainData = {
+						msg: buffer,
+						nick: parameters.nick ? parameters.nick : false
+					},
+
+					encData = $.AES.encrypt(JSON.stringify(plainData), parameters.room + parameters.key).toString(),
+
+					hashRoom = $.SHA1(parameters.room);
+
 				mediator.emit(
 					'socket:emit',
 					{ 
 						data: 'message:send', 
 						payload: {
-							room: $.SHA1(parameters.room),
-							msg: $.AES.encrypt(buffer, $.SHA1(parameters.room) + parameters.key).toString(),
-							nick: parameters.nick ? $.AES.encrypt(parameters.nick, $.SHA1(parameters.room) + parameters.key).toString() : false
+							room: hashRoom,
+							data: encData
 						}
 					}
 				);

@@ -30,6 +30,21 @@ body, html {
 .neutral	{ color: #eeeeee; }
 
 /*------------------------------------*\
+	PARTICIPANTS
+\*------------------------------------*/
+#participants {
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 200px;
+	position: absolute;
+	padding:0;
+	margin:0;
+	background-color: #282A2D;
+}
+
+
+/*------------------------------------*\
 	CHAT
 \*------------------------------------*/
 #chat {
@@ -70,7 +85,7 @@ body, html {
 	INPUT & LOADER
 \*------------------------------------*/
 #input_wrapper {
-	right:0;
+	right:200px;
 	bottom:0;
 	left:0;
 	position: absolute;

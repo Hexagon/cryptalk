@@ -30,7 +30,8 @@
   "bin" : "./server.js",
   "dependencies": {
     "node-static": "~0.7.9",
-    "socket.io": "~1.7.2"
+    "socket.io": "~1.7.2",
+    "uuid": "*"
   },
   "os": [
     "darwin",

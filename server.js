@@ -3,7 +3,8 @@
 const
 	files = require('node-static'),
 	port = process.env.PORT || 8080,
-	path = require('path');
+	path = require('path'),
+	uuid = require('uuid');
 
 var
 	file,
@@ -27,6 +28,8 @@ server.listen(port, function(){
 });
 
 io.on('connection', function(socket) {
+
+	socket.uuid = uuid();
 
 	socket.on('room:join', function(req) {
 		if( req ) {
@@ -65,14 +68,14 @@ io.on('connection', function(socket) {
 		if(req && req.room) {
 
 			// Check that the message size is within bounds
-			var total_msg_size = (req.msg) ? req.msg.length : 0 + (req.nick) ? req.nick.length : 0;
+			var total_msg_size = (req.data) ? req.data.length : 0;
 			if( total_msg_size <= 4096) {
 
 				// Check that at least 100ms has passed since last message
 				if( socket.last_message === undefined || new Date().getTime() - socket.last_message > 100 ) {
 
-					socket.broadcast.to(req.room).emit('message:send', { msg: req.msg, nick: req.nick} );
-					socket.emit('message:send', { msg: req.msg, nick: req.nick} );
+					socket.broadcast.to(req.room).emit('message:send', { data: req.data, uuid: socket.uuid } );
+					socket.emit('message:send', { data: req.data, uuid: socket.uuid } );
 
 					socket.last_message = new Date().getTime();
 
