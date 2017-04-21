@@ -11,6 +11,9 @@ Cyptalk is a HTML5/Node.js based, client side (E2EE) encrypted instant chat
 Features
 ========
 
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f748d8923f0b44d2b2b3d3b42aceae7c)](https://www.codacy.com/app/robinnilsson/cryptalk?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Hexagon/cryptalk&amp;utm_campaign=badger)
+
   * Client side AES-256-CBC encryption/decryption (the server is just a messenger)
   * 256 bit key derived from your passphrase using PBKDF2
   * Messages torched after a configurable delay, default is 600s.
