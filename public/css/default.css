@@ -17,7 +17,7 @@ html {
 body, html {
 	min-height: 100%;
 	min-width: 600px;
-	background-color: #181A1D;
+	background-color: #003173;
 	overflow: hidden;
 	padding: 0px;
 	margin:0px;
@@ -58,7 +58,7 @@ body, html {
 #chat i {
 	font-style: normal;
 }
-#chat i.motd	{ color: #99FF99; display:inline-block; line-height: 12px !important; }
+#chat i.motd	{ color: #FFFFFF; display:inline-block; line-height: 12px !important; }
 #chat i.info	{ color: #999999; }
 #chat i.server	{ color: #99FFFF; }
 #chat i.error	{ color: #ff7777; }
