@@ -1,6 +1,6 @@
 define({
 
-	title: 'Cryptalk - Online',
+	title: 'Vauban Secure Chat - Online',
 
 	ttl: 600000,
 
