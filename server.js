@@ -53,7 +53,11 @@ io.on('connection', function(socket) {
 	socket.on('room:count', function () {
 		if( socket.current_room !== undefined ) {
 			var clientsList = io.sockets.adapter.rooms[socket.current_room];
-			socket.emit('message:server', {msg:'person_count', payload: clientsList.length } );
+			if( clientsList.length > 1) {
+				socket.emit('message:server', {msg:'person_count', payload: clientsList.length } );
+			} else {
+				socket.emit('message:server', {msg:'person_single'} );	
+			}
 		} else {
 			socket.emit('message:server', {msg:'command_failed'} );
 		}
