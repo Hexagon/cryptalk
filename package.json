@@ -7,6 +7,9 @@
   "analyze": true,
   "preferGlobal": true,
   "private": false,
+  "scripts": {
+    "test": "echo \"No tests written yet\" && exit 0"
+  },
   "keywords": [
     "cryptalk",
     "fandango",
