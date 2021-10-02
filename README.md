@@ -3,7 +3,7 @@
 ![Build](https://travis-ci.org/Hexagon/cryptalk.svg)
 [![npm version](https://badge.fury.io/js/cryptalk.svg)](https://badge.fury.io/js/cryptalk)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f748d8923f0b44d2b2b3d3b42aceae7c)](https://www.codacy.com/app/robinnilsson/cryptalk?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Hexagon/cryptalk&amp;utm_campaign=badger)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/753ef40cec1747c2b5025f834635375b)](https://www.codacy.com/gh/Hexagon/cryptalk/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Hexagon/cryptalk&amp;utm_campaign=Badge_Grade)
 
 Cyptalk is a HTML5/Node.js based, client side (E2EE) encrypted instant chat
 
