@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:14-alpine
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 RUN npm install --no-cache
