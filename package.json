@@ -1,6 +1,6 @@
 {
   "name": "cryptalk",
-  "version": "1.1.21",
+  "version": "1.2.0",
   "description": "Encrypted HTML5/Node.JS instant chat",
   "main": "server.js",
   "subdomain": "cryptalk",
@@ -31,8 +31,8 @@
   },
   "bin": "./server.js",
   "dependencies": {
-    "node-static": "*",
-    "socket.io": "^2.2.0"
+    "serve": "^12.0.1",
+    "socket.io": "^4.2.0"
   },
   "os": [
     "darwin",

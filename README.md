@@ -123,7 +123,7 @@ npm install requirejs -g
 r.js -o requirejs.build.js
 ```
 
-(or in windows)
+(or in windows, as you'll get a script error from the above script)
 
 ```
 r.js.cmd -o requirejs.build.js

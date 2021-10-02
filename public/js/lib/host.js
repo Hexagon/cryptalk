@@ -168,9 +168,11 @@ define(['$', 'castrato','settings','templates','hosts','window'], function ($, m
 								mediator.emit('console:server', templates.server[sanitized]);
 							}
 						} else {
+							console.log(santized);
 							mediator.emit('console:error', templates.server.bogus);
 						}
 					} else {
+						console.log(santized);
 						mediator.emit('console:error', templates.server.bogus);
 					}
 				})

@@ -1,21 +1,19 @@
 #!/usr/bin/env node
 
 const
-	files = require('node-static'),
+	handler = require('serve-handler'),
 	port = process.env.PORT || 8080,
 	path = require('path');
 
-var
-	file,
+let
 	server,
 	io;
 
-// Set up files.file location
-file = new files.Server(path.resolve(__dirname, 'public'));
-
 // Create http server, handle files.assets
 server = require('http').createServer(function (req, res) {
-	req.addListener('end', function () { file.serve(req, res); }).resume();
+	return handler(req, res, {
+		public: path.resolve(__dirname, 'public')
+	});
 });
 
 // Append socket.io to http server
@@ -52,9 +50,10 @@ io.on('connection', function(socket) {
 
 	socket.on('room:count', function () {
 		if( socket.current_room !== undefined ) {
-			var clientsList = io.sockets.adapter.rooms[socket.current_room];
-			if( clientsList.length > 1) {
-				socket.emit('message:server', {msg:'person_count', payload: clientsList.length } );
+			let clientsInRoom = 0;
+			if (io.sockets.adapter.rooms.has(socket.current_room)) clientsInRoom = io.sockets.adapter.rooms.get(socket.current_room).size
+			if( clientsInRoom > 1) {
+				socket.emit('message:server', {msg:'person_count', payload: clientsInRoom } );
 			} else {
 				socket.emit('message:server', {msg:'person_single'} );
 			}
