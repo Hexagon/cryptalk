@@ -8,7 +8,11 @@
   "preferGlobal": true,
   "private": false,
   "scripts": {
-    "test": "echo \"No tests written yet\" && exit 0"
+    "test": "echo \"No tests written yet\" && exit 0",
+    "build": "r.js -o requirejs.build.js",
+    "build:win": "r.js.cmd -o requirejs.build.js",
+    "start": "node server.js"
+
   },
   "keywords": [
     "cryptalk",

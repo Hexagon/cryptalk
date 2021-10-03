@@ -102,7 +102,7 @@ npm install
 
 Start server
 ```bash
-node server.js
+npn run start
 ```
 
 Browse to ```http://localhost:8080```
@@ -120,13 +120,13 @@ npm install requirejs -g
 ... and run this in the project root directory
 
 ```
-r.js -o requirejs.build.js
+npm run build
 ```
 
 (or in windows, as you'll get a script error from the above script)
 
 ```
-r.js.cmd -o requirejs.build.js
+npm run build:win
 ```
 
 
