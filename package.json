@@ -9,10 +9,10 @@
   "private": false,
   "scripts": {
     "test": "echo \"No tests written yet\" && exit 0",
-    "build": "r.js -o requirejs.build.js",
+    "build": "nr.js -o requirejs.build.js",
     "build:win": "r.js.cmd -o requirejs.build.js",
+    "test:lint": "eslint ./**/**/*.js",
     "start": "node server.js"
-
   },
   "keywords": [
     "cryptalk",
@@ -46,5 +46,7 @@
     "linux",
     "win32"
   ],
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^7.32.0"
+  }
 }
