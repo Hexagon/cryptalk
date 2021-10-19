@@ -55,7 +55,8 @@ define(['websocket','crypto-js/aes', 'crypto-js/sha1', 'crypto-js/enc-utf8'],fun
 	 */
 	exports.template = function (str, map) {
 		return str && str.replace(/{(\w+)}/gi, function(outer, inner) {
-			return map.hasOwnProperty(inner) ? map[inner] : outer /* '' */;
+			return Object.prototype.hasOwnProperty.call(map, inner) ? map[inner] : outer /* '' */;
+
 		});
 	};
 
@@ -85,7 +86,7 @@ define(['websocket','crypto-js/aes', 'crypto-js/sha1', 'crypto-js/enc-utf8'],fun
 	// Code: 		https://github.com/janl/mustache.js/blob/master/mustache.js#L43
 	// License: 	https://github.com/janl/mustache.js/blob/master/LICENSE
 	exports.escapeHtml = (function () {
-		var pattern = /[&<>"'\/]/g,
+		var pattern = /[&<>"'/]/g,
 			entities = {
 				'&': '&amp;',
 				'<': '&lt;',

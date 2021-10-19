@@ -21,7 +21,7 @@ io = require('socket.io')(server),
 
 // Listen to port env:PORT or 8080
 server.listen(port, function(){
-	console.log('listening on *:' + port);
+	console.log('listening on *:' + port); // eslint-disable-line no-console
 });
 
 io.on('connection', function(socket) {
@@ -51,7 +51,9 @@ io.on('connection', function(socket) {
 	socket.on('room:count', function () {
 		if( socket.current_room !== undefined ) {
 			let clientsInRoom = 0;
-			if (io.sockets.adapter.rooms.has(socket.current_room)) clientsInRoom = io.sockets.adapter.rooms.get(socket.current_room).size
+			if( io.sockets.adapter.rooms.has(socket.current_room) ) {
+				clientsInRoom = io.sockets.adapter.rooms.get(socket.current_room).size;
+			} 
 			if( clientsInRoom > 1) {
 				socket.emit('message:server', {msg:'person_count', payload: clientsInRoom } );
 			} else {

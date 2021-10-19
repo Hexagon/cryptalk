@@ -52,14 +52,15 @@ define(['castrato','host','client','console'], function (mediator) {
 		// Connect to the default host
 		.emit('command:connect', undefined, function() {
 			// Join room and set key if a hash in the format #Room:Key has been provided
-			if ((hash = window.location.hash)) {
-				parts = hash.slice(1).split(':');
+			var hash = window.location.hash;
+			if ( hash ) {
+				var parts = hash.slice(1).split(':');
 
-				if (parts[0]) {
+				if ( parts[0] ) {
 					mediator.emit('command:join', parts[0]);
 				}
 
-				if (parts[1]) {
+				if ( parts[1] ) {
 					mediator.emit('command:key', parts[1]);
 				}
 			}

@@ -59,7 +59,7 @@ define(['$', 'castrato', 'settings', 'templates', 'sounds', 'room', 'notificatio
 			},
 
 			torch: function (ttl) {
-				ttl = parseInt(ttl);
+				ttl = parseInt(ttl, 10);
 				if( ttl > 0 && ttl < 3600) {
 					mediator.emit('console:info', $.template(templates.messages.torch_is_now, { ttl: ttl }) );
 					settings.ttl = ttl*1000;

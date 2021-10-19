@@ -9,6 +9,9 @@
 
 	Emits:
 		mediator.on('socket:emit', emit); 
+
+	eslint no-console: ["error", { allow: ["warn", "error"] }]
+	
 */
 define(['$', 'castrato','settings','templates','hosts','window'], function ($, mediator, settings, templates, hostconfig) { 
 
@@ -168,11 +171,9 @@ define(['$', 'castrato','settings','templates','hosts','window'], function ($, m
 								mediator.emit('console:server', templates.server[sanitized]);
 							}
 						} else {
-							console.log(santized);
 							mediator.emit('console:error', templates.server.bogus);
 						}
 					} else {
-						console.log(santized);
 						mediator.emit('console:error', templates.server.bogus);
 					}
 				})
