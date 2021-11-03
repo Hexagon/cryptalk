@@ -87,7 +87,7 @@ Done!
 Developer setup
 ========
 
-Install node.js, exact procedure is dependant on platform and distribution.
+Install node.js (development require >=12.0), exact procedure is dependant on platform and distribution.
 
 Clone this repo
 ```bash
