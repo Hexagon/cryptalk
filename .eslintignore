@@ -1,3 +1,2 @@
-public/js/vendor
-public/js/cryptalk.min.js
-requirejs.build.js
+client/public/js/cryptalk.min.js
+node_modules

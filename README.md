@@ -1,4 +1,4 @@
-![cryptalk](/docs/screenshot.png)
+![cryptalk](/screenshot.png)
 
 ![Build](https://travis-ci.org/Hexagon/cryptalk.svg)
 [![npm version](https://badge.fury.io/js/cryptalk.svg)](https://badge.fury.io/js/cryptalk)
@@ -107,27 +107,7 @@ npn run start
 
 Browse to ```http://localhost:8080```
 
-
-To work on the JavaScript, update public/index.html to use js/lib/main.js instead of js/cryptalk.min.js
-
-
-To update the bundled and minified client JavaScript, install requirejs
-
-```
-npm install requirejs -g
-```
-
-... and run this in the project root directory
-
-```
-npm run build
-```
-
-(or in windows, as you'll get a script error from the above script)
-
-```
-npm run build:win
-```
+To work on the JavaScript, edit the code in ```client/source/```. To test the changes, first run ```npm run build``` to lint, build and minify the code. Then restart the server.
 
 
 Usage
@@ -154,9 +134,8 @@ Room:
 	/leave							Leave the room                              
 	/count							Count participants                          
 
-Host:  		                                                    	
-	/hosts							List available hosts                   		
-	/connect	HostIndex			Connect to selected host               	
+Host:  		                                                                		
+	/connect						Connect to host               	
 	/disconnect						Disconnect from host    			        
 
 You can select any of the five last commands/messages with up/down key.

@@ -1,18 +1,19 @@
 {
   "name": "cryptalk",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Encrypted HTML5/Node.JS instant chat",
-  "main": "server.js",
+  "main": "server/server.js",
   "subdomain": "cryptalk",
   "analyze": true,
   "preferGlobal": true,
   "private": false,
   "scripts": {
     "test": "echo \"No tests written yet\" && exit 0",
-    "build": "nr.js -o requirejs.build.js",
-    "build:win": "r.js.cmd -o requirejs.build.js",
-    "test:lint": "eslint ./**/**/*.js",
-    "start": "node server.js"
+    "build": "npm run test:lint && npx rollup -c rollup.config.js && npm run build:minify && npm run build:cleanup",
+    "build:minify": "uglifyjs client/public/js/cryptalk.js --source-map -o client/public/js/cryptalk.min.js",
+    "build:cleanup": "(rm client/public/js/cryptalk.js || del client\\public\\js\\cryptalk.js)",
+    "test:lint": "eslint ./client/source/**/*.js ./server/*.js",
+    "start": "node server/server.js"
   },
   "keywords": [
     "cryptalk",
@@ -38,6 +39,7 @@
   },
   "bin": "./server.js",
   "dependencies": {
+    "events-es6": "^1.1.1",
     "serve": "^12.0.1",
     "socket.io": "^4.3.1"
   },
@@ -47,6 +49,12 @@
     "win32"
   ],
   "devDependencies": {
-    "eslint": "^7.32.0"
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "crypto-js": "^4.1.1",
+    "eslint": "^8.1.0",
+    "requirejs": "^2.3.6",
+    "rollup": "^2.59.0",
+    "uglify-js": "^3.14.3"
   }
 }
