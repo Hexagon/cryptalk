@@ -1,6 +1,6 @@
 ![cryptalk](/screenshot.png)
 
-![Build](https://travis-ci.org/Hexagon/cryptalk.svg)
+![Node.js CI](https://github.com/Hexagon/cryptalk/workflows/Node.js%20CI/badge.svg?branch=master)
 [![npm version](https://badge.fury.io/js/cryptalk.svg)](https://badge.fury.io/js/cryptalk)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/753ef40cec1747c2b5025f834635375b)](https://www.codacy.com/gh/Hexagon/cryptalk/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Hexagon/cryptalk&amp;utm_campaign=Badge_Grade)
