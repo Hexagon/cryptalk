@@ -57,9 +57,9 @@ export default function (mediator, settings, templates) {
 
 			// Make sure the nick meets the length requirements
 			if (payload.length > settings.nick.maxLen) {
-				return mediator('console:error', $.template(templates.messages.nick_to_long, { nick_maxLen: settings.nick.maxLen } ));
+				return mediator.emit('console:error', $.template(templates.messages.nick_to_long, { nick_maxLen: settings.nick.maxLen } ));
 			} else if (payload.length < settings.nick.minLen) {
-				return mediator('console:error', $.template(templates.messages.nick_to_short, {nick_minLen: settings.nick.minLen } ));
+				return mediator.emit('console:error', $.template(templates.messages.nick_to_short, {nick_minLen: settings.nick.minLen } ));
 			}
 
 			// Set nick
