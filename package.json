@@ -11,7 +11,7 @@
     "build:minify": "uglifyjs client/public/js/cryptalk.js --source-map -o client/public/js/cryptalk.min.js",
     "build:cleanup": "(rm client/public/js/cryptalk.js || del client\\public\\js\\cryptalk.js)",
     "test:lint": "eslint ./client/source/**/*.js ./server/*.js",
-    "start": "node server/server.js"
+    "start": "node ./server/server.js"
   },
   "keywords": [
     "cryptalk",
