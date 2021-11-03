@@ -3,8 +3,6 @@
   "version": "1.2.2",
   "description": "Encrypted HTML5/Node.JS instant chat",
   "main": "server/server.js",
-  "subdomain": "cryptalk",
-  "analyze": true,
   "preferGlobal": true,
   "private": false,
   "scripts": {
@@ -17,13 +15,14 @@
   },
   "keywords": [
     "cryptalk",
-    "fandango",
+    "chat",
     "crypto-js",
     "AES",
     "secure",
     "html5",
     "encryption",
-    "privacy"
+    "privacy",
+    "e2ee"
   ],
   "author": "Hexagon <Hexagon@GitHub>",
   "contributors": [
@@ -37,9 +36,8 @@
     "type": "git",
     "url": "git://github.com/Hexagon/cryptalk.git"
   },
-  "bin": "./server.js",
+  "bin": "./server/server.js",
   "dependencies": {
-    "events-es6": "^1.1.1",
     "serve": "^12.0.1",
     "socket.io": "^4.3.1"
   },
@@ -53,7 +51,6 @@
     "@rollup/plugin-node-resolve": "^13.0.6",
     "crypto-js": "^4.1.1",
     "eslint": "^8.1.0",
-    "requirejs": "^2.3.6",
     "rollup": "^2.59.0",
     "uglify-js": "^3.14.3"
   }

@@ -1,4 +1,4 @@
-import mediator from '../../../castrato/source/castrato.js';
+import mediator from './vendor/castrato.js';
 import win from './window.js';
 import notifications from './notifications.js';
 import templates from './templates.js';
