@@ -1,13 +1,14 @@
 {
   "name": "cryptalk",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Encrypted HTML5/Node.JS instant chat",
   "main": "server/server.js",
   "preferGlobal": true,
   "private": false,
   "scripts": {
     "test": "echo \"No tests written yet\" && exit 0",
-    "build": "npm run test:lint && npx rollup -c rollup.config.js && npm run build:minify && npm run build:cleanup",
+    "build": "npm update && npm outdated && npm run test:lint && npx rollup -c rollup.config.js && npm run build:minify && npm run build:cleanup",
+    "build:ci": "npm run test:lint && npx rollup -c rollup.config.js && npm run build:minify && npm run build:cleanup",
     "build:minify": "uglifyjs client/public/js/cryptalk.js --source-map -o client/public/js/cryptalk.min.js",
     "build:cleanup": "(rm client/public/js/cryptalk.js || del client\\public\\js\\cryptalk.js)",
     "test:lint": "eslint ./client/source/**/*.js ./server/*.js",
@@ -38,7 +39,7 @@
   },
   "bin": "./server/server.js",
   "dependencies": {
-    "serve": "^12.0.1",
+    "serve": "^13.0.2",
     "socket.io": "^4.3.1"
   },
   "os": [

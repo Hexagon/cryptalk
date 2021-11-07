@@ -128,20 +128,6 @@ export default function(mediator,settings,templates, sounds) {
 				components.input[0].removeAttribute('disabled');
 				components.inputWrapper[0].className = '';
 				components.input.focus();
-			},
-
-			_require: function (filepath, done) {
-				commands.lockInput();
-				commands.post('info', 'Requiring ' + filepath + '...');
-				require([filepath], function () {
-					commands.post('info', 'Successfully required ' + filepath + '.');
-					commands.unlockInput();
-					done();
-				}, function (e) {
-					commands.post('error', 'An error occurred while trying to load "' + filepath + '":\n' + e);
-					commands.unlockInput();
-					done();
-				});
 			}
 		},
 
@@ -217,12 +203,10 @@ export default function(mediator,settings,templates, sounds) {
 
 	// Connect events
 	for (var commandName in commands) {
-		if (commandName !== '_require' && commandName !== 'post') {
+		if (commandName !== 'post') {
 			mediator.on('console:' + commandName, commands[commandName]);
 		}
 	}
-
-	mediator.on('console:require', commands._require);
 
 	mediator.on('console:post', function (data) {
 		commands.post(data.type, data.data, data.nick);
