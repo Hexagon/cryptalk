@@ -142,7 +142,8 @@ export default function(mediator,settings,templates, sounds) {
 			// If the active element is not the input, focus on it and exit the function.
 			// Ignore this when ctrl and/or alt is pressed!
 			if (!e.ctrlKey && !e.altKey && components.input[0] !== $.activeElement()) {
-				return components.input.focus();
+				components.input.focus();
+				return;
 			}
 
 			// Return immediatly if the buffer is empty or if the hit key was not <enter>
@@ -162,7 +163,8 @@ export default function(mediator,settings,templates, sounds) {
 					payload,
 					function(retvals, recipients) {
 						if(!recipients) {
-							return commands.post('error', $.template(templates.messages.unrecognized_command, { commandName: command }));
+							commands.post('error', $.template(templates.messages.unrecognized_command, { commandName: command }));
+							return; 
 						} else {
 							commands.clearInput();
 						}

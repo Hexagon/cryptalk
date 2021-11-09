@@ -9,8 +9,7 @@ for(var k in proto) ElementArray.prototype[k] = proto[k];
 // Create to actual dollar function
 function Dollar (selector) {
 
-	var match,
-		matches = new ElementArray();
+	let matches = new ElementArray();
 
 	if (selector !== undefined) {
 		if (selector === document) {
@@ -18,7 +17,8 @@ function Dollar (selector) {
 		} else if (selector === window) {
 			matches.push(window);
 		} else {
-			if ((match = document.querySelectorAll(selector))) {
+			let match = document.querySelectorAll(selector);
+			if (match) {
 				for( var i=0; i < match.length; i++) {
 					matches.push(match[i]);
 				}

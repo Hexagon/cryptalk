@@ -1,32 +1,31 @@
-/*------------------------------------*\
-	GENERIC
-\*------------------------------------*/
 html {
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-	box-sizing: border-box;         /* Opera/IE 8+ */
+  box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
 	box-sizing: inherit;
-
 	font-family: monospace, 'Courier New';
 	font-size: 12px;
 }
 
-body, html {
+body,
+html {
 	min-height: 100%;
 	min-width: 600px;
-	background-color: #181A1D;
+	background-color: #181a1d;
 	overflow: hidden;
 	padding: 0px;
-	margin:0px;
-	color: #00DD00;
+	margin: 0px;
+	color: #00dd00;
 }
 
-.good 		{ color: #99FF99; }
+.good 		{ color: #99ff99; }
 .bad 		{ color: #ff7777; }
-.info 		{ color: #99FFFF; }
+.info 		{ color: #99ffff; }
 .neutral	{ color: #eeeeee; }
 
 /*------------------------------------*\
@@ -38,8 +37,8 @@ body, html {
 	bottom: 40px;
 	position: absolute;
 	list-style-type: none;
-	padding:0;
-	margin:0;
+	padding: 0;
+	margin: 0;
 }
 
 /* Messages */
@@ -50,7 +49,7 @@ body, html {
 }
 
 #chat li .timestamp {
-	color: #A0A00A;
+	color: #a0a00a;
 }
 
 /* Message types */
@@ -58,24 +57,27 @@ body, html {
 #chat i {
 	font-style: normal;
 }
-#chat i.motd	{ color: #99FF99; display:inline-block; line-height: 12px !important; }
+#chat i.motd	{ 
+  color: #99ff99;
+  display:inline-block;
+  line-height: 12px !important;
+}
 #chat i.info	{ color: #999999; }
-#chat i.server	{ color: #99FFFF; }
+#chat i.server	{ color: #99ffff; }
 #chat i.error	{ color: #ff7777; }
 #chat i.message	{ color: #eeeeee; }
-#chat i.nick	{ color: #99FF99; }
+#chat i.nick	{ color: #99ff99; }
 #chat i.fatal	{ color: #ff7777; }
 
 /*------------------------------------*\
 	INPUT & LOADER
 \*------------------------------------*/
 #input_wrapper {
-	right:0;
-	bottom:0;
-	left:0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 	position: absolute;
-
-	height:30px;
+	height: 30px;
 }
 
 #input,
@@ -90,26 +92,35 @@ body, html {
 
 	padding: 5px 5px 5px 15px;
 
-	color: #FFFFFF;
-	background-color:#272A2E;
+	color: #ffffff;
+	background-color:#272a2e;
 	height:30px;
 
 	border-top: 2px solid #153315;
 }
 
-#input { z-index: 1; }
-#loader { z-index: 0; line-height: 20px; font-size: 14px; font-weight: 100; font-family: tahoma;}
+#input { 
+  z-index: 1; 
+}
 
-/*------------------------------------*\
-	SPINNER
-\*------------------------------------*/
-.loading #loader { z-index: 2; }
+#loader { 
+  z-index: 0;
+  line-height: 20px;
+  font-size: 14px;
+  font-weight: 100;
+  font-family: tahoma;
+}
+
+.loading #loader { 
+  z-index: 2;
+}
+
 .loading #loader span {
 	margin-left:-2px;
 	-webkit-animation: rotation 1s infinite linear;
 }
 
 @-webkit-keyframes rotation {
-    from {-webkit-transform: rotate(0deg);}
-    to   {-webkit-transform: rotate(359deg);}
+  from { -webkit-transform: rotate(0deg); }
+  to   { -webkit-transform: rotate(359deg); }
 }
