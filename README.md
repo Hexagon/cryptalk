@@ -129,7 +129,7 @@ npm install
 
 Start server
 ```bash
-npn run start
+npm run start
 ```
 
 Browse to ```http://localhost:8080```
