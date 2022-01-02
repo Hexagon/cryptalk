@@ -1,6 +1,6 @@
 {
   "name": "cryptalk",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Encrypted HTML5/Node.JS instant chat",
   "main": "server/server.js",
   "preferGlobal": true,
