@@ -1,7 +1,6 @@
-FROM node:16-alpine
+FROM keymetrics/pm2:16-alpine
 COPY . /usr/src/app
 WORKDIR /usr/src/app
-RUN npm install --no-cache
+RUN npm install --no-cache --production
 EXPOSE 8080
-RUN chmod +x /usr/src/app/docker-entrypoint.sh
-ENTRYPOINT ["/usr/src/app/docker-entrypoint.sh", "npm", "start"]
+CMD [ "pm2-runtime", "start", "pm2.json" ]
